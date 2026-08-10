@@ -36,13 +36,13 @@ export default function HomeProof() {
   const [hov, setHov] = useState<number | null>(null);
 
   return (
-    <section style={{ background: "#F7F5FF", padding: "88px 52px" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+    <section className="section-pad-x" style={{ background: "#F7F5FF", padding: "88px 52px" }}>
+      <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
 
         {/* Header */}
         <div style={{ marginBottom: 16 }}>
           <p style={{ fontSize: ".72rem", fontWeight: 700, letterSpacing: ".18em", textTransform: "uppercase", color: "#5B30E8", marginBottom: 12 }}>OUR WORK</p>
-          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 20 }}>
+          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 20 }} className="section-header-row">
             <h2 style={{ fontSize: "clamp(1.6rem,3.2vw,2.4rem)", fontWeight: 800, lineHeight: 1.15, letterSpacing: "-.03em", color: "#1A1035" }}>
               Featured Projects
             </h2>
@@ -59,7 +59,7 @@ export default function HomeProof() {
         <div style={{ height: 1, background: "rgba(26,16,53,0.08)", margin: "32px 0" }} />
 
         {/* Project cards */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
+        <div className="proof-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
           {PROJECTS.map((p, i) => (
             <a
               key={p.title}

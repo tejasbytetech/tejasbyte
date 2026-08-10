@@ -81,7 +81,7 @@ export default function Stats() {
         filter: "blur(50px)", pointerEvents: "none",
       }} />
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 52px", position: "relative", zIndex: 1 }}>
+      <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 52px", position: "relative", zIndex: 1 }}>
 
         {/* Header */}
         <div className="reveal" style={{ textAlign: "center", marginBottom: 72 }}>
@@ -109,7 +109,7 @@ export default function Stats() {
         </div>
 
         {/* Stats row */}
-        <div className="reveal" style={{
+        <div className="reveal stats-grid" style={{
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
           gap: 20,
@@ -143,7 +143,7 @@ export default function Stats() {
         </div>
 
         {/* Why us grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 24 }}>
+        <div className="why-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 24 }}>
           {WHY_US.map((p, i) => (
             <div
               key={p.title}
@@ -191,7 +191,7 @@ export default function Stats() {
         </div>
 
         {/* CTA strip */}
-        <div className="reveal" style={{
+        <div className="reveal cta-strip" style={{
           marginTop: 72,
           background: "linear-gradient(135deg, #5B30E8 0%, #7C5CFC 100%)",
           borderRadius: 24,

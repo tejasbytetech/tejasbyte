@@ -7,7 +7,7 @@ interface PageHeroProps {
 
 export default function PageHero({ label, title, highlight, description }: PageHeroProps) {
   return (
-    <section style={{
+    <section className="page-hero" style={{
       background: "#0F1629",
       padding: "144px 52px 72px",   /* 144 = 72px navbar + 72px breathing room */
       position: "relative",

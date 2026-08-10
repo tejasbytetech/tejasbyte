@@ -33,7 +33,7 @@ export default function HomePortfolioGlance() {
   const [hov, setHov] = useState<number | null>(null);
 
   return (
-    <section style={{
+    <section className="section-pad-x" style={{
       background: "#F7F5FF", padding: "100px 52px",
       position: "relative", overflow: "hidden",
     }}>
@@ -44,10 +44,10 @@ export default function HomePortfolioGlance() {
         filter: "blur(60px)", pointerEvents: "none",
       }} />
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", position: "relative", zIndex: 1 }}>
+      <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto", position: "relative", zIndex: 1 }}>
 
         {/* Header */}
-        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 24, marginBottom: 56 }}>
+        <div className="section-header-row" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 24, marginBottom: 56 }}>
           <div>
             <span className="section-label" style={{ marginBottom: 16, display: "inline-flex" }}>Selected Work</span>
             <h2 style={{
@@ -74,7 +74,7 @@ export default function HomePortfolioGlance() {
         </div>
 
         {/* 2-col grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 24 }}>
+        <div className="portfolio-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 24 }}>
           {PROJECTS.map((p, i) => (
             <Link key={p.title} href="/portfolio" style={{ textDecoration: "none" }}>
               <div

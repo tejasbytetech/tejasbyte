@@ -42,7 +42,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={sectionRef} style={{
+    <section ref={sectionRef} className="hero-section" style={{
       position: "relative",
       height: "100vh",
       minHeight: 600,
@@ -72,7 +72,7 @@ export default function Hero() {
         backgroundSize: "28px 28px",
       }} />
 
-      <div style={{
+      <div className="hero-grid" style={{
         position: "relative", zIndex: 2,
         width: "100%", maxWidth: 1280, margin: "0 auto",
         padding: "0 52px",
@@ -82,7 +82,7 @@ export default function Hero() {
       }}>
 
         {/* Left */}
-        <div>
+        <div className="hero-left">
           <div data-hero style={{ marginBottom: 28 }}>
             <span style={{
               display: "inline-flex", alignItems: "center", gap: 8,
@@ -149,7 +149,7 @@ export default function Hero() {
           </div>
 
           {/* Stats — small inline row */}
-          <div data-hero style={{
+          <div data-hero className="hero-stats" style={{
             display: "flex", gap: 32, marginTop: 36,
             paddingTop: 28,
             borderTop: "1px solid rgba(255,255,255,0.1)",
@@ -169,76 +169,161 @@ export default function Hero() {
         </div>
 
         {/* Right — orbital visual */}
-        <div className="hide-sm" style={{
+        <div className="hero-visual" style={{
           position: "relative", display: "flex",
           alignItems: "center", justifyContent: "center", minHeight: 480,
         }}>
-          {/* Rings */}
-          <div style={{ position: "absolute", width: 440, height: 440, borderRadius: "50%", border: "1px solid rgba(124,92,252,0.15)", animation: "pulse-ring 3.5s ease-out infinite", pointerEvents: "none" }} />
-          <div style={{ position: "absolute", width: 360, height: 360, borderRadius: "50%", border: "1px solid rgba(124,92,252,0.2)", animation: "pulse-ring 3.5s ease-out .9s infinite", pointerEvents: "none" }} />
+          {/* ── Desktop: full orbital (hidden on mobile via CSS) ── */}
+          <div className="hero-visual-desktop">
+            {/* Rings */}
+            <div style={{ position: "absolute", width: 440, height: 440, borderRadius: "50%", border: "1px solid rgba(124,92,252,0.15)", animation: "pulse-ring 3.5s ease-out infinite", pointerEvents: "none" }} />
+            <div style={{ position: "absolute", width: 360, height: 360, borderRadius: "50%", border: "1px solid rgba(124,92,252,0.2)", animation: "pulse-ring 3.5s ease-out .9s infinite", pointerEvents: "none" }} />
 
-          {/* Centre logo */}
-          <div style={{
-            width: 230, height: 230, borderRadius: "50%",
-            background: "linear-gradient(145deg, rgba(91,48,232,0.35) 0%, rgba(15,22,41,0.95) 60%)",
-            border: "2px solid rgba(124,92,252,0.5)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            boxShadow: "0 0 60px rgba(91,48,232,0.45), 0 20px 80px rgba(0,0,0,0.5)",
-            position: "relative", zIndex: 2,
-          }}>
-            <Image
-              src="/finallogos/transparent-logo.png"
-              alt="Tejasbyte Technologies"
-              width={180} height={100}
-              style={{ objectFit: "contain", animation: "float2 5s ease-in-out infinite", width: "78%", height: "auto" }}
-              priority
-            />
+            {/* Centre logo */}
+            <div style={{
+              width: 230, height: 230, borderRadius: "50%",
+              background: "linear-gradient(145deg, rgba(91,48,232,0.35) 0%, rgba(15,22,41,0.95) 60%)",
+              border: "2px solid rgba(124,92,252,0.5)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              boxShadow: "0 0 60px rgba(91,48,232,0.45), 0 20px 80px rgba(0,0,0,0.5)",
+              position: "relative", zIndex: 2,
+            }}>
+              <Image
+                src="/finallogos/transparent-logo.png"
+                alt="Tejasbyte Technologies"
+                width={180} height={100}
+                style={{ objectFit: "contain", animation: "float2 5s ease-in-out infinite", width: "78%", height: "auto" }}
+                priority
+              />
+            </div>
+
+            {/* Orbiting dots */}
+            {[0, 72, 144, 216, 288].map((deg, i) => (
+              <div key={i} style={{
+                position: "absolute", width: 0, height: 0,
+                animation: `spin-slow ${20 + i * 2}s linear infinite`,
+                animationDirection: i % 2 === 0 ? "normal" : "reverse",
+              }}>
+                <div style={{
+                  position: "absolute",
+                  width: i % 2 === 0 ? 10 : 7, height: i % 2 === 0 ? 10 : 7,
+                  borderRadius: "50%",
+                  background: i % 3 === 0 ? "#7C5CFC" : i % 3 === 1 ? "#A78BFA" : "rgba(255,255,255,0.25)",
+                  border: `2px solid ${i % 3 === 0 ? "rgba(124,92,252,0.7)" : "rgba(167,139,250,0.5)"}`,
+                  transform: `rotate(${deg}deg) translateX(152px)`,
+                  boxShadow: i % 3 === 0 ? "0 0 14px rgba(124,92,252,0.9)" : "none",
+                }} />
+              </div>
+            ))}
+
+            {/* Floating badges */}
+            {BADGES.map((b, i) => (
+              <div key={i} style={{
+                position: "absolute",
+                ...(b.top    ? { top:    b.top    } : {}),
+                ...(b.bottom ? { bottom: b.bottom } : {}),
+                ...(b.left   ? { left:   b.left   } : {}),
+                ...(b.right  ? { right:  b.right  } : {}),
+                background: "rgba(255,255,255,0.09)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                border: "1px solid rgba(255,255,255,0.16)",
+                borderRadius: 100,
+                padding: "9px 16px",
+                display: "flex", alignItems: "center", gap: 8,
+                boxShadow: "0 4px 20px rgba(0,0,0,0.35)",
+                animation: `float${i % 2 === 0 ? "" : "2"} ${4 + i * .5}s ease-in-out infinite`,
+                animationDelay: `${b.delay}s`,
+                zIndex: 3, whiteSpace: "nowrap",
+              }}>
+                <span style={{ fontSize: ".95rem" }}>{b.icon}</span>
+                <span style={{ fontSize: ".72rem", fontWeight: 600, color: "rgba(255,255,255,0.88)" }}>{b.label}</span>
+                <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#A78BFA", flexShrink: 0, boxShadow: "0 0 6px rgba(167,139,250,0.9)" }} />
+              </div>
+            ))}
           </div>
 
-          {/* Orbiting dots */}
-          {[0, 72, 144, 216, 288].map((deg, i) => (
-            <div key={i} style={{
-              position: "absolute", width: 0, height: 0,
-              animation: `spin-slow ${20 + i * 2}s linear infinite`,
-              animationDirection: i % 2 === 0 ? "normal" : "reverse",
+          {/* ── Mobile: clean compact visual ── */}
+          <div className="hero-visual-mobile">
+            {/* Orbital circle with logo centre + 6 badges at 60° each */}
+            <div style={{
+              position: "relative",
+              width: 300,
+              height: 300,
+              margin: "0 auto",
+              flexShrink: 0,
             }}>
+              {/* Outer ring */}
+              <div style={{
+                position: "absolute", inset: 0,
+                borderRadius: "50%",
+                border: "1px solid rgba(124,92,252,0.25)",
+                animation: "pulse-ring 4s ease-out infinite",
+              }} />
+              {/* Inner ring */}
               <div style={{
                 position: "absolute",
-                width: i % 2 === 0 ? 10 : 7, height: i % 2 === 0 ? 10 : 7,
+                top: "14%", left: "14%", right: "14%", bottom: "14%",
                 borderRadius: "50%",
-                background: i % 3 === 0 ? "#7C5CFC" : i % 3 === 1 ? "#A78BFA" : "rgba(255,255,255,0.25)",
-                border: `2px solid ${i % 3 === 0 ? "rgba(124,92,252,0.7)" : "rgba(167,139,250,0.5)"}`,
-                transform: `rotate(${deg}deg) translateX(152px)`,
-                boxShadow: i % 3 === 0 ? "0 0 14px rgba(124,92,252,0.9)" : "none",
+                border: "1px solid rgba(124,92,252,0.18)",
+                animation: "pulse-ring 4s ease-out 1.2s infinite",
               }} />
-            </div>
-          ))}
 
-          {/* Floating badges */}
-          {BADGES.map((b, i) => (
-            <div key={i} style={{
-              position: "absolute",
-              ...(b.top    ? { top:    b.top    } : {}),
-              ...(b.bottom ? { bottom: b.bottom } : {}),
-              ...(b.left   ? { left:   b.left   } : {}),
-              ...(b.right  ? { right:  b.right  } : {}),
-              background: "rgba(255,255,255,0.09)",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
-              border: "1px solid rgba(255,255,255,0.16)",
-              borderRadius: 100,
-              padding: "9px 16px",
-              display: "flex", alignItems: "center", gap: 8,
-              boxShadow: "0 4px 20px rgba(0,0,0,0.35)",
-              animation: `float${i % 2 === 0 ? "" : "2"} ${4 + i * .5}s ease-in-out infinite`,
-              animationDelay: `${b.delay}s`,
-              zIndex: 3, whiteSpace: "nowrap",
-            }}>
-              <span style={{ fontSize: ".95rem" }}>{b.icon}</span>
-              <span style={{ fontSize: ".72rem", fontWeight: 600, color: "rgba(255,255,255,0.88)" }}>{b.label}</span>
-              <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#A78BFA", flexShrink: 0, boxShadow: "0 0 6px rgba(167,139,250,0.9)" }} />
+              {/* Centre logo */}
+              <div style={{
+                position: "absolute",
+                top: "50%", left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 90, height: 90,
+                borderRadius: "50%",
+                background: "linear-gradient(145deg, rgba(91,48,232,0.4) 0%, rgba(15,22,41,0.95) 60%)",
+                border: "2px solid rgba(124,92,252,0.6)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                boxShadow: "0 0 32px rgba(91,48,232,0.55)",
+                animation: "float2 5s ease-in-out infinite",
+                zIndex: 2,
+              }}>
+                <Image
+                  src="/finallogos/transparent-logo.png"
+                  alt="Tejasbyte Technologies"
+                  width={68} height={38}
+                  style={{ objectFit: "contain", width: "76%", height: "auto" }}
+                />
+              </div>
+
+              {/* 6 badges at 60° intervals — radius 130px from centre */}
+              {BADGES.slice(0, 6).map((b, i) => {
+                const angleDeg = i * 60 - 90; // start from top
+                const rad = (angleDeg * Math.PI) / 180;
+                const r = 130;
+                const cx = 150 + r * Math.cos(rad); // centre is 150,150
+                const cy = 150 + r * Math.sin(rad);
+                return (
+                  <div key={i} style={{
+                    position: "absolute",
+                    left: cx,
+                    top: cy,
+                    transform: "translate(-50%, -50%)",
+                    background: "rgba(255,255,255,0.08)",
+                    backdropFilter: "blur(10px)",
+                    WebkitBackdropFilter: "blur(10px)",
+                    border: "1px solid rgba(255,255,255,0.15)",
+                    borderRadius: 100,
+                    padding: "7px 11px",
+                    display: "flex", alignItems: "center", gap: 6,
+                    whiteSpace: "nowrap",
+                    boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
+                    animation: `float${i % 2 === 0 ? "" : "2"} ${3.5 + i * 0.35}s ease-in-out infinite`,
+                    animationDelay: `${i * 0.25}s`,
+                    zIndex: 3,
+                  }}>
+                    <span style={{ fontSize: ".8rem" }}>{b.icon}</span>
+                    <span style={{ fontSize: ".6rem", fontWeight: 700, color: "rgba(255,255,255,0.88)", letterSpacing: ".02em" }}>{b.label}</span>
+                  </div>
+                );
+              })}
             </div>
-          ))}
+          </div>
         </div>
       </div>
 

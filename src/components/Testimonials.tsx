@@ -70,7 +70,7 @@ export default function Testimonials() {
         filter: "blur(50px)", pointerEvents: "none",
       }} />
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 52px", position: "relative", zIndex: 1 }}>
+      <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 52px", position: "relative", zIndex: 1 }}>
 
         {/* Header */}
         <div className="reveal" style={{ textAlign: "center", marginBottom: 72 }}>
@@ -88,7 +88,7 @@ export default function Testimonials() {
           </h2>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 72, alignItems: "start" }}>
+        <div className="testimonials-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 72, alignItems: "start" }}>
 
           {/* Left — selector list */}
           <div className="reveal">
@@ -156,8 +156,7 @@ export default function Testimonials() {
               border: "1.5px solid rgba(91,48,232,0.12)",
               borderRadius: 24,
               padding: "44px 40px",
-              boxShadow: "0 20px 60px rgba(91,48,232,0.08)",
-              opacity: fading ? 0 : 1,
+              boxShadow: "0 20px 60px rgba(91,48,232,0.08)",              opacity: fading ? 0 : 1,
               transform: fading ? "translateY(8px)" : "translateY(0)",
               transition: "opacity .26s, transform .26s",
             }}>

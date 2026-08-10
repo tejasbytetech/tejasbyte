@@ -77,7 +77,7 @@ export default function Projects() {
         filter: "blur(50px)", pointerEvents: "none",
       }} />
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 52px", position: "relative", zIndex: 1 }}>
+      <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 52px", position: "relative", zIndex: 1 }}>
 
         {/* Header */}
         <div className="reveal" style={{ marginBottom: 64 }}>
@@ -109,7 +109,7 @@ export default function Projects() {
           {PROJECTS.map((p, i) => (
             <div
               key={p.num}
-              className={`reveal d${Math.min(i + 1, 5)}`}
+              className={`reveal d${Math.min(i + 1, 5)} project-row`}
               onMouseEnter={() => setHov(i)}
               onMouseLeave={() => setHov(null)}
               style={{
@@ -134,7 +134,7 @@ export default function Projects() {
                 transition: "width .3s",
               }} />
 
-              <span style={{
+              <span className="project-row-num" style={{
                 fontFamily: '"Inter",sans-serif',
                 fontSize: ".65rem", fontWeight: 700,
                 color: "rgba(91,48,232,0.3)",
@@ -178,7 +178,7 @@ export default function Projects() {
                 </div>
               </div>
 
-              <div style={{ textAlign: "right", paddingTop: 2, minWidth: 160 }}>
+              <div className="project-row-meta" style={{ textAlign: "right", paddingTop: 2, minWidth: 160 }}>
                 <div style={{
                   fontFamily: '"Inter",sans-serif',
                   fontSize: ".65rem", color: "rgba(26,16,53,0.3)",

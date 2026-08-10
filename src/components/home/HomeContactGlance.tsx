@@ -44,7 +44,7 @@ export default function HomeContactGlance() {
       background: "#F7F8FA",
       padding: "88px 52px",
     }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="section-inner" style={{ maxWidth: 1100, margin: "0 auto" }}>
 
         {/* Centered header */}
         <div style={{ textAlign: "center", marginBottom: 52 }}>
@@ -74,7 +74,7 @@ export default function HomeContactGlance() {
         </div>
 
         {/* Two-col layout */}
-        <div style={{
+        <div className="contact-glance-grid" style={{
           display: "grid",
           gridTemplateColumns: "1fr 1.8fr",
           gap: 32,
@@ -218,7 +218,7 @@ export default function HomeContactGlance() {
             ) : (
               <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 18 }} noValidate>
                 {/* Name + Email row */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                <div className="contact-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                   <div>
                     <label style={label}>Full Name <span style={{ color: "#EF4444" }}>*</span></label>
                     <input

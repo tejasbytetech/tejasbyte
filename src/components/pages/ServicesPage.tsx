@@ -73,9 +73,9 @@ export default function ServicesPage() {
       />
 
       {/* ── Services grid ── */}
-      <section style={{ background: "#F7F5FF", padding: "80px 52px 100px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+      <section className="section-pad-x" style={{ background: "#F7F5FF", padding: "80px 52px 100px" }}>
+        <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div className="services-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
             {SERVICES.map((s, i) => (
               <div
                 key={s.num}
@@ -168,8 +168,8 @@ export default function ServicesPage() {
 
       {/* ── CTA ── */}
       <section style={{ background: "#fff", padding: "64px 52px 80px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <div style={{
+        <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div className="cta-strip" style={{
             background: "#2D3A6E",
             borderRadius: 20, padding: "52px 64px",
             display: "flex", alignItems: "center",

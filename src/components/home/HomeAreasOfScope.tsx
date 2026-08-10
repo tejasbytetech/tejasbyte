@@ -126,7 +126,7 @@ export default function HomeAreasOfScope() {
         filter: "blur(60px)", pointerEvents: "none",
       }} />
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", position: "relative", zIndex: 1 }}>
+      <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto", position: "relative", zIndex: 1 }}>
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 64 }}>
@@ -155,7 +155,7 @@ export default function HomeAreasOfScope() {
         </div>
 
         {/* 4-col grid */}
-        <div style={{
+        <div className="areas-grid" style={{
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
           gap: 18,
@@ -260,7 +260,7 @@ export default function HomeAreasOfScope() {
         </div>
 
         {/* Bottom CTA strip */}
-        <div style={{
+        <div className="areas-cta" style={{
           display: "flex", alignItems: "center", justifyContent: "space-between",
           flexWrap: "wrap", gap: 24,
           background: "#F7F5FF",
@@ -280,7 +280,7 @@ export default function HomeAreasOfScope() {
               We handle a wide range of custom software challenges. Tell us what you need.
             </p>
           </div>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          <div className="areas-cta-btns" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             <Link href="/services" style={{
               textDecoration: "none", display: "inline-block",
             }}>

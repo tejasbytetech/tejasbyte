@@ -257,6 +257,233 @@ body::after {
   background-size: 28px 28px;
 }
 
+/* ── Hero visual desktop/mobile toggle ── */
+.hero-visual-mobile  { display: none; }
+.hero-visual-desktop { display: contents; }
+
 /* ── Responsive ───────────────────────── */
 @media(max-width:767px) { .hide-sm { display:none !important; } }
 @media(min-width:768px) { .show-sm { display:none !important; } }
+
+/* ── Mobile Layout Fixes ─────────────── */
+@media (max-width: 767px) {
+
+  /* Nuclear override — every section gets 0 horizontal padding,
+     content is controlled by .section-inner / .footer-inner */
+  section {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Global section padding reduction */
+  .section-pad {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Section wrapper horizontal padding */
+  .section-pad-x {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Responsive grid helpers */
+  .grid-mobile-1 {
+    grid-template-columns: 1fr !important;
+  }
+  .grid-mobile-2 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* ── Hero ───────────────────────────── */
+  .hero-section {
+    min-height: 100svh !important;
+    max-height: none !important;
+    height: auto !important;
+    padding: 0 !important;
+    align-items: flex-start !important;
+  }
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    padding: 0 12px !important;
+    gap: 0 !important;
+    height: auto !important;
+    padding-bottom: 48px !important;
+  }
+  .hero-left {
+    padding-top: 100px !important;
+    padding-bottom: 16px !important;
+    order: 1 !important;
+  }
+  .hero-visual {
+    order: 2 !important;
+    min-height: unset !important;
+    /* break out of the 12px grid padding so the circle can centre on full width */
+    width: 100vw !important;
+    margin-left: -12px !important;
+    position: relative !important;
+  }
+  /* hide desktop orbital on mobile */
+  .hero-visual-desktop {
+    display: none !important;
+  }
+  /* show mobile compact visual */
+  .hero-visual-mobile {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    padding: 16px 0 32px !important;
+  }
+  .hero-stats {
+    flex-wrap: wrap !important;
+    gap: 20px !important;
+  }
+
+  /* ── All inner content containers ─────── */
+  .section-inner {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  /* ── Services grid ───────────────────── */
+  .services-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Stats grid ──────────────────────── */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .why-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .cta-strip {
+    flex-direction: column !important;
+    padding: 24px 12px !important;
+    text-align: center !important;
+    align-items: center !important;
+  }
+
+  /* ── Testimonials ────────────────────── */
+  .testimonials-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .testimonial-card {
+    padding: 20px 16px !important;
+  }
+
+  /* ── Projects list ───────────────────── */
+  .project-row {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+  .project-row-meta {
+    display: none !important;
+  }
+  .project-row-num {
+    display: none !important;
+  }
+
+  /* ── Contact ─────────────────────────── */
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  .contact-form-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Footer ──────────────────────────── */
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+  .footer-inner {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  /* ── About glance ────────────────────── */
+  .about-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* ── Portfolio glance ────────────────── */
+  .portfolio-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Areas of scope ──────────────────── */
+  .areas-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  /* ── Blog glance ─────────────────────── */
+  .blog-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Proof / HomeProof ───────────────── */
+  .proof-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Services glance ─────────────────── */
+  .services-glance-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Home contact glance ─────────────── */
+  .contact-glance-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── PageHero ────────────────────────── */
+  .page-hero {
+    padding: 100px 12px 44px !important;
+  }
+
+  /* ── Header flex rows ────────────────── */
+  .section-header-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  /* ── Cards ───────────────────────────── */
+  .service-card {
+    padding: 22px 16px !important;
+  }
+  .stat-card {
+    padding: 20px 12px !important;
+  }
+
+  /* ── Areas CTA row ───────────────────── */
+  .areas-cta {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 14px !important;
+    padding: 20px 12px !important;
+  }
+  .areas-cta-btns {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .areas-cta-btns a,
+  .areas-cta-btns div {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+
+  /* ── Mobile nav menu — no empty gap ─── */
+  .mobile-menu-nav {
+    padding-top: 80px !important;
+    justify-content: flex-start !important;
+    padding-bottom: 40px !important;
+    overflow-y: auto !important;
+  }
+}

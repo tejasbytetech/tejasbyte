@@ -75,8 +75,8 @@ export default function Contact() {
         filter: "blur(50px)", pointerEvents: "none",
       }} />
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 52px", position: "relative", zIndex: 1 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.1fr", gap: 80, alignItems: "start" }}>
+      <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 52px", position: "relative", zIndex: 1 }}>
+        <div className="contact-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.1fr", gap: 80, alignItems: "start" }}>
 
           {/* Left */}
           <div className="reveal">
@@ -201,7 +201,7 @@ export default function Contact() {
                 }}>Tell us about your project</h3>
 
                 <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 22 }} noValidate>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }} className="contact-form-row">
                     {(["name", "email"] as const).map(field => (
                       <div key={field} style={fieldWrap}>
                         <label style={label}>

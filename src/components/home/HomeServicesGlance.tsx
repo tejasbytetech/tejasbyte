@@ -30,8 +30,8 @@ export default function HomeServicesGlance() {
   const [hov, setHov] = useState<number | null>(null);
 
   return (
-    <section style={{ background: "#fff", padding: "88px 52px" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+    <section className="section-pad-x" style={{ background: "#fff", padding: "88px 52px" }}>
+      <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
 
         {/* Section header — inline like ojastech */}
         <div style={{ marginBottom: 16 }}>
@@ -40,7 +40,7 @@ export default function HomeServicesGlance() {
             letterSpacing: ".18em", textTransform: "uppercase",
             color: "#5B30E8", marginBottom: 12,
           }}>WHAT WE DO</p>
-          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 20 }}>
+          <div className="section-header-row" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 20 }}>
             <h2 style={{
               fontSize: "clamp(1.6rem,3.2vw,2.4rem)",
               fontWeight: 800, lineHeight: 1.15,
@@ -70,7 +70,7 @@ export default function HomeServicesGlance() {
         <div style={{ height: 1, background: "rgba(26,16,53,0.08)", margin: "32px 0" }} />
 
         {/* 3 service cards */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
+        <div className="services-glance-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
           {SERVICES.map((s, i) => (
             <Link key={s.title} href="/services" style={{ textDecoration: "none" }}>
               <div

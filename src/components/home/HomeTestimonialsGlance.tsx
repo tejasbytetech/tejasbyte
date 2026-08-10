@@ -52,7 +52,7 @@ export default function HomeTestimonialsGlance() {
         filter: "blur(50px)", pointerEvents: "none",
       }} />
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", position: "relative", zIndex: 1 }}>
+      <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto", position: "relative", zIndex: 1 }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
           <span className="section-label" style={{ marginBottom: 16, display: "inline-flex" }}>Client Reviews</span>
           <h2 style={{
@@ -77,7 +77,7 @@ export default function HomeTestimonialsGlance() {
             opacity: fading ? 0 : 1,
             transform: fading ? "translateY(8px)" : "translateY(0)",
             transition: "opacity .26s, transform .26s",
-          }}>
+          }} className="testimonial-card">
             {/* Stars */}
             <div style={{ display: "flex", gap: 4, marginBottom: 20 }}>
               {Array.from({ length: t.stars }).map((_, i) => (

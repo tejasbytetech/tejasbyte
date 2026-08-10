@@ -38,10 +38,10 @@ export default function HomeBlogGlance() {
         filter: "blur(60px)", pointerEvents: "none",
       }} />
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", position: "relative", zIndex: 1 }}>
+      <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto", position: "relative", zIndex: 1 }}>
 
         {/* Header */}
-        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 24, marginBottom: 56 }}>
+        <div className="section-header-row" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 24, marginBottom: 56 }}>
           <div>
             <span className="section-label" style={{ marginBottom: 16, display: "inline-flex" }}>Engineering Insights</span>
             <h2 style={{
@@ -68,7 +68,7 @@ export default function HomeBlogGlance() {
         </div>
 
         {/* 3-col grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+        <div className="blog-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
           {POSTS.map((post, i) => (
             <Link key={i} href="/blog" style={{ textDecoration: "none" }}>
               <article

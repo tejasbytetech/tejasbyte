@@ -24,8 +24,8 @@ export default function AboutPage() {
 
       {/* Stats */}
       <section style={{ background: "#F7F5FF", padding: "64px 52px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20 }}>
+        <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20 }}>
             {[
               { val: "30+", label: "Projects Delivered", sub: "and growing"     },
               { val: "98%", label: "Client Satisfaction", sub: "average rating" },

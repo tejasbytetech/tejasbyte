@@ -22,10 +22,10 @@ export default function Footer() {
       borderTop: "1px solid rgba(255,255,255,0.06)",
       padding: "64px 0 0",
     }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 52px" }}>
+      <div className="footer-inner" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 52px" }}>
 
         {/* 4-col grid */}
-        <div style={{
+        <div className="footer-grid" style={{
           display: "grid",
           gridTemplateColumns: "1.6fr 1fr 1.5fr 1.5fr",
           gap: 48,

@@ -198,22 +198,16 @@ export default function Navbar() {
       </header>
 
       {/* Mobile menu */}
-      <div className="show-sm" style={{
+      <div className="show-sm mobile-menu-nav" style={{
         position: "fixed", inset: 0, zIndex: 9980,
         background: "rgba(255,255,255,0.98)", backdropFilter: "blur(24px)",
         display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: "center", gap: 4,
+        paddingTop: 88,
         opacity: mobileOpen ? 1 : 0,
         pointerEvents: mobileOpen ? "auto" : "none",
         transition: "opacity .3s",
       }}>
-        <div style={{ marginBottom: 36, width: 200, height: 60, position: "relative" }}>
-          <Image
-            src="/finallogos/header-logo.png"
-            alt="Tejasbyte"            fill sizes="200px"
-            style={{ objectFit: "contain", objectPosition: "center" }}
-          />
-        </div>
         {NAV.map(l => (
           <Link key={l.href} href={l.href} style={{
             fontSize: "1.5rem", fontWeight: 700,

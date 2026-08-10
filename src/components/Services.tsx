@@ -86,7 +86,7 @@ export default function Services() {
         filter: "blur(60px)", pointerEvents: "none",
       }} />
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 52px", position: "relative", zIndex: 1 }}>
+      <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 52px", position: "relative", zIndex: 1 }}>
 
         {/* Section header */}
         <div className="reveal" style={{ textAlign: "center", marginBottom: 72 }}>
@@ -114,7 +114,7 @@ export default function Services() {
         </div>
 
         {/* Cards grid */}
-        <div style={{
+        <div className="services-grid" style={{
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
           gap: 24,

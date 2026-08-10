@@ -59,7 +59,7 @@ export default function HomeTestimonials() {
         filter: "blur(60px)", pointerEvents: "none",
       }} />
 
-      <div style={{ maxWidth: 900, margin: "0 auto", position: "relative", zIndex: 1 }}>
+      <div className="section-inner" style={{ maxWidth: 900, margin: "0 auto", position: "relative", zIndex: 1 }}>
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 48 }}>
@@ -78,7 +78,7 @@ export default function HomeTestimonials() {
         </div>
 
         {/* Quote card */}
-        <div style={{
+        <div className="testimonial-card" style={{
           background: "#fff",
           border: "1.5px solid #E2E4EA",
           borderRadius: 20,
