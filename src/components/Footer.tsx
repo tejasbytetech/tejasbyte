@@ -24,7 +24,7 @@ export default function Footer() {
     }}>
       <div className="footer-inner" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 52px" }}>
 
-        {/* 4-col grid */}
+        {/* 4-col grid → collapses on mobile */}
         <div className="footer-grid" style={{
           display: "grid",
           gridTemplateColumns: "1.6fr 1fr 1.5fr 1.5fr",
@@ -35,8 +35,7 @@ export default function Footer() {
 
           {/* Col 1 — Brand */}
           <div style={{ display: "flex", flexDirection: "column" }}>
-            {/* Logo */}
-            <div style={{ marginBottom: 0, width: 240, height: 80, position: "relative", overflow: "hidden", marginLeft: -36 }}>
+            <div className="footer-logo-wrap" style={{ marginBottom: 16, width: 240, height: 80, position: "relative", overflow: "hidden", marginLeft: -36 }}>
               <Image
                 src="/finallogos/transparent-logo.png"
                 alt="Tejasbyte Technologies"
@@ -223,3 +222,4 @@ export default function Footer() {
     </footer>
   );
 }
+
