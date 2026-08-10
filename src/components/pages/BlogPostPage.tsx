@@ -17,9 +17,9 @@ export default function BlogPostPage({ slug }: { slug: string }) {
         description={post.excerpt}
       />
       <section style={{ background: "#fff", padding: "64px 52px 80px" }}>
-        <div style={{ maxWidth: 820, margin: "0 auto" }}>
+        <div className="section-inner" style={{ maxWidth: 820, margin: "0 auto" }}>
           {/* Meta */}
-          <div style={{ display: "flex", alignItems: "center", gap: 20, marginBottom: 40, paddingBottom: 24, borderBottom: "1px solid rgba(91,48,232,0.1)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", marginBottom: 40, paddingBottom: 24, borderBottom: "1px solid rgba(91,48,232,0.1)" }}>
             <span style={{ padding: "4px 12px", borderRadius: 100, background: `${post.accent}12`, border: `1px solid ${post.accent}30`, fontSize: ".65rem", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: post.accent }}>{post.cat}</span>
             <span style={{ fontSize: ".8rem", color: "rgba(26,16,53,0.45)" }}>{post.date}</span>
             <span style={{ fontSize: ".8rem", color: "rgba(26,16,53,0.45)" }}>{post.readTime} read</span>
@@ -44,7 +44,7 @@ export default function BlogPostPage({ slug }: { slug: string }) {
           {related.length > 0 && (
             <div style={{ marginTop: 56 }}>
               <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#1A1035", marginBottom: 20 }}>Related Posts</h3>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16 }}>
+              <div className="portfolio-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16 }}>
                 {related.map(r => (
                   <Link key={r.slug} href={`/blog/${r.slug}`} style={{ textDecoration: "none" }}>
                     <div style={{ padding: "20px", border: "1.5px solid rgba(91,48,232,0.12)", borderRadius: 14, background: "#F7F5FF", transition: "border-color .2s, transform .2s", cursor: "default" }}

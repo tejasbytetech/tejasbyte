@@ -147,7 +147,7 @@ export default function PortfolioPage() {
 
       {/* ── Section 1: Tejasbyte Client Projects ── */}
       <section style={{ background: "#fff", padding: "72px 52px 0" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32 }}>
             <div>
               <p style={{ fontSize: ".68rem", fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", color: "#5B30E8", marginBottom: 6 }}>
@@ -161,7 +161,7 @@ export default function PortfolioPage() {
               </p>
             </div>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
+          <div className="proof-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
             {CLIENT_PROJECTS.map(p => (
               <ProjectCard key={p.num} p={p as any} hov={hov} setHov={setHov} showRole={false} />
             ))}
@@ -176,7 +176,7 @@ export default function PortfolioPage() {
 
       {/* ── Section 2: Open Source & Contributions ── */}
       <section style={{ background: "#fff", padding: "60px 52px 80px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
           <div style={{ marginBottom: 32 }}>
             <p style={{ fontSize: ".68rem", fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", color: "#7C5CFC", marginBottom: 6 }}>
               Professional Contributions
@@ -188,7 +188,7 @@ export default function PortfolioPage() {
               Projects where our lead engineer contributed production-ready features as part of global engineering teams.
             </p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 20 }}>
+          <div className="portfolio-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 20 }}>
             {CONTRIBUTION_PROJECTS.map(p => (
               <ProjectCard key={p.num} p={p as any} hov={hov} setHov={setHov} showRole={true} />
             ))}
@@ -198,8 +198,8 @@ export default function PortfolioPage() {
 
       {/* CTA */}
       <section style={{ background: "#F7F5FF", padding: "0 52px 80px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <div style={{ background: "#2D3A6E", borderRadius: 20, padding: "52px 64px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 24, position: "relative", overflow: "hidden" }}>
+        <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div className="cta-strip" style={{ background: "#2D3A6E", borderRadius: 20, padding: "52px 64px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 24, position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", top: "-40%", right: "-5%", width: 300, height: 300, borderRadius: "50%", background: "rgba(255,255,255,0.04)", pointerEvents: "none" }} />
             <div style={{ position: "relative", zIndex: 1 }}>
               <h2 style={{ fontSize: "clamp(1.5rem,3vw,2.2rem)", fontWeight: 800, color: "#fff", marginBottom: 8, letterSpacing: "-.02em" }}>Want us to build yours next?</h2>

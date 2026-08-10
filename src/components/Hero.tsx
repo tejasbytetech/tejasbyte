@@ -248,8 +248,8 @@ export default function Hero() {
             {/* Orbital circle with logo centre + 6 badges at 60° each */}
             <div style={{
               position: "relative",
-              width: 300,
-              height: 300,
+              width: 260,
+              height: 260,
               margin: "0 auto",
               flexShrink: 0,
             }}>
@@ -274,30 +274,30 @@ export default function Hero() {
                 position: "absolute",
                 top: "50%", left: "50%",
                 transform: "translate(-50%, -50%)",
-                width: 90, height: 90,
+                width: 80, height: 80,
                 borderRadius: "50%",
                 background: "linear-gradient(145deg, rgba(91,48,232,0.4) 0%, rgba(15,22,41,0.95) 60%)",
                 border: "2px solid rgba(124,92,252,0.6)",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                boxShadow: "0 0 32px rgba(91,48,232,0.55)",
+                boxShadow: "0 0 28px rgba(91,48,232,0.55)",
                 animation: "float2 5s ease-in-out infinite",
                 zIndex: 2,
               }}>
                 <Image
                   src="/finallogos/transparent-logo.png"
                   alt="Tejasbyte Technologies"
-                  width={68} height={38}
+                  width={60} height={34}
                   style={{ objectFit: "contain", width: "76%", height: "auto" }}
                 />
               </div>
 
-              {/* 6 badges at 60° intervals — radius 130px from centre */}
+              {/* 6 badges at 60° intervals — radius 100px from centre */}
               {BADGES.slice(0, 6).map((b, i) => {
                 const angleDeg = i * 60 - 90; // start from top
                 const rad = (angleDeg * Math.PI) / 180;
-                const r = 130;
-                const cx = 150 + r * Math.cos(rad); // centre is 150,150
-                const cy = 150 + r * Math.sin(rad);
+                const r = 100; // reduced radius to keep badges inside container
+                const cx = 130 + r * Math.cos(rad); // centre is 130,130
+                const cy = 130 + r * Math.sin(rad);
                 return (
                   <div key={i} style={{
                     position: "absolute",

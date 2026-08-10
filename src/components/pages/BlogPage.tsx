@@ -24,7 +24,7 @@ export default function BlogPage() {
       />
 
       <section style={{ background: "#F7F5FF", padding: "64px 52px 100px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
           {/* Filters */}
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 48 }}>
             {CATEGORIES.map(c => (
@@ -39,7 +39,7 @@ export default function BlogPage() {
           </div>
 
           {/* Grid */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+          <div className="blog-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
             {filtered.map(post => (
               <Link key={post.slug} href={`/blog/${post.slug}`} style={{ textDecoration: "none" }}>
                 <article
@@ -76,8 +76,8 @@ export default function BlogPage() {
 
       {/* CTA */}
       <section style={{ background: "#fff", padding: "64px 52px 80px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <div style={{ background: "#2D3A6E", borderRadius: 20, padding: "52px 64px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 24, position: "relative", overflow: "hidden" }}>
+        <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div className="cta-strip" style={{ background: "#2D3A6E", borderRadius: 20, padding: "52px 64px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 24, position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", top: "-40%", right: "-5%", width: 300, height: 300, borderRadius: "50%", background: "rgba(255,255,255,0.04)", pointerEvents: "none" }} />
             <div style={{ position: "relative", zIndex: 1 }}>
               <h2 style={{ fontSize: "clamp(1.5rem,3vw,2.2rem)", fontWeight: 800, color: "#fff", marginBottom: 8, letterSpacing: "-.02em" }}>Have a project in mind?</h2>

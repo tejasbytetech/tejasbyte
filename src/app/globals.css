@@ -318,10 +318,13 @@ body::after {
   .hero-visual {
     order: 2 !important;
     min-height: unset !important;
-    /* break out of the 12px grid padding so the circle can centre on full width */
+    /* break out of grid padding and span full viewport width */
     width: 100vw !important;
-    margin-left: -12px !important;
     position: relative !important;
+    left: 50% !important;
+    right: 50% !important;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
   }
   /* hide desktop orbital on mobile */
   .hero-visual-desktop {

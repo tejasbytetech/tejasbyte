@@ -45,8 +45,8 @@ export default function ContactPage() {
 
       {/* ── Main contact section ── */}
       <section style={{ background: "#F7F8FA", padding: "72px 52px 80px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.9fr", gap: 32, alignItems: "start" }}>
+        <div className="section-inner" style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div className="contact-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.9fr", gap: 32, alignItems: "start" }}>
 
             {/* Left — info cards */}
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -129,7 +129,7 @@ export default function ContactPage() {
               ) : (
                 <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 18 }} noValidate>
                   {/* Name + Email */}
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                  <div className="contact-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                     <div>
                       <label style={lbl}>Full Name <span style={{ color: "#EF4444" }}>*</span></label>
                       <input type="text" name="name" required value={form.name} onChange={change} placeholder="John Doe"
@@ -185,7 +185,7 @@ export default function ContactPage() {
 
       {/* ── Map ── */}
       <section style={{ background: "#fff", padding: "0 52px 80px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <div className="section-inner" style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ borderRadius: 16, overflow: "hidden", border: "1.5px solid #E2E4EA", boxShadow: "0 8px 32px rgba(0,0,0,0.06)", position: "relative" }}>
             {/* "Open in Maps" — top left like ojastech */}
             <a

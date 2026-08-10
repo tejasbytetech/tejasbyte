@@ -47,14 +47,14 @@ export default function AboutPage() {
 
       {/* How we work */}
       <section style={{ background: "#fff", padding: "80px 52px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 56 }}>
             <span className="section-label" style={{ marginBottom: 16, display: "inline-flex" }}>How We Work</span>
             <h2 style={{ fontSize: "clamp(1.8rem,3.5vw,2.8rem)", fontWeight: 800, lineHeight: 1.12, letterSpacing: "-.03em", color: "#1A1035", marginTop: 16 }}>
               Our principles, not just our pitch
             </h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
+          <div className="services-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
             {VALUES.map(v => (
               <div key={v.title} className="service-card"
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(91,48,232,0.35)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-6px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 20px 60px rgba(91,48,232,0.1)"; }}
@@ -71,8 +71,8 @@ export default function AboutPage() {
 
       {/* Why us */}
       <section style={{ background: "#F7F5FF", padding: "80px 52px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
+        <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div className="about-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
             <div>
               <span className="section-label" style={{ marginBottom: 16, display: "inline-flex" }}>Why Tejasbyte</span>
               <h2 style={{ fontSize: "clamp(1.8rem,3.5vw,2.8rem)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-.03em", color: "#1A1035", marginTop: 16, marginBottom: 20 }}>
