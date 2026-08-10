@@ -10,7 +10,7 @@ const inter = Inter({
   weight: ["300", "400", "500", "600", "700", "800"],
 });
 
-const BASE_URL = "https://tejasbyte.com";
+const BASE_URL = "https://www.tejasbyte.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),

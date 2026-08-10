@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/_next/", "/admin/"],
       },
     ],
-    sitemap: "https://tejasbyte.com/sitemap.xml",
-    host: "https://tejasbyte.com",
+    sitemap: "https://www.tejasbyte.com/sitemap.xml",
+    host: "https://www.tejasbyte.com",
   };
 }

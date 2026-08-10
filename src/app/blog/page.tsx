@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BlogPage from "@/components/pages/BlogPage";
 
-const BASE_URL = "https://tejasbyte.com";
+const BASE_URL = "https://www.tejasbyte.com";
 
 export const metadata: Metadata = {
   title: "Engineering Blog — AI, Cloud & Software Insights | Tejasbyte",

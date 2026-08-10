@@ -8,7 +8,7 @@ import Marquee from "@/components/Marquee";
 import HomeTestimonials from "@/components/home/HomeTestimonials";
 import HomeContactGlance from "@/components/home/HomeContactGlance";
 
-const BASE_URL = "https://tejasbyte.com";
+const BASE_URL = "https://www.tejasbyte.com";
 
 export const metadata: Metadata = {
   title: "Tejasbyte Technologies — AI, Web & Software Development Company Nepal",

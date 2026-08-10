@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { POSTS } from "@/lib/blog-posts";
 
-const BASE_URL = "https://tejasbyte.com";
+const BASE_URL = "https://www.tejasbyte.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [

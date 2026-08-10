@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import BlogPostPage from "@/components/pages/BlogPostPage";
 import { POSTS, getPostBySlug } from "@/lib/blog-posts";
 
-const BASE_URL = "https://tejasbyte.com";
+const BASE_URL = "https://www.tejasbyte.com";
 
 export function generateStaticParams() {
   return POSTS.map(p => ({ slug: p.slug }));

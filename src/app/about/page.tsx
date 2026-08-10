@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AboutPage from "@/components/pages/AboutPage";
 
-const BASE_URL = "https://tejasbyte.com";
+const BASE_URL = "https://www.tejasbyte.com";
 
 export const metadata: Metadata = {
   title: "About Tejasbyte Technologies — Senior Software Engineering Team Nepal",

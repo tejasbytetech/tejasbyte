@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PortfolioPage from "@/components/pages/PortfolioPage";
 
-const BASE_URL = "https://tejasbyte.com";
+const BASE_URL = "https://www.tejasbyte.com";
 
 export const metadata: Metadata = {
   title: "Portfolio — Real Software Projects by Tejasbyte Technologies",
