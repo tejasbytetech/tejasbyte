@@ -112,8 +112,7 @@ export const metadata: Metadata = {
   category: "technology",
 
   verification: {
-    // Add your Google Search Console verification token here when ready:
-    // google: "your-google-site-verification-token",
+    google: "google9a97a5d62925d02a",
   },
 };
 
