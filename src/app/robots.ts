@@ -10,6 +10,5 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: "https://www.tejasbyte.com/sitemap.xml",
-    host: "https://www.tejasbyte.com",
   };
 }
