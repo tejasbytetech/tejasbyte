@@ -164,8 +164,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 },
               ],
               sameAs: [
-                "https://linkedin.com/company/tejasbyte",
-                "https://github.com/tejasbyte",
+                "https://www.linkedin.com/company/tejasbyte",
+                "https://github.com/tejasbytetech",
               ],
               knowsAbout: [
                 "Artificial Intelligence",
