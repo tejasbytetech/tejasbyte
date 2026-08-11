@@ -5,7 +5,7 @@ import { useState } from "react";
 const PROJECTS = [
   {
     title: "Subha Sanskar Decor",
-    client: "Subha Sanskar · Kathmandu, Nepal",
+    client: "Subha Sanskar · Sydney, Australia",
     url: "subhasanskardecor.com",
     href: "https://www.subhasanskardecor.com",
     desc: "Brand website with dynamic gallery, lead capture, and a Supabase-powered admin panel. Client manages all content without touching code.",

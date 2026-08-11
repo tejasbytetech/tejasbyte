@@ -10,7 +10,7 @@ const CLIENT_PROJECTS = [
     title: "Subha Sanskar Decor",
     url: "subhasanskardecor.com",
     href: "https://www.subhasanskardecor.com",
-    sub: "Interior Design · Next.js · Supabase",
+    sub: "Interior Design · Sydney, Australia · Next.js · Supabase",
     desc: "Full brand website with a dynamic gallery, lead capture forms, and a Supabase-powered admin panel — the client manages all content without touching code.",
     tags: ["Next.js", "Supabase", "TypeScript", "Tailwind CSS"],
     accent: "#5B30E8",

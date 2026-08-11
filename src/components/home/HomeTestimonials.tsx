@@ -13,7 +13,7 @@ const TESTIMONIALS = [
   {
     quote: "Our website needed to showcase our interior design work beautifully. Tejasbyte delivered a stunning gallery site with an admin panel so our team can update everything ourselves. Exactly what we needed.",
     name: "Subha Sanskar Decor",
-    role: "Interior Design · Kathmandu, Nepal",
+    role: "Interior Design · Sydney, Australia",
     init: "SS",
     url: "subhasanskardecor.com",
     color: "#7C5CFC",
