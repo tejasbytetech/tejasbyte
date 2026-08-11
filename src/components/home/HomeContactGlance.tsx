@@ -124,10 +124,10 @@ export default function HomeContactGlance() {
               }}>✉️</div>
               <div>
                 <p style={{ fontSize: ".65rem", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "#9CA3AF", marginBottom: 4 }}>Mail Us</p>
-                <a href="mailto:hello@tejasbyte.com" style={{ fontSize: ".875rem", fontWeight: 600, color: "#1A1035", textDecoration: "none", transition: "color .2s" }}
+                <a href="mailto:contact@tejasbyte.com" style={{ fontSize: ".875rem", fontWeight: 600, color: "#1A1035", textDecoration: "none", transition: "color .2s" }}
                   onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "#5B30E8"; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "#1A1035"; }}>
-                  hello@tejasbyte.com
+                  contact@tejasbyte.com
                 </a>
               </div>
             </div>

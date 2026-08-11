@@ -69,10 +69,10 @@ export default function ContactPage() {
                 <div style={{ width: 42, height: 42, borderRadius: 10, flexShrink: 0, background: "#2D3A6E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.1rem" }}>✉️</div>
                 <div>
                   <p style={{ fontSize: ".62rem", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "#9CA3AF", marginBottom: 4 }}>Mail Us</p>
-                  <a href="mailto:hello@tejasbyte.com" style={{ fontSize: ".875rem", fontWeight: 600, color: "#1A1035", textDecoration: "none", transition: "color .2s" }}
+                  <a href="mailto:contact@tejasbyte.com" style={{ fontSize: ".875rem", fontWeight: 600, color: "#1A1035", textDecoration: "none", transition: "color .2s" }}
                     onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "#5B30E8"; }}
                     onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "#1A1035"; }}>
-                    hello@tejasbyte.com
+                    contact@tejasbyte.com
                   </a>
                 </div>
               </div>

@@ -107,7 +107,7 @@ export default function Contact() {
             {/* Contact info */}
             <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
               {[
-                { icon: "✉️", label: "Email",    val: "hello@tejasbyte.com",  href: "mailto:hello@tejasbyte.com" },
+                { icon: "✉️", label: "Email",    val: "contact@tejasbyte.com",  href: "mailto:contact@tejasbyte.com" },
                 { icon: "📍", label: "Location", val: "Kathmandu, Nepal",     href: null },
                 { icon: "⏱️", label: "Response", val: "Within 24 hours",      href: null },
               ].map(({ icon, label: lbl, val, href }) => (

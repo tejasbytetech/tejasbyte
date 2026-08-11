@@ -159,7 +159,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   "@type": "ContactPoint",
                   telephone: "+977-9849627282",
                   contactType: "customer service",
-                  email: "hello@tejasbyte.com",
+                  email: "contact@tejasbyte.com",
                   availableLanguage: ["English", "Nepali"],
                 },
               ],

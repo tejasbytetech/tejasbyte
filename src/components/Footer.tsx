@@ -148,7 +148,7 @@ export default function Footer() {
             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 20 }}>
               {[
                 { icon: "📍", val: "Tarakeshwore-07, Phutung\nKathmandu, Nepal" },
-                { icon: "✉️", val: "hello@tejasbyte.com", href: "mailto:hello@tejasbyte.com" },
+                { icon: "✉️", val: "contact@tejasbyte.com", href: "mailto:contact@tejasbyte.com" },
                 { icon: "📞", val: "+977 9849627282", href: "tel:+9779849627282" },
               ].map(item => (
                 <div key={item.val} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>

@@ -47,7 +47,7 @@ export default function Home() {
               name: "Tejasbyte Technologies",
               url: BASE_URL,
               telephone: "+977-9849627282",
-              email: "hello@tejasbyte.com",
+              email: "contact@tejasbyte.com",
               image: `${BASE_URL}/logos/social-media-cover-image.png`,
               priceRange: "$$",
               address: {

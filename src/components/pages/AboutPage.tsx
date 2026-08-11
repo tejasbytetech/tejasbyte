@@ -105,7 +105,7 @@ export default function AboutPage() {
                 We&apos;re a small team taking on select projects. If you have something to build, we&apos;d love to hear about it.
               </p>
               {[
-                { icon: "✉️", label: "Email", val: "hello@tejasbyte.com", href: "mailto:hello@tejasbyte.com" },
+                { icon: "✉️", label: "Email", val: "contact@tejasbyte.com", href: "mailto:contact@tejasbyte.com" },
                 { icon: "📍", label: "Based in", val: "Tarakeshwore-07, Phutung, Kathmandu, Nepal" },
                 { icon: "⏱️", label: "Response", val: "Within 24 hours" },
               ].map(item => (

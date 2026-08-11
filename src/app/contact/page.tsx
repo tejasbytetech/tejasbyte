@@ -44,7 +44,7 @@ export default function Contact() {
                 "@type": "Organization",
                 name: "Tejasbyte Technologies",
                 telephone: "+977-9849627282",
-                email: "hello@tejasbyte.com",
+                email: "contact@tejasbyte.com",
                 address: {
                   "@type": "PostalAddress",
                   streetAddress: "Tarakeshwore-07, Phutung",
