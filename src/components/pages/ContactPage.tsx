@@ -74,17 +74,17 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Phone */}
+              {/* Phone → WhatsApp */}
               <div style={{ background: "#fff", border: "1.5px solid #E2E4EA", borderRadius: 12, padding: "18px 20px", display: "flex", alignItems: "flex-start", gap: 14, transition: "border-color .2s" }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(91,48,232,0.35)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "#E2E4EA"; }}>
-                <div style={{ width: 42, height: 42, borderRadius: 10, flexShrink: 0, background: "#2D3A6E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.1rem" }}>📞</div>
+                <div style={{ width: 42, height: 42, borderRadius: 10, flexShrink: 0, background: "#2D3A6E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.1rem" }}>💬</div>
                 <div>
-                  <p style={{ fontSize: ".62rem", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "#9CA3AF", marginBottom: 4 }}>Call Us</p>
-                  <a href="tel:+9779849627282" style={{ fontSize: ".875rem", fontWeight: 600, color: "#1A1035", textDecoration: "none", transition: "color .2s" }}
+                  <p style={{ fontSize: ".62rem", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "#9CA3AF", marginBottom: 4 }}>WhatsApp</p>
+                  <a href="https://wa.me/9849627282" target="_blank" rel="noopener noreferrer" style={{ fontSize: ".875rem", fontWeight: 600, color: "#1A1035", textDecoration: "none", transition: "color .2s" }}
                     onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "#5B30E8"; }}
                     onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "#1A1035"; }}>
-                    +977 9849627282
+                    Chat on WhatsApp →
                   </a>
                 </div>
               </div>

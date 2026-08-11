@@ -124,14 +124,16 @@ export default function Footer() {
                   onClick={() => { if (email) setSubbed(true); }}
                   style={{
                     padding: "9px 16px", borderRadius: 8,
-                    background: "#2D3A6E",
-                    color: "#fff", border: "none", cursor: "none",
+                    background: "transparent",
+                    color: "#fff",
+                    border: "1.5px solid rgba(255,255,255,0.3)",
+                    cursor: "none",
                     fontSize: ".8rem", fontWeight: 700,
                     whiteSpace: "nowrap",
-                    transition: "background .2s",
+                    transition: "border-color .2s, background .2s",
                   }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#0F1629"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#5B30E8"; }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "#A78BFA"; (e.currentTarget as HTMLElement).style.background = "rgba(167,139,250,0.1)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.3)"; (e.currentTarget as HTMLElement).style.background = "transparent"; }}
                 >Subscribe</button>
               </div>
             )}
@@ -149,12 +151,11 @@ export default function Footer() {
               {[
                 { icon: "📍", val: "Tarakeshwore-07, Phutung\nKathmandu, Nepal" },
                 { icon: "✉️", val: "contact@tejasbyte.com", href: "mailto:contact@tejasbyte.com" },
-                { icon: "📞", val: "+977 9849627282", href: "tel:+9779849627282" },
               ].map(item => (
                 <div key={item.val} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
                   <span style={{ fontSize: ".9rem", flexShrink: 0, marginTop: 1 }}>{item.icon}</span>
                   {"href" in item && item.href ? (
-                    <a href={item.href} style={{
+                    <a href={item.href} target={item.href.startsWith("https://wa.me") ? "_blank" : undefined} rel={item.href.startsWith("https://wa.me") ? "noopener noreferrer" : undefined} style={{
                       fontSize: ".82rem", color: "rgba(255,255,255,0.45)",
                       textDecoration: "none", lineHeight: 1.55,
                       transition: "color .2s",
@@ -206,14 +207,17 @@ export default function Footer() {
             © {year} Tejasbyte Technologies Pvt. Ltd. All Rights Reserved.
           </p>
           <div style={{ display: "flex", gap: 24 }}>
-            {["Privacy", "Terms"].map(l => (
-              <a key={l} href="#" style={{
+            {[
+              { label: "Privacy", href: "/privacy" },
+              { label: "Terms",   href: "/terms"   },
+            ].map(l => (
+              <a key={l.label} href={l.href} style={{
                 fontSize: ".75rem", color: "rgba(255,255,255,0.22)",
                 textDecoration: "none", transition: "color .2s",
               }}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.6)"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.22)"; }}>
-                {l}
+                {l.label}
               </a>
             ))}
           </div>
