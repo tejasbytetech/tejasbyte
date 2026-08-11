@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const BADGES = [
   { icon: "🤖", label: "AI & ML",           top: "2%",    right: "0%",   delay: 0   },
@@ -119,33 +120,35 @@ export default function Hero() {
           </p>
 
           <div data-hero style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 8 }}>
-            <button
-              onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+            <Link
+              href="/contact"
               style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 padding: "13px 32px", borderRadius: 10,
                 background: "#fff", color: "#5B30E8",
-                border: "none", cursor: "none",
+                border: "none",
                 fontSize: ".875rem", fontWeight: 700,
                 boxShadow: "0 4px 24px rgba(0,0,0,0.2)",
+                textDecoration: "none",
                 transition: "transform .2s, box-shadow .2s",
               }}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(0,0,0,0.3)"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(0,0,0,0.2)"; }}
-            >Get Started</button>
-            <button
-              onClick={() => document.querySelector("#work")?.scrollIntoView({ behavior: "smooth" })}
+            >Get Started</Link>
+            <Link
+              href="/portfolio"
               style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 padding: "12px 30px", borderRadius: 10,
                 background: "transparent", color: "rgba(255,255,255,0.85)",
-                border: "1.5px solid rgba(255,255,255,0.22)", cursor: "none",
+                border: "1.5px solid rgba(255,255,255,0.22)",
                 fontSize: ".875rem", fontWeight: 600,
+                textDecoration: "none",
                 transition: "all .25s",
               }}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.55)"; (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.07)"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.22)"; (e.currentTarget as HTMLElement).style.background = "transparent"; }}
-            >See Our Work</button>
+            >See Our Work</Link>
           </div>
 
           {/* Stats — small inline row */}
