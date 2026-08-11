@@ -1,22 +1,19 @@
 "use client";
 import { useState } from "react";
 import PageHero from "@/components/PageHero";
+import { useContactForm } from "@/lib/useContactForm";
 
 export default function ContactPage() {
-  const [form, setForm]       = useState({ name: "", email: "", subject: "", message: "" });
-  const [sent, setSent]       = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [form, setForm]     = useState({ name: "", email: "", subject: "", message: "" });
   const [focused, setFocused] = useState<string | null>(null);
+  const { loading, sent, error, submit, reset } = useContactForm();
 
   const change = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm(p => ({ ...p, [e.target.name]: e.target.value }));
 
-  const submit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    await new Promise(r => setTimeout(r, 1200));
-    setLoading(false);
-    setSent(true);
+    await submit(form);
   };
 
   const inp = (name: string): React.CSSProperties => ({
@@ -122,12 +119,12 @@ export default function ContactPage() {
                   <div style={{ width: 64, height: 64, borderRadius: "50%", background: "linear-gradient(135deg,#5B30E8,#7C5CFC)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px", fontSize: "1.6rem", color: "#fff" }}>✓</div>
                   <h3 style={{ fontSize: "1.4rem", fontWeight: 800, color: "#1A1035", marginBottom: 10 }}>Message Sent!</h3>
                   <p style={{ fontSize: ".9rem", color: "#6B7280", marginBottom: 24 }}>We&apos;ll get back to you within 24 hours.</p>
-                  <button onClick={() => setSent(false)} style={{ fontSize: ".85rem", color: "#5B30E8", background: "none", border: "1.5px solid rgba(91,48,232,0.3)", borderRadius: 8, padding: "8px 20px", cursor: "none" }}>
+                  <button onClick={reset} style={{ fontSize: ".85rem", color: "#5B30E8", background: "none", border: "1.5px solid rgba(91,48,232,0.3)", borderRadius: 8, padding: "8px 20px", cursor: "none" }}>
                     Send Another
                   </button>
                 </div>
               ) : (
-                <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 18 }} noValidate>
+                <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 18 }} noValidate>
                   {/* Name + Email */}
                   <div className="contact-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                     <div>
@@ -157,6 +154,13 @@ export default function ContactPage() {
                       style={{ ...inp("message"), resize: "none" }}
                       onFocus={() => setFocused("message")} onBlur={() => setFocused(null)} />
                   </div>
+
+                  {/* Error message */}
+                  {error && (
+                    <p style={{ fontSize: ".82rem", color: "#EF4444", background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: 8, padding: "10px 14px", margin: 0 }}>
+                      ⚠️ {error}
+                    </p>
+                  )}
 
                   {/* Submit */}
                   <button type="submit" disabled={loading} style={{

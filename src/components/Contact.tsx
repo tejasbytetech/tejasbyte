@@ -1,15 +1,15 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useContactForm } from "@/lib/useContactForm";
 
 const BUDGETS = ["< $10k", "$10k – $30k", "$30k – $80k", "$80k+", "Let's discuss"];
 
 export default function Contact() {
   const ref = useRef<HTMLElement>(null);
-  const [sent, setSent]       = useState(false);
-  const [loading, setLoading] = useState(false);
   const [budget, setBudget]   = useState("");
   const [form, setForm]       = useState({ name: "", email: "", company: "", message: "" });
   const [focused, setFocused] = useState<string | null>(null);
+  const { loading, sent, error, submit, reset } = useContactForm();
 
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -23,12 +23,9 @@ export default function Contact() {
   const change = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm(p => ({ ...p, [e.target.name]: e.target.value }));
 
-  const submit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    await new Promise(r => setTimeout(r, 1400));
-    setLoading(false);
-    setSent(true);
+    await submit({ ...form, budget, subject: "Project Inquiry" });
   };
 
   const fieldWrap: React.CSSProperties = {
@@ -181,7 +178,7 @@ export default function Contact() {
                   marginBottom: 28,
                 }}>We&apos;ll review your brief and reply within 24 hours.</p>
                 <button
-                  onClick={() => setSent(false)}
+                  onClick={() => { reset(); setForm({ name: "", email: "", company: "", message: "" }); setBudget(""); }}
                   className="btn-outline"
                   style={{ fontSize: ".82rem" }}
                 >Send another message</button>
@@ -200,7 +197,7 @@ export default function Contact() {
                   letterSpacing: "-.01em",
                 }}>Tell us about your project</h3>
 
-                <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 22 }} noValidate>
+                <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 22 }} noValidate>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }} className="contact-form-row">
                     {(["name", "email"] as const).map(field => (
                       <div key={field} style={fieldWrap}>
@@ -265,6 +262,13 @@ export default function Contact() {
                       onBlur={() => setFocused(null)}
                     />
                   </div>
+
+                  {/* Error */}
+                  {error && (
+                    <p style={{ fontFamily: '"Inter",sans-serif', fontSize: ".82rem", color: "#EF4444", background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: 8, padding: "10px 14px", margin: 0 }}>
+                      ⚠️ {error}
+                    </p>
+                  )}
 
                   <button
                     type="submit"
