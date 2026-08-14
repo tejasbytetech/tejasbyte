@@ -9,7 +9,7 @@ const VALUES = [
   { icon: "💬", title: "Direct Communication",          desc: "You talk directly to the engineers building your product. No account managers, no middlemen." },
   { icon: "📦", title: "Code You Keep Forever",         desc: "Clean architecture and documentation your team can confidently own and extend." },
   { icon: "⚡", title: "Speed Without Compromise",      desc: "We move fast — but never at the cost of security, reliability, or code quality." },
-  { icon: "🌏", title: "Global Standards, Local Rates", desc: "World-class engineering from Kathmandu, Nepal — at rates that make long-term partnership sustainable." },
+  { icon: "🌏", title: "Global Standards, Competitive Rates", desc: "Incorporated in the US and engineered in Nepal — we deliver world-class software at rates that make long-term partnership sustainable." },
 ];
 
 export default function AboutPage() {
@@ -19,7 +19,7 @@ export default function AboutPage() {
         label="Who We Are"
         title="Built by engineers."
         highlight="Obsessed with craft."
-        description="Tejasbyte Technologies is a software engineering company based in Kathmandu, Nepal. A focused team that builds scalable, secure, and intelligent software for businesses worldwide."
+        description="Tejasbyte Technologies is incorporated in the United States, with a core engineering office in Kathmandu, Nepal. We build scalable, secure, and intelligent software for businesses worldwide."
       />
 
       {/* Stats */}
@@ -84,7 +84,7 @@ export default function AboutPage() {
                   "You talk directly to the engineers — no account managers",
                   "Flat, transparent pricing — no surprise invoices",
                   "Modern stack: Next.js, Supabase, React Native, cloud-native",
-                  "From Nepal to the world — competitive rates, zero compromise on quality",
+                  "Incorporated in the United States with an engineering office in Kathmandu, Nepal — competitive rates, zero compromise on quality",
                   "Full ownership handoff — clean code + docs when we're done",
                 ].map((point, i) => (
                   <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
@@ -106,7 +106,7 @@ export default function AboutPage() {
               </p>
               {[
                 { icon: "✉️", label: "Email", val: "contact@tejasbyte.com", href: "mailto:contact@tejasbyte.com" },
-                { icon: "📍", label: "Based in", val: "Kathmandu, Nepal" },
+                { icon: "📍", label: "Location", val: "2420 Rheem Ave, Richmond, CA 94804\nKathmandu, Nepal" },
                 { icon: "⏱️", label: "Response", val: "Within 24 hours" },
               ].map(item => (
                 <div key={item.label} style={{ display: "flex", gap: 12, alignItems: "center", padding: "12px 0", borderBottom: "1px solid rgba(91,48,232,0.07)" }}>
@@ -117,7 +117,7 @@ export default function AboutPage() {
                       ? <a href={item.href} style={{ fontSize: ".875rem", fontWeight: 600, color: "#1A1035", textDecoration: "none", transition: "color .2s" }}
                           onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "#5B30E8"; }}
                           onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "#1A1035"; }}>{item.val}</a>
-                      : <span style={{ fontSize: ".875rem", fontWeight: 600, color: "#1A1035" }}>{item.val}</span>
+                      : <span style={{ fontSize: ".875rem", fontWeight: 600, color: "#1A1035", whiteSpace: "pre-line", lineHeight: 1.7 }}>{item.val}</span>
                     }
                   </div>
                 </div>

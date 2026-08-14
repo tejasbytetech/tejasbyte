@@ -105,7 +105,7 @@ export default function Contact() {
             <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
               {[
                 { icon: "✉️", label: "Email",    val: "contact@tejasbyte.com",  href: "mailto:contact@tejasbyte.com" },
-                { icon: "📍", label: "Location", val: "Kathmandu, Nepal",     href: null },
+                { icon: "📍", label: "Location",    val: "2420 Rheem Ave, Richmond, CA 94804\nKathmandu, Nepal", href: null },
                 { icon: "⏱️", label: "Response", val: "Within 24 hours",      href: null },
               ].map(({ icon, label: lbl, val, href }) => (
                 <div key={lbl} style={{
@@ -140,7 +140,7 @@ export default function Contact() {
                       : <span style={{
                           fontFamily: '"Inter",sans-serif',
                           fontSize: ".9rem", fontWeight: 600,
-                          color: "#1A1035",
+                          color: "#1A1035", whiteSpace: "pre-line", lineHeight: 1.7,
                         }}>{val}</span>
                     }
                   </div>

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Tejasbyte Technologies builds AI-powered software, scalable web apps, mobile applications, and cloud infrastructure for startups and enterprises worldwide. Based in Kathmandu, Nepal.",
+    "Tejasbyte Technologies is a US-based software engineering company with offices in Richmond, California and Kathmandu, Nepal. We build AI-powered software, scalable web apps, mobile applications, and cloud infrastructure for startups and enterprises worldwide.",
 
   keywords: [
     // Core brand
@@ -90,7 +90,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tejasbyte Technologies — AI, Web & Software Development",
     description:
-      "AI software, web apps, mobile, and cloud engineering for startups and enterprises. Senior-only team. Based in Kathmandu, Nepal.",
+      "AI software, web apps, mobile, and cloud engineering for startups and enterprises. US-based company with offices in California and Nepal. Senior-only team.",
     images: ["/logos/social-media-cover-image.png"],
     creator: "@tejasbyte",
     site: "@tejasbyte",

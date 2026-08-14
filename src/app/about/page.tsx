@@ -6,9 +6,9 @@ import AboutPage from "@/components/pages/AboutPage";
 const BASE_URL = "https://www.tejasbyte.com";
 
 export const metadata: Metadata = {
-  title: "About Tejasbyte Technologies — Senior Software Engineering Team Nepal",
+  title: "About Tejasbyte Technologies — US-Based Senior Software Engineering Team",
   description:
-    "Tejasbyte Technologies is a senior-only software engineering company from Kathmandu, Nepal. 5+ years experience, 30+ projects delivered, 98% client satisfaction. We build AI, web, mobile, and cloud systems for global clients.",
+    "Tejasbyte Technologies is a US-based senior-only software engineering company with offices in Richmond, California and Kathmandu, Nepal. 5+ years experience, 30+ projects delivered, 98% client satisfaction.",
   keywords: [
     "about Tejasbyte Technologies", "software company Nepal",
     "software engineering team Nepal", "IT company Kathmandu",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     url: `${BASE_URL}/about`,
     title: "About Tejasbyte Technologies — Senior Software Engineering Team",
-    description: "Senior-only engineering team from Kathmandu, Nepal. 30+ projects. 98% satisfaction. Full-stack ownership.",
+    description: "US-based senior software engineering company with offices in California and Nepal. 30+ projects. 98% satisfaction. Full-stack ownership.",
     images: [{ url: "/logos/social-media-cover-image.png", width: 1200, height: 630 }],
   },
 };
@@ -38,7 +38,7 @@ export default function About() {
               "@type": "AboutPage",
               name: "About Tejasbyte Technologies",
               url: `${BASE_URL}/about`,
-              description: "Senior software engineering company from Kathmandu, Nepal building AI, web, mobile and cloud systems.",
+              description: "US-based software engineering company with offices in Richmond, California and Kathmandu, Nepal. We build AI-powered applications, scalable web platforms, mobile apps, and cloud infrastructure for global clients.",
               mainEntity: {
                 "@type": "Organization",
                 name: "Tejasbyte Technologies",

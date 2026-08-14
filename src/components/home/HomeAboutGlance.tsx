@@ -51,8 +51,7 @@ export default function HomeAboutGlance() {
               color: "rgba(26,16,53,0.55)",
               marginBottom: 36,
             }}>
-              Tejasbyte Technologies is a software engineering company based in
-              Kathmandu, Nepal. We build scalable, secure, and intelligent software
+              Tejasbyte Technologies is incorporated in the United States with an engineering office in Kathmandu, Nepal. We build scalable, secure, and intelligent software
               that drives growth — from startups to enterprise.
             </p>
 

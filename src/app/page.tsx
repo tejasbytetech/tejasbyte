@@ -13,7 +13,7 @@ const BASE_URL = "https://www.tejasbyte.com";
 export const metadata: Metadata = {
   title: "Tejasbyte Technologies — AI, Web & Software Development Company Nepal",
   description:
-    "Tejasbyte Technologies builds AI-powered software, scalable web apps, React Native mobile apps, and cloud infrastructure. Senior-only engineering team. Based in Kathmandu, Nepal — serving clients worldwide.",
+    "Tejasbyte Technologies is a US-based software engineering company with offices in Richmond, California and Kathmandu, Nepal. We build AI-powered software, scalable web apps, React Native mobile apps, and cloud infrastructure for global clients.",
   keywords: [
     "AI software development company", "web app development company Nepal",
     "software development Kathmandu", "Next.js development agency",

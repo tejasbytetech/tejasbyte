@@ -54,8 +54,7 @@ export default function Footer() {
               color: "rgba(255,255,255,0.42)",
               maxWidth: 260,
             }}>
-              A software engineering company from Kathmandu — building AI platforms,
-              web apps, and cloud systems for global clients.
+              Tejasbyte Technologies delivers intelligent software solutions from our offices in California and Kathmandu. We partner with startups and enterprises to engineer products that scale.
             </p>
           </div>
 
