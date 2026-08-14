@@ -216,7 +216,7 @@ export default function Terms() {
               }}>
                 {[
                   { icon: "🏢", label: "Tejasbyte Technologies Pvt. Ltd." },
-                  { icon: "📍", label: "Tarakeshwore-07, Phutung, Kathmandu, Nepal" },
+                  { icon: "📍", label: "Kathmandu, Nepal" },
                   { icon: "✉️", label: "contact@tejasbyte.com", href: "mailto:contact@tejasbyte.com" },
                   { icon: "🌐", label: "www.tejasbyte.com", href: "https://www.tejasbyte.com" },
                 ].map((item, i) => (

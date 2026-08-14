@@ -149,7 +149,8 @@ export default function Footer() {
             }}>Get in Touch</h4>
             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 20 }}>
               {[
-                { icon: "📍", val: "Tarakeshwore-07, Phutung\nKathmandu, Nepal" },
+                { icon: "📍", val: "🇺🇸 2420 Rheem Ave, Richmond\nCalifornia, CA 94804, USA" },
+                { icon: "📍", val: "🇳🇵 Kathmandu, Nepal" },
                 { icon: "✉️", val: "contact@tejasbyte.com", href: "mailto:contact@tejasbyte.com" },
               ].map(item => (
                 <div key={item.val} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>

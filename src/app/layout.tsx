@@ -146,14 +146,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               logo: `${BASE_URL}/logos/full-color-primary.png`,
               image: `${BASE_URL}/logos/social-media-cover-image.png`,
               description:
-                "Tejasbyte Technologies is a software engineering company based in Kathmandu, Nepal. We build AI-powered applications, scalable web platforms, mobile apps, and cloud infrastructure for global clients.",
+                "Tejasbyte Technologies is a US-based software engineering company with offices in Richmond, California and Kathmandu, Nepal. We build AI-powered applications, scalable web platforms, mobile apps, and cloud infrastructure for global clients.",
               foundingDate: "2020",
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "Tarakeshwore-07, Phutung",
-                addressLocality: "Kathmandu",
-                addressCountry: "NP",
-              },
+              address: [
+                {
+                  "@type": "PostalAddress",
+                  streetAddress: "2420 Rheem Ave",
+                  addressLocality: "Richmond",
+                  addressRegion: "CA",
+                  postalCode: "94804",
+                  addressCountry: "US",
+                },
+                {
+                  "@type": "PostalAddress",
+                  addressLocality: "Kathmandu",
+                  addressCountry: "NP",
+                },
+              ],
               contactPoint: [
                 {
                   "@type": "ContactPoint",

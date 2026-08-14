@@ -83,23 +83,19 @@ export default function HomeContactGlance() {
 
             {/* Office location */}
             <div style={{
-              background: "#fff",
-              border: "1.5px solid #E2E4EA",
+              background: "#fff", border: "1.5px solid #E2E4EA",
               borderRadius: 12, padding: "18px 20px",
-              display: "flex", alignItems: "flex-start", gap: 14,
-              transition: "border-color .2s",
+              display: "flex", alignItems: "flex-start", gap: 14, transition: "border-color .2s",
             }}
             onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(91,48,232,0.3)"; }}
             onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "#E2E4EA"; }}>
-              <div style={{
-                width: 40, height: 40, borderRadius: 10, flexShrink: 0,
-                background: "#2D3A6E",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: "1rem",
-              }}>📍</div>
+              <div style={{ width: 40, height: 40, borderRadius: 10, flexShrink: 0, background: "#2D3A6E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem" }}>📍</div>
               <div>
-                <p style={{ fontSize: ".65rem", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "#9CA3AF", marginBottom: 4 }}>Our Office Location</p>
-                <p style={{ fontSize: ".875rem", fontWeight: 600, color: "#1A1035", lineHeight: 1.5 }}>Tarakeshwore-07, Phutung<br />Kathmandu, Nepal</p>
+                <p style={{ fontSize: ".65rem", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "#9CA3AF", marginBottom: 4 }}>Our Offices</p>
+                <p style={{ fontSize: ".875rem", fontWeight: 600, color: "#1A1035", lineHeight: 1.65 }}>
+                  🇺🇸 2420 Rheem Ave, Richmond, CA 94804<br />
+                  🇳🇵 Kathmandu, Nepal
+                </p>
               </div>
             </div>
 

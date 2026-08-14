@@ -43,14 +43,23 @@ export default function Contact() {
               mainEntity: {
                 "@type": "Organization",
                 name: "Tejasbyte Technologies",
-                telephone: "+977-9849627282",
+                telephone: "+1-510-000-0000",
                 email: "contact@tejasbyte.com",
-                address: {
-                  "@type": "PostalAddress",
-                  streetAddress: "Tarakeshwore-07, Phutung",
-                  addressLocality: "Kathmandu",
-                  addressCountry: "NP",
-                },
+                address: [
+                  {
+                    "@type": "PostalAddress",
+                    streetAddress: "2420 Rheem Ave",
+                    addressLocality: "Richmond",
+                    addressRegion: "CA",
+                    postalCode: "94804",
+                    addressCountry: "US",
+                  },
+                  {
+                    "@type": "PostalAddress",
+                    addressLocality: "Kathmandu",
+                    addressCountry: "NP",
+                  },
+                ],
               },
             }),
           }}

@@ -106,7 +106,7 @@ export default function AboutPage() {
               </p>
               {[
                 { icon: "✉️", label: "Email", val: "contact@tejasbyte.com", href: "mailto:contact@tejasbyte.com" },
-                { icon: "📍", label: "Based in", val: "Tarakeshwore-07, Phutung, Kathmandu, Nepal" },
+                { icon: "📍", label: "Based in", val: "Kathmandu, Nepal" },
                 { icon: "⏱️", label: "Response", val: "Within 24 hours" },
               ].map(item => (
                 <div key={item.label} style={{ display: "flex", gap: 12, alignItems: "center", padding: "12px 0", borderBottom: "1px solid rgba(91,48,232,0.07)" }}>

@@ -50,16 +50,25 @@ export default function Home() {
               email: "contact@tejasbyte.com",
               image: `${BASE_URL}/logos/social-media-cover-image.png`,
               priceRange: "$$",
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "Tarakeshwore-07, Phutung",
-                addressLocality: "Kathmandu",
-                addressCountry: "NP",
-              },
+              address: [
+                {
+                  "@type": "PostalAddress",
+                  streetAddress: "2420 Rheem Ave",
+                  addressLocality: "Richmond",
+                  addressRegion: "CA",
+                  postalCode: "94804",
+                  addressCountry: "US",
+                },
+                {
+                  "@type": "PostalAddress",
+                  addressLocality: "Kathmandu",
+                  addressCountry: "NP",
+                },
+              ],
               geo: {
                 "@type": "GeoCoordinates",
-                latitude: 27.7646532,
-                longitude: 85.3121141,
+                latitude: 37.9358,
+                longitude: -122.3478,
               },
               openingHours: "Mo-Fr 09:00-18:00",
               aggregateRating: {

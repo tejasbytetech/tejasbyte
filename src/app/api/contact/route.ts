@@ -150,7 +150,7 @@ export async function POST(req: NextRequest) {
             <!-- Contact info -->
             <div style="border-top: 1px solid rgba(91,48,232,0.08); padding-top: 20px;">
               <p style="font-size: 13px; color: #9ca3af; margin: 0;">
-                📍 Tarakeshwore-07, Phutung, Kathmandu, Nepal<br/>
+                📍 Kathmandu, Nepal<br/>
                 📞 +977 9849627282<br/>
                 ✉️ contact@tejasbyte.com
               </p>
