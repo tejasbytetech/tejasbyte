@@ -154,7 +154,7 @@ export default function HomeTestimonials() {
                 height: 9,
                 borderRadius: 100,
                 background: i === cur ? t.color : "#D1D5DB",
-                border: "none", cursor: "none",
+                border: "none", cursor: "pointer",
                 transition: "width .3s, background .3s",
                 boxShadow: i === cur ? `0 0 8px ${t.color}60` : "none",
               }}

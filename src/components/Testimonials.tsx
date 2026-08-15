@@ -103,7 +103,7 @@ export default function Testimonials() {
                     background: i === cur ? "#fff" : "transparent",
                     border: i === cur ? "1.5px solid rgba(91,48,232,0.2)" : "1.5px solid transparent",
                     boxShadow: i === cur ? "0 8px 32px rgba(91,48,232,0.1)" : "none",
-                    cursor: "none",
+                    cursor: "pointer",
                     textAlign: "left",
                     opacity: i === cur ? 1 : 0.45,
                     transition: "all .3s",
@@ -218,7 +218,7 @@ export default function Testimonials() {
                     width: i === cur ? 24 : 8,
                     height: 8, borderRadius: 100,
                     background: i === cur ? "#5B30E8" : "rgba(91,48,232,0.2)",
-                    border: "none", cursor: "none",
+                    border: "none", cursor: "pointer",
                     transition: "width .3s, background .3s",
                   }}
                 />

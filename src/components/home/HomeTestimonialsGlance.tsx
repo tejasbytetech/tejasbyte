@@ -130,7 +130,7 @@ export default function HomeTestimonialsGlance() {
                 fontSize: i === cur ? ".65rem" : ".6rem",
                 fontWeight: 800,
                 color: i === cur ? "#fff" : "#5B30E8",
-                cursor: "none",
+                cursor: "pointer",
                 transition: "all .3s",
               }}>{item.init}</button>
             ))}
@@ -141,7 +141,7 @@ export default function HomeTestimonialsGlance() {
               <button key={i} onClick={() => go(i)} style={{
                 width: i === cur ? 24 : 8, height: 8, borderRadius: 100,
                 background: i === cur ? "#5B30E8" : "rgba(91,48,232,0.2)",
-                border: "none", cursor: "none",
+                border: "none", cursor: "pointer",
                 transition: "width .3s, background .3s",
               }} />
             ))}

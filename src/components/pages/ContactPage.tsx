@@ -81,7 +81,9 @@ export default function ContactPage() {
               <div style={{ background: "#fff", border: "1.5px solid #E2E4EA", borderRadius: 12, padding: "18px 20px", display: "flex", alignItems: "flex-start", gap: 14, transition: "border-color .2s" }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(91,48,232,0.35)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "#E2E4EA"; }}>
-                <div style={{ width: 42, height: 42, borderRadius: 10, flexShrink: 0, background: "#2D3A6E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.1rem" }}>💬</div>
+                <div style={{ width: 42, height: 42, borderRadius: 10, flexShrink: 0, background: "#25D366", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <svg viewBox="0 0 24 24" fill="white" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.534 5.848L.057 23.888a.75.75 0 00.956.956l6.04-1.477A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.938a9.938 9.938 0 01-5.07-1.385l-.361-.215-3.736.914.93-3.636-.236-.374A9.904 9.904 0 012.063 12C2.063 6.505 6.505 2.063 12 2.063c5.494 0 9.938 4.442 9.938 9.937 0 5.494-4.444 9.938-9.938 9.938z"/></svg>
+                </div>
                 <div>
                   <p style={{ fontSize: ".62rem", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "#9CA3AF", marginBottom: 4 }}>WhatsApp</p>
                   <a href="https://wa.me/9849627282" target="_blank" rel="noopener noreferrer" style={{ fontSize: ".875rem", fontWeight: 600, color: "#1A1035", textDecoration: "none", transition: "color .2s" }}
@@ -122,7 +124,7 @@ export default function ContactPage() {
                   <div style={{ width: 64, height: 64, borderRadius: "50%", background: "linear-gradient(135deg,#5B30E8,#7C5CFC)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px", fontSize: "1.6rem", color: "#fff" }}>✓</div>
                   <h3 style={{ fontSize: "1.4rem", fontWeight: 800, color: "#1A1035", marginBottom: 10 }}>Message Sent!</h3>
                   <p style={{ fontSize: ".9rem", color: "#6B7280", marginBottom: 24 }}>We&apos;ll get back to you within 24 hours.</p>
-                  <button onClick={reset} style={{ fontSize: ".85rem", color: "#5B30E8", background: "none", border: "1.5px solid rgba(91,48,232,0.3)", borderRadius: 8, padding: "8px 20px", cursor: "none" }}>
+                  <button onClick={reset} style={{ fontSize: ".85rem", color: "#5B30E8", background: "none", border: "1.5px solid rgba(91,48,232,0.3)", borderRadius: 8, padding: "8px 20px", cursor: "pointer" }}>
                     Send Another
                   </button>
                 </div>

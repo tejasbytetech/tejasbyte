@@ -234,7 +234,7 @@ export default function Stats() {
             style={{
               padding: "14px 36px", borderRadius: 10,
               background: "#fff", color: "#5B30E8",
-              border: "none", cursor: "none",
+              border: "none", cursor: "pointer",
               fontFamily: '"Inter",sans-serif',
               fontSize: ".85rem", fontWeight: 700,
               letterSpacing: ".02em",

@@ -7,9 +7,22 @@ export default function CursorTrail() {
   const ringPos = useRef({ x: 0, y: 0 });
   const mouse   = useRef({ x: 0, y: 0 });
   const rafId   = useRef(0);
+  const visible = useRef(false);
 
   useEffect(() => {
+    // Don't show on touch devices
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    const show = () => {
+      if (!visible.current) {
+        visible.current = true;
+        if (dotRef.current)  dotRef.current.style.opacity  = "1";
+        if (ringRef.current) ringRef.current.style.opacity = "1";
+      }
+    };
+
     const onMove = (e: MouseEvent) => {
+      show();
       mouse.current = { x: e.clientX, y: e.clientY };
       if (dotRef.current) {
         dotRef.current.style.left = e.clientX + "px";
@@ -40,6 +53,7 @@ export default function CursorTrail() {
         ringRef.current.style.borderColor = "rgba(91,48,232,0.45)";
       }
     };
+
     const onOut = () => {
       if (dotRef.current) {
         dotRef.current.style.width      = "6px";
@@ -76,7 +90,7 @@ export default function CursorTrail() {
 
   return (
     <>
-      {/* Dot */}
+      {/* Dot — hidden until first mouse move */}
       <div ref={dotRef} style={{
         position: "fixed", top: 0, left: 0,
         width: 6, height: 6,
@@ -86,9 +100,10 @@ export default function CursorTrail() {
         zIndex: 99999,
         transform: "translate(-50%,-50%)",
         boxShadow: "0 0 8px rgba(91,48,232,0.5)",
-        transition: "width .18s, height .18s, background .2s, box-shadow .2s",
+        transition: "width .18s, height .18s, background .2s, box-shadow .2s, opacity .3s",
+        opacity: 0,
       }} />
-      {/* Ring */}
+      {/* Ring — hidden until first mouse move */}
       <div ref={ringRef} style={{
         position: "fixed", top: 0, left: 0,
         width: 32, height: 32,
@@ -97,7 +112,8 @@ export default function CursorTrail() {
         pointerEvents: "none",
         zIndex: 99998,
         transform: "translate(-50%,-50%)",
-        transition: "width .4s cubic-bezier(.16,1,.3,1), height .4s cubic-bezier(.16,1,.3,1), border-color .3s",
+        transition: "width .4s cubic-bezier(.16,1,.3,1), height .4s cubic-bezier(.16,1,.3,1), border-color .3s, opacity .3s",
+        opacity: 0,
       }} />
     </>
   );

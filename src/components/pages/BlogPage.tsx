@@ -33,7 +33,7 @@ export default function BlogPage() {
                 background: activeFilter === c ? "#2D3A6E" : "transparent",
                 border: `1.5px solid ${activeFilter === c ? "#2D3A6E" : "rgba(91,48,232,0.2)"}`,
                 color: activeFilter === c ? "#fff" : "rgba(26,16,53,0.6)",
-                fontSize: ".8rem", fontWeight: 600, cursor: "none", transition: "all .2s",
+                fontSize: ".8rem", fontWeight: 600, cursor: "pointer", transition: "all .2s",
               }}>{c}</button>
             ))}
           </div>

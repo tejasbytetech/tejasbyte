@@ -193,7 +193,7 @@ export default function Navbar() {
           onClick={() => setMobileOpen(v => !v)}
           style={{
             marginLeft: "auto", marginRight: 24,
-            background: "none", border: "none", cursor: "none",
+            background: "none", border: "none", cursor: "pointer",
             display: "flex", flexDirection: "column", gap: 5, padding: 8,
           }}
           aria-label="Menu"

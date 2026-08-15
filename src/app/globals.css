@@ -28,7 +28,6 @@
 html {
   overflow-x: hidden;
   font-size: 16px;
-  cursor: none;
   scroll-behavior: smooth;
 }
 
@@ -39,7 +38,6 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  cursor: none;
 }
 
 /* ── Scrollbar ─────────────────────────── */
@@ -146,7 +144,7 @@ body::after {
   font-size: .85rem; font-weight: 600;
   letter-spacing: .02em;
   border: 1px solid rgba(255,255,255,0.12);
-  cursor: none;
+  
   position: relative; overflow: hidden;
   transition: background .25s, transform .2s, box-shadow .25s;
   box-shadow: 0 4px 16px rgba(13,20,50,0.4);
@@ -168,7 +166,7 @@ body::after {
   font-family: "Inter", sans-serif;
   font-size: .85rem; font-weight: 600;
   letter-spacing: .02em;
-  border: 1.5px solid rgba(91,48,232,0.35); cursor: none;
+  border: 1.5px solid rgba(91,48,232,0.35); 
   transition: border-color .25s, background .25s, transform .2s;
 }
 .btn-outline:hover {

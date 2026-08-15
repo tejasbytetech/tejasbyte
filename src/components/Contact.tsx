@@ -243,7 +243,7 @@ export default function Contact() {
                             color: budget === b ? "#fff" : "rgba(26,16,53,0.6)",
                             fontFamily: '"Inter",sans-serif',
                             fontSize: ".75rem", fontWeight: 600,
-                            cursor: "none",
+                            cursor: "pointer",
                             transition: "all .2s",
                           }}
                         >{b}</button>

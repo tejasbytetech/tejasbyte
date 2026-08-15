@@ -126,7 +126,7 @@ export default function Footer() {
                     background: "transparent",
                     color: "#fff",
                     border: "1.5px solid rgba(255,255,255,0.3)",
-                    cursor: "none",
+                    cursor: "pointer",
                     fontSize: ".8rem", fontWeight: 700,
                     whiteSpace: "nowrap",
                     transition: "border-color .2s, background .2s",
