@@ -208,8 +208,8 @@ export default function Footer() {
           </p>
           <div style={{ display: "flex", gap: 24 }}>
             {[
-              { label: "Privacy", href: "/privacy" },
-              { label: "Terms",   href: "/terms"   },
+              { label: "Privacy Policy", href: "/privacy" },
+              { label: "Data Policy",    href: "/data-policy" },
             ].map(l => (
               <a key={l.label} href={l.href} style={{
                 fontSize: ".75rem", color: "rgba(255,255,255,0.22)",

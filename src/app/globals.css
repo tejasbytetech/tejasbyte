@@ -255,6 +255,9 @@ body::after {
   background-size: 28px 28px;
 }
 
+/* ── Legal page TOC links ─────────────── */
+.toc-link:hover { text-decoration: underline; }
+
 /* ── Hero visual desktop/mobile toggle ── */
 .hero-visual-mobile  { display: none; }
 .hero-visual-desktop { display: contents; }
