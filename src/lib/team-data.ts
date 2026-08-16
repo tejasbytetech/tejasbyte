@@ -1,0 +1,160 @@
+export interface TeamMember {
+  name: string;
+  role: string;
+  bio: string;
+  initials: string;
+  accent: string;
+  tags: string[];
+  linkedin: string | null;
+  isFounder?: boolean;
+  isPlaceholder?: boolean;
+}
+
+export const TEAM: TeamMember[] = [
+  {
+    name: "Keshab Gautam",
+    role: "CEO & Founder",
+    bio: "Visionary engineer and entrepreneur who founded Tejasbyte to deliver world-class software engineering from the ground up. Drives product strategy, client partnerships, and company vision.",
+    initials: "KG",
+    accent: "#5B30E8",
+    tags: ["Product Strategy", "AI/ML", "Cloud Architecture"],
+    linkedin: "https://www.linkedin.com/company/tejasbyte",
+    isFounder: true,
+  },
+  {
+    name: "Aarogya Adhikari",
+    role: "Co-Founder & CTO",
+    bio: "Full-stack architect who leads Tejasbyte's technical direction and engineering culture. Specialises in scalable platform design, cloud infrastructure, and distributed systems.",
+    initials: "AA",
+    accent: "#7C5CFC",
+    tags: ["Full-Stack", "DevOps", "System Design"],
+    linkedin: "https://www.linkedin.com/company/tejasbyte",
+    isFounder: true,
+  },
+  {
+    name: "Sujan Maharjan",
+    role: "Co-Founder",
+    bio: "Co-founder instrumental in establishing Tejasbyte's operations and client delivery standards. Brings deep expertise in software delivery and cross-functional team leadership.",
+    initials: "SM",
+    accent: "#A78BFA",
+    tags: ["Operations", "Delivery", "Team Leadership"],
+    linkedin: "https://www.linkedin.com/company/tejasbyte",
+    isFounder: true,
+  },
+  {
+    name: "Puskar Adhikari",
+    role: "Co-Founder & Senior QA Engineer",
+    bio: "Co-founder and quality champion who ensures every product Tejasbyte ships meets the highest standards. Leads QA strategy, automated testing pipelines, and release engineering.",
+    initials: "PA",
+    accent: "#5B30E8",
+    tags: ["QA Engineering", "Test Automation", "Release Management"],
+    linkedin: "https://www.linkedin.com/company/tejasbyte",
+    isFounder: true,
+  },
+  {
+    name: "Sagar Adhikari",
+    role: "Full-Stack Developer & Engineering Manager",
+    bio: "Manages engineering delivery while staying hands-on with code. Brings depth in Next.js, Node.js, and team coordination across concurrent project engagements.",
+    initials: "SA",
+    accent: "#7C5CFC",
+    tags: ["Next.js", "Node.js", "Engineering Management"],
+    linkedin: "https://www.linkedin.com/company/tejasbyte",
+  },
+  {
+    name: "Prabin Adhikari",
+    role: "Senior Developer",
+    bio: "Seasoned engineer with production experience across web platforms, APIs, and backend systems. Known for clean architecture and reliable delivery on complex engagements.",
+    initials: "PrA",
+    accent: "#A78BFA",
+    tags: ["Backend", "APIs", "PostgreSQL"],
+    linkedin: "https://www.linkedin.com/company/tejasbyte",
+  },
+  {
+    name: "Rajesh Pandey",
+    role: "Senior Developer",
+    bio: "Senior engineer specialising in scalable backend systems and cloud-native architecture. Brings a strong foundation in performance engineering and system reliability.",
+    initials: "RP",
+    accent: "#5B30E8",
+    tags: ["Cloud-Native", "Microservices", "DevOps"],
+    linkedin: "https://www.linkedin.com/company/tejasbyte",
+  },
+  {
+    name: "Aayush Pradhan",
+    role: "Developer",
+    bio: "Full-stack developer contributing to web and mobile projects with a focus on clean UI implementation, component architecture, and responsive design.",
+    initials: "AP",
+    accent: "#7C5CFC",
+    tags: ["React", "Mobile", "UI Engineering"],
+    linkedin: "https://www.linkedin.com/company/tejasbyte",
+  },
+  {
+    name: "Aashitosh Adhikari",
+    role: "Developer",
+    bio: "Software developer with growing expertise across web technologies and API integrations. Brings energy, curiosity, and solid fundamentals to every project.",
+    initials: "AsA",
+    accent: "#A78BFA",
+    tags: ["Web Development", "APIs", "TypeScript"],
+    linkedin: "https://www.linkedin.com/company/tejasbyte",
+  },
+  {
+    name: "Shyam Shrestha",
+    role: "Legal Advisor",
+    bio: "Provides legal counsel across contracts, intellectual property, compliance, and corporate governance. Ensures Tejasbyte's operations meet legal standards across jurisdictions.",
+    initials: "SS",
+    accent: "#5B30E8",
+    tags: ["Corporate Law", "IP & Contracts", "Compliance"],
+    linkedin: "https://www.linkedin.com/company/tejasbyte",
+  },
+  {
+    name: "Senior Engineer",
+    role: "Senior Frontend Engineer",
+    bio: "React and Next.js specialist focused on performance, accessibility, and pixel-perfect implementation of complex UI systems.",
+    initials: "FE",
+    accent: "#7C5CFC",
+    tags: ["React", "Next.js", "Accessibility"],
+    linkedin: null,
+    isPlaceholder: true,
+  },
+  {
+    name: "Senior Engineer",
+    role: "Senior AI Engineer",
+    bio: "Production AI specialist with expertise in LLM integrations, RAG pipelines, and autonomous agent systems for enterprise-scale applications.",
+    initials: "AI",
+    accent: "#A78BFA",
+    tags: ["OpenAI", "LangChain", "Python"],
+    linkedin: null,
+    isPlaceholder: true,
+  },
+  {
+    name: "Senior Engineer",
+    role: "Lead Mobile Engineer",
+    bio: "React Native expert shipping cross-platform iOS and Android apps with native performance, offline-first architecture, and App Store deployment.",
+    initials: "ME",
+    accent: "#5B30E8",
+    tags: ["React Native", "Expo", "iOS/Android"],
+    linkedin: null,
+    isPlaceholder: true,
+  },
+  {
+    name: "Senior Engineer",
+    role: "Lead Cloud & DevOps Engineer",
+    bio: "AWS and Kubernetes specialist architecting multi-region infrastructure, CI/CD pipelines, and zero-downtime deployments for production systems.",
+    initials: "CE",
+    accent: "#7C5CFC",
+    tags: ["AWS", "Kubernetes", "Terraform"],
+    linkedin: null,
+    isPlaceholder: true,
+  },
+  {
+    name: "Senior Engineer",
+    role: "Security & Compliance Engineer",
+    bio: "Security engineer specialising in SOC 2, HIPAA, and GDPR compliance, penetration testing, zero-trust access control, and threat modelling.",
+    initials: "SE",
+    accent: "#A78BFA",
+    tags: ["SOC 2", "HIPAA", "Pen Testing"],
+    linkedin: null,
+    isPlaceholder: true,
+  },
+];
+
+export const FOUNDERS = TEAM.filter(m => m.isFounder);

@@ -89,7 +89,7 @@ export default function HomeContactGlance() {
             }}
             onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(91,48,232,0.3)"; }}
             onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "#E2E4EA"; }}>
-              <div style={{ width: 40, height: 40, borderRadius: 10, flexShrink: 0, background: "#2D3A6E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem" }}>📍</div>
+              <div style={{ width: 40, height: 40, borderRadius: 10, flexShrink: 0, background: "#fff", border: "1.5px solid #E2E4EA", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem" }}>📍</div>
               <div>
                 <p style={{ fontSize: ".65rem", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "#9CA3AF", marginBottom: 4 }}>Our Offices</p>
                 <p style={{ fontSize: ".875rem", fontWeight: 600, color: "#1A1035", lineHeight: 1.65 }}>

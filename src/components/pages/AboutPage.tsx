@@ -1,7 +1,7 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
+import { FOUNDERS } from "@/lib/team-data";
 
 const VALUES = [
   { icon: "👥", title: "Senior-Only Engineering",      desc: "Every engineer has solid production experience. No juniors learning on your codebase." },
@@ -69,8 +69,101 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Why us */}
+      {/* ── Leadership — 4 founders only ── */}
       <section style={{ background: "#F7F5FF", padding: "80px 52px" }}>
+        <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
+          {/* Header */}
+          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 20, marginBottom: 48 }}>
+            <div>
+              <span className="section-label" style={{ marginBottom: 16, display: "inline-flex" }}>Leadership</span>
+              <h2 style={{ fontSize: "clamp(1.8rem,3.5vw,2.8rem)", fontWeight: 800, lineHeight: 1.12, letterSpacing: "-.03em", color: "#1A1035", marginTop: 16 }}>
+                The founders behind{" "}
+                <span className="gradient-text">Tejasbyte</span>
+              </h2>
+            </div>
+            <Link href="/team" style={{
+              display: "inline-flex", alignItems: "center", gap: 8,
+              fontSize: ".85rem", fontWeight: 700, color: "#5B30E8",
+              textDecoration: "none", border: "1.5px solid rgba(91,48,232,0.25)",
+              borderRadius: 10, padding: "10px 22px", transition: "background .2s, border-color .2s",
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(91,48,232,0.06)"; (e.currentTarget as HTMLElement).style.borderColor = "#5B30E8"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(91,48,232,0.25)"; }}
+            >
+              Meet the full team →
+            </Link>
+          </div>
+
+          {/* 4 founder cards */}
+          <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 24 }}>
+            {FOUNDERS.map((member, i) => (
+              <div key={i} style={{
+                background: "#fff",
+                border: "1.5px solid rgba(91,48,232,0.1)",
+                borderRadius: 20,
+                padding: "28px 24px",
+                position: "relative", overflow: "hidden",
+                transition: "border-color .3s, transform .3s, box-shadow .3s",
+              }}
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.borderColor = `${member.accent}45`;
+                el.style.transform = "translateY(-6px)";
+                el.style.boxShadow = `0 20px 60px ${member.accent}14`;
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.borderColor = "rgba(91,48,232,0.1)";
+                el.style.transform = "translateY(0)";
+                el.style.boxShadow = "none";
+              }}
+              >
+                {/* Avatar */}
+                <div style={{
+                  width: 64, height: 64, borderRadius: "50%",
+                  background: `linear-gradient(135deg, ${member.accent} 0%, ${member.accent}88 100%)`,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: "1rem", fontWeight: 800, color: "#fff",
+                  boxShadow: `0 8px 24px ${member.accent}35`,
+                  marginBottom: 16,
+                }}>{member.initials}</div>
+
+                <div style={{ fontSize: "1rem", fontWeight: 800, color: "#1A1035", marginBottom: 4 }}>{member.name}</div>
+                <div style={{ fontSize: ".75rem", fontWeight: 600, color: member.accent, marginBottom: 14 }}>{member.role}</div>
+                <p style={{ fontSize: ".82rem", lineHeight: 1.7, color: "rgba(26,16,53,0.5)", marginBottom: 16 }}>{member.bio}</p>
+
+                {/* Tags */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginBottom: member.linkedin ? 16 : 0 }}>
+                  {member.tags.map(t => (
+                    <span key={t} style={{
+                      padding: "3px 9px", borderRadius: 100,
+                      background: `${member.accent}10`, border: `1px solid ${member.accent}25`,
+                      fontSize: ".58rem", fontWeight: 600, letterSpacing: ".05em",
+                      textTransform: "uppercase", color: member.accent,
+                    }}>{t}</span>
+                  ))}
+                </div>
+
+                {/* LinkedIn */}
+                {member.linkedin && (
+                  <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
+                    style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: ".72rem", fontWeight: 700, color: member.accent, textDecoration: "none" }}>
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                    LinkedIn
+                  </a>
+                )}
+
+                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 3, borderRadius: "0 0 20px 20px", background: `linear-gradient(90deg, ${member.accent}, ${member.accent}50)` }} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why us */}
+      <section style={{ background: "#fff", padding: "80px 52px" }}>
         <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
           <div className="about-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
             <div>
@@ -98,7 +191,7 @@ export default function AboutPage() {
             </div>
 
             {/* Contact nudge */}
-            <div style={{ background: "#fff", border: "1.5px solid rgba(91,48,232,0.12)", borderRadius: 24, padding: "40px 36px", boxShadow: "0 20px 60px rgba(91,48,232,0.06)" }}>
+            <div style={{ background: "#F7F5FF", border: "1.5px solid rgba(91,48,232,0.12)", borderRadius: 24, padding: "40px 36px", boxShadow: "0 20px 60px rgba(91,48,232,0.06)" }}>
               <div style={{ fontSize: "2rem", marginBottom: 16 }}>👋</div>
               <h3 style={{ fontSize: "1.2rem", fontWeight: 800, color: "#1A1035", marginBottom: 10, letterSpacing: "-.02em" }}>Let&apos;s talk about your project</h3>
               <p style={{ fontSize: ".9rem", lineHeight: 1.75, color: "rgba(26,16,53,0.55)", marginBottom: 28 }}>
