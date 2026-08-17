@@ -94,20 +94,19 @@ export default function CareersClient({ roles }: Props) {
       {/* ── Bottom CTA — navy dark ── */}
       <section style={{ background: "#fff", padding: "64px 52px 80px" }}>
         <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <div style={{
-            background: "linear-gradient(135deg, #0F1629 0%, #1A1035 100%)",
-            borderRadius: 20, padding: "52px 56px",
+          <div className="cta-strip" style={{
+            background: "#2D3A6E",
+            borderRadius: 20, padding: "52px 64px",
             display: "flex", alignItems: "center", justifyContent: "space-between",
             flexWrap: "wrap", gap: 24, position: "relative", overflow: "hidden",
-          }} className="cta-strip">
-            <div style={{ position: "absolute", top: "-20%", right: "-5%", width: 300, height: 300, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(91,48,232,0.18) 0%, transparent 70%)", pointerEvents: "none" }} />
-            <div style={{ position: "absolute", bottom: "-20%", left: "20%", width: 200, height: 200, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(91,48,232,0.1) 0%, transparent 70%)", pointerEvents: "none" }} />
+          }}>
+            <div style={{ position: "absolute", top: "-40%", right: "-5%", width: 300, height: 300, borderRadius: "50%", background: "rgba(255,255,255,0.04)", pointerEvents: "none" }} />
             <div style={{ position: "relative", zIndex: 1 }}>
-              <h2 style={{ fontSize: "clamp(1.4rem,3vw,2.2rem)", fontWeight: 800, color: "#fff", marginBottom: 8, letterSpacing: "-.02em" }}>
-                Don&apos;t see the right role?
+              <h2 style={{ fontSize: "clamp(1.5rem,3vw,2.2rem)", fontWeight: 800, color: "#fff", marginBottom: 8, letterSpacing: "-.02em" }}>
+                Have a project in mind?
               </h2>
-              <p style={{ fontSize: ".9rem", color: "rgba(255,255,255,0.55)" }}>
-                Send us your CV and tell us what you&apos;re great at. We review every application.
+              <p style={{ fontSize: ".95rem", color: "rgba(255,255,255,0.65)" }}>
+                Tell us about your project — we&apos;ll get back to you within 24 hours.
               </p>
             </div>
             <button
@@ -118,14 +117,13 @@ export default function CareersClient({ roles }: Props) {
                 background: "#fff", color: "#2D3A6E",
                 border: "none", cursor: "pointer",
                 fontSize: ".875rem", fontWeight: 700,
-                position: "relative", zIndex: 1, flexShrink: 0,
-                boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
+                flexShrink: 0, position: "relative", zIndex: 1,
                 transition: "transform .2s, box-shadow .2s",
               }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 28px rgba(0,0,0,0.3)"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 20px rgba(0,0,0,0.2)"; }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 24px rgba(0,0,0,0.15)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
             >
-              Get in Touch →
+              Contact Us →
             </button>
           </div>
         </div>
