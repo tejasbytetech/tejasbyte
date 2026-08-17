@@ -33,13 +33,13 @@ export const TEAM: TeamMember[] = [
   },
   {
     name: "Sujan Maharjan",
-    role: "Co-Founder",
-    bio: "Co-founder instrumental in establishing Tejasbyte's operations and client delivery standards. Brings deep expertise in software delivery and cross-functional team leadership.",
+    role: "CTO & Full-Stack Developer",
+    bio: "Technical leader and full-stack engineer driving architecture decisions and hands-on development. Brings deep expertise in software delivery, system design, and cross-functional team leadership.",
     initials: "SM",
     accent: "#A78BFA",
-    tags: ["Operations", "Delivery", "Team Leadership"],
+    tags: ["Full-Stack", "System Design", "Technical Leadership"],
     linkedin: "https://www.linkedin.com/company/tejasbyte",
-    isFounder: true,
+    isFounder: false,
   },
   {
     name: "Puskar Adhikari",

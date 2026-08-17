@@ -497,6 +497,20 @@ body::after {
     justify-content: center !important;
   }
 
+  /* ── Team page grids ────────────────── */
+  .team-founders-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+  .team-core-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+  .team-openings-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px !important;
+  }
+
   /* ── Mobile nav menu — no empty gap ─── */
   .mobile-menu-nav {
     padding-top: 80px !important;

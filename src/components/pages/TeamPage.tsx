@@ -45,7 +45,7 @@ export default function TeamPageClient() {
       <section style={{ background: "#fff", padding: "72px 52px 56px" }}>
         <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
           <SectionTitle>Founders &amp; Leadership</SectionTitle>
-          <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 28 }}>
+          <div className="stats-grid team-founders-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 28 }}>
             {founders.map((m, i) => (
               <div key={i}>
                 {/* Photo box */}
