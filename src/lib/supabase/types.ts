@@ -7,6 +7,8 @@ export interface TeamMemberRow {
   accent: string;
   tags: string[];
   linkedin: string | null;
+  social_urls: string[];
+  photo_url: string | null;
   is_founder: boolean;
   is_placeholder: boolean;
   sort_order: number;

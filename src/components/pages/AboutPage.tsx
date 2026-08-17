@@ -1,7 +1,23 @@
 "use client";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
-import { FOUNDERS } from "@/lib/team-data";
+
+interface Member {
+  id: string;
+  name: string;
+  role: string;
+  bio: string;
+  initials: string;
+  accent: string;
+  tags: string[];
+  linkedin: string | null;
+  photo_url?: string | null;
+  is_founder: boolean;
+}
+
+interface Props {
+  founders: Member[];
+}
 
 const VALUES = [
   { icon: "👥", title: "Senior-Only Engineering",      desc: "Every engineer has solid production experience. No juniors learning on your codebase." },
@@ -12,7 +28,7 @@ const VALUES = [
   { icon: "🌏", title: "Global Standards, Competitive Rates", desc: "Incorporated in the US and engineered in Nepal — we deliver world-class software at rates that make long-term partnership sustainable." },
 ];
 
-export default function AboutPage() {
+export default function AboutPage({ founders }: Props) {
   return (
     <>
       <PageHero
@@ -94,14 +110,14 @@ export default function AboutPage() {
             </Link>
           </div>
 
-          {/* 4 founder cards */}
+          {/* founder cards */}
           <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 24 }}>
-            {FOUNDERS.map((member, i) => (
+            {founders.map((member, i) => (
               <div key={i} style={{
                 background: "#fff",
                 border: "1.5px solid rgba(91,48,232,0.1)",
                 borderRadius: 20,
-                padding: "28px 24px",
+                padding: 0,
                 position: "relative", overflow: "hidden",
                 transition: "border-color .3s, transform .3s, box-shadow .3s",
               }}
@@ -118,15 +134,34 @@ export default function AboutPage() {
                 el.style.boxShadow = "none";
               }}
               >
-                {/* Avatar */}
+                {/* Photo — full rectangle top of card */}
                 <div style={{
-                  width: 64, height: 64, borderRadius: "50%",
-                  background: `linear-gradient(135deg, ${member.accent} 0%, ${member.accent}88 100%)`,
+                  width: "100%", aspectRatio: "4/3", borderRadius: "14px 14px 0 0",
+                  background: `linear-gradient(145deg, ${member.accent}20 0%, ${member.accent}08 100%)`,
+                  position: "relative", overflow: "hidden",
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: "1rem", fontWeight: 800, color: "#fff",
-                  boxShadow: `0 8px 24px ${member.accent}35`,
-                  marginBottom: 16,
-                }}>{member.initials}</div>
+                  marginBottom: 0,
+                }}>
+                  {member.photo_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={member.photo_url}
+                      alt={member.name}
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
+                    />
+                  ) : (
+                    <div style={{
+                      width: 64, height: 64, borderRadius: "50%",
+                      background: `linear-gradient(135deg, ${member.accent} 0%, ${member.accent}88 100%)`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontSize: "1.2rem", fontWeight: 800, color: "#fff",
+                      boxShadow: `0 8px 24px ${member.accent}40`,
+                    }}>{member.initials}</div>
+                  )}
+                </div>
+
+                {/* Content below photo */}
+                <div style={{ padding: "16px 20px 20px" }}>
 
                 <div style={{ fontSize: "1rem", fontWeight: 800, color: "#1A1035", marginBottom: 4 }}>{member.name}</div>
                 <div style={{ fontSize: ".75rem", fontWeight: 600, color: member.accent, marginBottom: 14 }}>{member.role}</div>
@@ -156,6 +191,7 @@ export default function AboutPage() {
                 )}
 
                 <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 3, borderRadius: "0 0 20px 20px", background: `linear-gradient(90deg, ${member.accent}, ${member.accent}50)` }} />
+                </div>{/* close content div */}
               </div>
             ))}
           </div>

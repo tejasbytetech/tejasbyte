@@ -1,17 +1,31 @@
 "use client";
 import Link from "next/link";
-import { TEAM } from "@/lib/team-data";
+import { SocialLinks } from "@/lib/social-url";
 
-const LINKEDIN_SVG = (
-  <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15">
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-  </svg>
-);
+interface Member {
+  id: string;
+  name: string;
+  role: string;
+  bio: string;
+  initials: string;
+  accent: string;
+  tags: string[];
+  linkedin: string | null;
+  social_urls?: string[];
+  photo_url?: string | null;
+  is_founder: boolean;
+  is_placeholder: boolean;
+  sort_order: number;
+}
 
-export default function TeamPageClient() {
-  const founders = TEAM.filter(m => m.isFounder);
-  const core     = TEAM.filter(m => !m.isFounder && !m.isPlaceholder);
-  const openings = TEAM.filter(m => m.isPlaceholder);
+interface Props {
+  members: Member[];
+}
+
+export default function TeamPageClient({ members }: Props) {
+  const founders = members.filter(m => m.is_founder);
+  const core     = members.filter(m => !m.is_founder && !m.is_placeholder);
+  const openings = members.filter(m => m.is_placeholder);
 
   return (
     <>
@@ -48,17 +62,33 @@ export default function TeamPageClient() {
           <div className="stats-grid team-founders-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 28 }}>
             {founders.map((m, i) => (
               <div key={i}>
-                {/* Photo box */}
+                {/* Photo box — full rectangle, fills card top */}
                 <div style={{
-                  width: "100%", aspectRatio: "1", borderRadius: 16, marginBottom: 14,
+                  width: "100%", aspectRatio: "4/3", borderRadius: 16, marginBottom: 16,
                   background: `linear-gradient(145deg, ${m.accent}20 0%, ${m.accent}08 100%)`,
-                  border: `1.5px solid ${m.accent}22`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
+                  border: `1.5px solid ${m.accent}20`,
                   position: "relative", overflow: "hidden",
+                  display: "flex", alignItems: "center", justifyContent: "center",
                 }}>
-                  <Avatar initials={m.initials} accent={m.accent} size={72} fontSize="1.4rem" />
-                  {m.isFounder && (
-                    <div style={{ position: "absolute", top: 10, right: 10, background: `${m.accent}18`, border: `1px solid ${m.accent}30`, borderRadius: 100, padding: "2px 8px", fontSize: ".58rem", fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: m.accent }}>
+                  {m.photo_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={m.photo_url}
+                      alt={m.name}
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
+                    />
+                  ) : (
+                    /* Fallback — large initials centred */
+                    <div style={{
+                      width: 72, height: 72, borderRadius: "50%",
+                      background: `linear-gradient(135deg, ${m.accent} 0%, ${m.accent}88 100%)`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontSize: "1.4rem", fontWeight: 800, color: "#fff",
+                      boxShadow: `0 8px 24px ${m.accent}40`,
+                    }}>{m.initials}</div>
+                  )}
+                  {m.is_founder && (
+                    <div style={{ position: "absolute", top: 10, right: 10, background: "rgba(255,255,255,0.92)", backdropFilter: "blur(6px)", border: `1px solid ${m.accent}30`, borderRadius: 100, padding: "2px 10px", fontSize: ".58rem", fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: m.accent }}>
                       Founder
                     </div>
                   )}
@@ -72,8 +102,8 @@ export default function TeamPageClient() {
                     <span key={t} style={{ padding: "2px 8px", borderRadius: 100, background: `${m.accent}10`, border: `1px solid ${m.accent}20`, fontSize: ".6rem", fontWeight: 600, letterSpacing: ".05em", textTransform: "uppercase", color: m.accent }}>{t}</span>
                   ))}
                 </div>
-                {/* Socials */}
-                <SocialRow linkedin={m.linkedin} />
+                {/* Socials — LinkedIn + other URLs */}
+                <SocialLinks urls={m.linkedin ? [m.linkedin] : []} size={30} />
               </div>
             ))}
           </div>
@@ -95,8 +125,14 @@ export default function TeamPageClient() {
                   background: `linear-gradient(145deg, ${m.accent}15 0%, ${m.accent}05 100%)`,
                   border: `1.5px solid ${m.accent}18`,
                   display: "flex", alignItems: "center", justifyContent: "center",
+                  position: "relative", overflow: "hidden",
                 }}>
-                  <Avatar initials={m.initials} accent={m.accent} size={56} fontSize="1rem" />
+                  {m.photo_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={m.photo_url} alt={m.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }} />
+                  ) : (
+                    <Avatar photo={null} initials={m.initials} accent={m.accent} size={56} fontSize="1rem" />
+                  )}
                 </div>
                 <div style={{ fontSize: ".9rem", fontWeight: 800, color: "#1A1035", marginBottom: 3 }}>{m.name}</div>
                 <div style={{ fontSize: ".72rem", fontWeight: 600, color: m.accent, marginBottom: 10 }}>{m.role}</div>
@@ -105,7 +141,7 @@ export default function TeamPageClient() {
                     <span key={t} style={{ padding: "2px 7px", borderRadius: 100, background: `${m.accent}10`, fontSize: ".58rem", fontWeight: 600, color: m.accent, letterSpacing: ".04em", textTransform: "uppercase" }}>{t}</span>
                   ))}
                 </div>
-                <SocialRow linkedin={m.linkedin} center />
+                <SocialLinks urls={m.linkedin ? [m.linkedin] : []} size={28} center />
               </div>
             ))}
           </div>
@@ -149,30 +185,31 @@ export default function TeamPageClient() {
             ))}
           </div>
 
-          {/* Hiring CTA */}
+          {/* Hiring CTA — navy dark */}
           <div style={{
             marginTop: 48,
-            background: "linear-gradient(135deg, #5B30E8 0%, #7C5CFC 100%)",
+            background: "linear-gradient(135deg, #0F1629 0%, #1A1035 100%)",
             borderRadius: 20, padding: "44px 52px",
             display: "flex", alignItems: "center", justifyContent: "space-between",
             flexWrap: "wrap", gap: 24, position: "relative", overflow: "hidden",
           }} className="cta-strip">
-            <div style={{ position: "absolute", top: "-40%", right: "-5%", width: 280, height: 280, borderRadius: "50%", background: "rgba(255,255,255,0.06)", pointerEvents: "none" }} />
+            <div style={{ position: "absolute", top: "-40%", right: "-5%", width: 280, height: 280, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(91,48,232,0.18) 0%, transparent 70%)", pointerEvents: "none" }} />
             <div style={{ position: "relative", zIndex: 1 }}>
               <h3 style={{ fontSize: "clamp(1.3rem,2.5vw,2rem)", fontWeight: 800, color: "#fff", marginBottom: 8, letterSpacing: "-.02em" }}>Interested in joining us?</h3>
-              <p style={{ fontSize: ".9rem", color: "rgba(255,255,255,0.65)", lineHeight: 1.6 }}>
+              <p style={{ fontSize: ".9rem", color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>
                 We&apos;re always looking for senior engineers who care deeply about craft. Send us your work.
               </p>
             </div>
             <Link href="/contact" style={{
               display: "inline-flex", alignItems: "center", gap: 8,
-              padding: "13px 32px", borderRadius: 10, background: "#fff", color: "#5B30E8",
+              padding: "13px 32px", borderRadius: 10, background: "#fff", color: "#2D3A6E",
               fontSize: ".875rem", fontWeight: 700, textDecoration: "none",
               position: "relative", zIndex: 1, flexShrink: 0,
+              boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
               transition: "transform .2s, box-shadow .2s",
             }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 24px rgba(0,0,0,0.15)"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 28px rgba(0,0,0,0.3)"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 20px rgba(0,0,0,0.2)"; }}>
               Get in Touch →
             </Link>
           </div>
@@ -193,7 +230,7 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Avatar({ initials, accent, size, fontSize }: { initials: string; accent: string; size: number; fontSize: string }) {
+function Avatar({ photo, initials, accent, size, fontSize }: { photo?: string | null; initials: string; accent: string; size: number; fontSize: string }) {
   return (
     <div style={{
       width: size, height: size, borderRadius: "50%",
@@ -201,23 +238,13 @@ function Avatar({ initials, accent, size, fontSize }: { initials: string; accent
       display: "flex", alignItems: "center", justifyContent: "center",
       fontSize, fontWeight: 800, color: "#fff",
       boxShadow: `0 8px 24px ${accent}40`,
-      flexShrink: 0,
-    }}>{initials}</div>
-  );
-}
-
-function SocialRow({ linkedin, center }: { linkedin: string | null; center?: boolean }) {
-  if (!linkedin) return null;
-  return (
-    <div style={{ display: "flex", gap: 6, justifyContent: center ? "center" : "flex-start" }}>
-      <a href={linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-        style={{ width: 30, height: 30, borderRadius: 8, border: "1.5px solid #E2E4EA", display: "flex", alignItems: "center", justifyContent: "center", color: "#6B7280", textDecoration: "none", transition: "all .2s" }}
-        onMouseEnter={e => { const a = e.currentTarget as HTMLAnchorElement; a.style.borderColor = "#0077B5"; a.style.color = "#0077B5"; a.style.background = "rgba(0,119,181,0.06)"; }}
-        onMouseLeave={e => { const a = e.currentTarget as HTMLAnchorElement; a.style.borderColor = "#E2E4EA"; a.style.color = "#6B7280"; a.style.background = "transparent"; }}>
-        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
-          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-        </svg>
-      </a>
+      flexShrink: 0, overflow: "hidden", position: "relative",
+    }}>
+      {photo
+        // eslint-disable-next-line @next/next/no-img-element
+        ? <img src={photo} alt={initials} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+        : initials
+      }
     </div>
   );
 }

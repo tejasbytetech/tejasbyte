@@ -511,6 +511,26 @@ body::after {
     gap: 14px !important;
   }
 
+  /* ── Apply modal ─────────────────────── */
+  .apply-modal-inner {
+    width: calc(100vw - 24px) !important;
+    max-height: 92vh !important;
+    padding: 0 !important;
+  }
+  .apply-modal-form-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Careers role card ───────────────── */
+  .careers-role-top {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .careers-apply-btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
   /* ── Mobile nav menu — no empty gap ─── */
   .mobile-menu-nav {
     padding-top: 80px !important;

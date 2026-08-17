@@ -56,7 +56,14 @@ export default async function AdminTeamPage() {
                 background: `linear-gradient(135deg, ${m.accent} 0%, ${m.accent}88 100%)`,
                 display: "flex", alignItems: "center", justifyContent: "center",
                 fontSize: ".65rem", fontWeight: 800, color: "#fff",
-              }}>{m.initials}</div>
+                overflow: "hidden",
+              }}>
+                {(m as any).photo_url
+                  // eslint-disable-next-line @next/next/no-img-element
+                  ? <img src={(m as any).photo_url} alt={m.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  : m.initials
+                }
+              </div>
               <div>
                 <div style={{ fontSize: ".9rem", fontWeight: 700, color: "#1A1035" }}>{m.name}</div>
                 {m.linkedin && <div style={{ fontSize: ".7rem", color: "#5B30E8" }}>Has LinkedIn</div>}

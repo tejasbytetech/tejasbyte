@@ -33,9 +33,11 @@ export default async function HiringFormPage({ params }: Props) {
     };
 
     if (isNew) {
-      await admin.from("hiring").insert(payload);
+      const { error } = await admin.from("hiring").insert(payload);
+      if (error) { console.error("Hiring insert error:", error.message); throw new Error(error.message); }
     } else {
-      await admin.from("hiring").update(payload).eq("id", id);
+      const { error } = await admin.from("hiring").update(payload).eq("id", id);
+      if (error) { console.error("Hiring update error:", error.message); throw new Error(error.message); }
     }
     redirect("/admin/hiring");
   }
