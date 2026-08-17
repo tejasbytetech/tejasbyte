@@ -73,12 +73,12 @@ export async function POST(req: NextRequest) {
               Our team carefully evaluates every application. We'll review your details and get back to you with next steps. We appreciate your interest in joining Tejasbyte.
             </p>
             <div style="background:#f7f5ff;border:1px solid rgba(91,48,232,0.12);border-radius:12px;padding:20px 24px;margin-bottom:28px;">
-              <p style="font-size:13px;font-weight:700;color:#5B30E8;margin:0 0 8px;text-transform:uppercase;letter-spacing:.06em;">What happens next</p>
-              <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;">
-                <li style="font-size:14px;line-height:1.65;color:#1A1035;">Our engineering team reviews your application</li>
-                <li style="font-size:14px;line-height:1.65;color:#1A1035;">If there's a match, we'll reach out to schedule a conversation</li>
-                <li style="font-size:14px;line-height:1.65;color:#1A1035;">We aim to respond to all applications within 5–7 business days</li>
-              </ul>
+              <p style="font-size:13px;font-weight:700;color:#5B30E8;margin:0 0 12px;text-transform:uppercase;letter-spacing:.06em;">What happens next</p>
+              <table style="width:100%;border-collapse:collapse;">
+                <tr><td style="padding:6px 0;vertical-align:top;width:24px;font-size:14px;">1.</td><td style="padding:6px 0;font-size:14px;line-height:1.6;color:#1A1035;">Our engineering team reviews your application</td></tr>
+                <tr><td style="padding:6px 0;vertical-align:top;font-size:14px;">2.</td><td style="padding:6px 0;font-size:14px;line-height:1.6;color:#1A1035;">If there's a match, we'll reach out to schedule a conversation</td></tr>
+                <tr><td style="padding:6px 0;vertical-align:top;font-size:14px;">3.</td><td style="padding:6px 0;font-size:14px;line-height:1.6;color:#1A1035;">We aim to respond to all applications within 5–7 business days</td></tr>
+              </table>
             </div>
             <p style="font-size:14px;line-height:1.75;color:rgba(26,16,53,0.55);margin:0 0 24px;">
               In the meantime, feel free to explore our work at <a href="https://www.tejasbyte.com/portfolio" style="color:#5B30E8;text-decoration:none;">tejasbyte.com/portfolio</a>.
