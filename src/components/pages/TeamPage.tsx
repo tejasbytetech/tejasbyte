@@ -157,31 +157,35 @@ export default function TeamPageClient({ members }: Props) {
           <SectionTitle>We&apos;re Hiring</SectionTitle>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 20 }} className="team-core-grid">
             {openings.map((m, i) => (
-              <div key={i} style={{
-                background: "#F7F5FF",
-                border: "1.5px dashed rgba(91,48,232,0.2)",
-                borderRadius: 14, padding: "24px 16px",
-                textAlign: "center",
-                transition: "border-color .2s, background .2s",
-              }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "#5B30E8"; (e.currentTarget as HTMLElement).style.background = "rgba(91,48,232,0.04)"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(91,48,232,0.2)"; (e.currentTarget as HTMLElement).style.background = "#F7F5FF"; }}>
+              <Link key={i} href="/careers" style={{ textDecoration: "none" }}>
                 <div style={{
-                  width: 52, height: 52, borderRadius: "50%",
-                  background: "rgba(91,48,232,0.06)",
-                  border: "2px dashed rgba(91,48,232,0.2)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  margin: "0 auto 12px",
-                  fontSize: "1.3rem", color: "rgba(91,48,232,0.35)",
-                }}>+</div>
-                <div style={{ fontSize: ".78rem", fontWeight: 700, color: "rgba(26,16,53,0.35)", marginBottom: 4 }}>Open Role</div>
-                <div style={{ fontSize: ".78rem", fontWeight: 700, color: "#5B30E8", marginBottom: 12, lineHeight: 1.4 }}>{m.role}</div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 4, justifyContent: "center" }}>
-                  {m.tags.map(t => (
-                    <span key={t} style={{ padding: "2px 7px", borderRadius: 100, background: "rgba(91,48,232,0.08)", fontSize: ".58rem", fontWeight: 600, color: "#5B30E8", letterSpacing: ".04em", textTransform: "uppercase" }}>{t}</span>
-                  ))}
+                  background: "#F7F5FF",
+                  border: "1.5px dashed rgba(91,48,232,0.2)",
+                  borderRadius: 14, padding: "24px 16px",
+                  textAlign: "center", height: "100%",
+                  transition: "border-color .2s, background .2s, transform .2s",
+                  cursor: "pointer",
+                }}
+                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "#5B30E8"; el.style.background = "rgba(91,48,232,0.06)"; el.style.transform = "translateY(-3px)"; }}
+                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(91,48,232,0.2)"; el.style.background = "#F7F5FF"; el.style.transform = "translateY(0)"; }}>
+                  <div style={{
+                    width: 52, height: 52, borderRadius: "50%",
+                    background: "rgba(91,48,232,0.06)",
+                    border: "2px dashed rgba(91,48,232,0.2)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    margin: "0 auto 12px",
+                    fontSize: "1.3rem", color: "rgba(91,48,232,0.35)",
+                  }}>+</div>
+                  <div style={{ fontSize: ".68rem", fontWeight: 700, color: "rgba(26,16,53,0.35)", marginBottom: 4, letterSpacing: ".06em", textTransform: "uppercase" }}>Open Role</div>
+                  <div style={{ fontSize: ".78rem", fontWeight: 700, color: "#5B30E8", marginBottom: 12, lineHeight: 1.4 }}>{m.role}</div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 4, justifyContent: "center", marginBottom: 10 }}>
+                    {m.tags.map(t => (
+                      <span key={t} style={{ padding: "2px 7px", borderRadius: 100, background: "rgba(91,48,232,0.08)", fontSize: ".58rem", fontWeight: 600, color: "#5B30E8", letterSpacing: ".04em", textTransform: "uppercase" }}>{t}</span>
+                    ))}
+                  </div>
+                  <div style={{ fontSize: ".72rem", color: "rgba(91,48,232,0.6)", fontWeight: 600 }}>View & Apply →</div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
