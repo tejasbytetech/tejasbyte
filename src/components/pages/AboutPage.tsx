@@ -111,7 +111,7 @@ export default function AboutPage({ founders }: Props) {
           </div>
 
           {/* founder cards */}
-          <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 24 }}>
+          <div className="founders-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 24 }}>
             {founders.map((member, i) => (
               <div key={i} style={{
                 background: "#fff",

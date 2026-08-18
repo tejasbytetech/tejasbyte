@@ -59,7 +59,7 @@ export default function TeamPageClient({ members }: Props) {
       <section style={{ background: "#fff", padding: "72px 52px 56px" }}>
         <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
           <SectionTitle>Founders &amp; Leadership</SectionTitle>
-          <div className="stats-grid team-founders-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 28 }}>
+          <div className="team-founders-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 28 }}>
             {founders.map((m, i) => (
               <div key={i}>
                 {/* Photo box — full rectangle, fills card top */}
@@ -117,7 +117,7 @@ export default function TeamPageClient({ members }: Props) {
       <section style={{ background: "#F7F5FF", padding: "56px 52px" }}>
         <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
           <SectionTitle>Engineering &amp; Operations</SectionTitle>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 20 }} className="blog-grid">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 20 }} className="team-core-grid">
             {core.map((m, i) => (
               <div key={i} style={{ textAlign: "center" }}>
                 <div style={{
@@ -155,7 +155,7 @@ export default function TeamPageClient({ members }: Props) {
       <section style={{ background: "#fff", padding: "56px 52px 80px" }}>
         <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>
           <SectionTitle>We&apos;re Hiring</SectionTitle>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 20 }} className="blog-grid">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 20 }} className="team-core-grid">
             {openings.map((m, i) => (
               <div key={i} style={{
                 background: "#F7F5FF",
@@ -185,18 +185,18 @@ export default function TeamPageClient({ members }: Props) {
             ))}
           </div>
 
-          {/* Hiring CTA — navy dark */}
+          {/* Hiring CTA — matching services/blog/portfolio pages */}
           <div style={{
             marginTop: 48,
-            background: "linear-gradient(135deg, #0F1629 0%, #1A1035 100%)",
-            borderRadius: 20, padding: "44px 52px",
+            background: "#2D3A6E",
+            borderRadius: 20, padding: "52px 64px",
             display: "flex", alignItems: "center", justifyContent: "space-between",
             flexWrap: "wrap", gap: 24, position: "relative", overflow: "hidden",
           }} className="cta-strip">
-            <div style={{ position: "absolute", top: "-40%", right: "-5%", width: 280, height: 280, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(91,48,232,0.18) 0%, transparent 70%)", pointerEvents: "none" }} />
+            <div style={{ position: "absolute", top: "-40%", right: "-5%", width: 300, height: 300, borderRadius: "50%", background: "rgba(255,255,255,0.04)", pointerEvents: "none" }} />
             <div style={{ position: "relative", zIndex: 1 }}>
-              <h3 style={{ fontSize: "clamp(1.3rem,2.5vw,2rem)", fontWeight: 800, color: "#fff", marginBottom: 8, letterSpacing: "-.02em" }}>Interested in joining us?</h3>
-              <p style={{ fontSize: ".9rem", color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>
+              <h3 style={{ fontSize: "clamp(1.5rem,3vw,2.2rem)", fontWeight: 800, color: "#fff", marginBottom: 8, letterSpacing: "-.02em" }}>Interested in joining us?</h3>
+              <p style={{ fontSize: ".95rem", color: "rgba(255,255,255,0.65)", lineHeight: 1.6 }}>
                 We&apos;re always looking for senior engineers who care deeply about craft. Send us your work.
               </p>
             </div>
@@ -205,11 +205,10 @@ export default function TeamPageClient({ members }: Props) {
               padding: "13px 32px", borderRadius: 10, background: "#fff", color: "#2D3A6E",
               fontSize: ".875rem", fontWeight: 700, textDecoration: "none",
               position: "relative", zIndex: 1, flexShrink: 0,
-              boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
               transition: "transform .2s, box-shadow .2s",
             }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 28px rgba(0,0,0,0.3)"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 20px rgba(0,0,0,0.2)"; }}>
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 24px rgba(0,0,0,0.15)"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
               Get in Touch →
             </Link>
           </div>

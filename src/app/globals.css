@@ -499,16 +499,21 @@ body::after {
 
   /* ── Team page grids ────────────────── */
   .team-founders-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 20px !important;
-  }
-  .team-core-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: 1fr !important;
     gap: 16px !important;
   }
-  .team-openings-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
+  .team-core-grid {
+    grid-template-columns: 1fr !important;
     gap: 14px !important;
+  }
+  .team-openings-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* ── About page founder grid ─────────── */
+  .founders-grid {
+    grid-template-columns: 1fr !important;
   }
 
   /* ── Apply modal ─────────────────────── */
