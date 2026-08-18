@@ -222,7 +222,7 @@ export default function ApplyModal({ role, onClose }: Props) {
                       </svg>
                       Submitting…
                     </>
-                  ) : "Submit Application →"}
+                  ) : "Submit →"}
                 </button>
                 <button type="button" onClick={onClose} style={{
                   padding: "13px 20px", borderRadius: 10,
