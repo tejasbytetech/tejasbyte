@@ -260,7 +260,23 @@ body::after {
 
 /* ── Hero visual desktop/mobile toggle ── */
 .hero-visual-mobile  { display: none; }
-.hero-visual-desktop { display: contents; }
+.hero-visual-desktop {
+  display: contents;
+  align-items: center;
+  justify-content: center;
+}
+.hero-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Founders grid (About page) ── */
+.founders-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
 
 /* ── Responsive ───────────────────────── */
 @media(max-width:767px) { .hide-sm { display:none !important; } }
@@ -303,6 +319,7 @@ body::after {
     height: auto !important;
     padding: 0 !important;
     align-items: flex-start !important;
+    overflow: hidden !important;
   }
   .hero-grid {
     grid-template-columns: 1fr !important;
@@ -319,13 +336,14 @@ body::after {
   .hero-visual {
     order: 2 !important;
     min-height: unset !important;
-    /* break out of grid padding and span full viewport width */
-    width: 100vw !important;
-    position: relative !important;
-    left: 50% !important;
-    right: 50% !important;
-    margin-left: -50vw !important;
-    margin-right: -50vw !important;
+    width: 100% !important;
+    position: static !important;
+    left: auto !important;
+    margin-left: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    overflow: hidden !important;
   }
   /* hide desktop orbital on mobile */
   .hero-visual-desktop {
@@ -338,8 +356,8 @@ body::after {
     justify-content: center !important;
     width: 100% !important;
     padding: 16px 0 32px !important;
-  }
-  .hero-stats {
+    box-sizing: border-box !important;
+  }  .hero-stats {
     flex-wrap: wrap !important;
     gap: 20px !important;
   }
