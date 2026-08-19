@@ -248,10 +248,10 @@ function FounderCard({ m }: { m: Member }) {
             <div style={{ width: 80, height: 80, borderRadius: "50%", background: `linear-gradient(135deg,${m.accent} 0%,${m.accent}88 100%)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.6rem", fontWeight: 800, color: "#fff", boxShadow: `0 12px 32px ${m.accent}45` }}>{m.initials}</div>
           </div>
         )}
-        {/* Founder badge */}
+        {/* Founder badge — use actual role label */}
         {m.is_founder && (
           <div style={{ position: "absolute", top: 12, left: 12, background: "rgba(255,255,255,0.95)", backdropFilter: "blur(8px)", border: `1px solid ${m.accent}30`, borderRadius: 100, padding: "3px 12px", fontSize: ".6rem", fontWeight: 800, letterSpacing: ".08em", textTransform: "uppercase", color: m.accent }}>
-            Co-Founder
+            {m.role.toLowerCase().includes("co-founder") ? "Co-Founder" : "Founder"}
           </div>
         )}
         {/* Accent bottom bar */}
