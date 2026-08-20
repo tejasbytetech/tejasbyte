@@ -167,8 +167,8 @@ export default function Navbar() {
             onMouseEnter={e => {
               const el = e.currentTarget as HTMLElement;
               if (scrolled) {
-                el.style.background = "#2D3A6E";
-                el.style.boxShadow = "0 8px 28px rgba(91,48,232,0.5)";
+                el.style.background = "#1A2550";
+                el.style.boxShadow = "0 8px 28px rgba(45,58,110,0.5)";
               } else {
                 el.style.background = "rgba(255,255,255,0.12)";
                 el.style.borderColor = "rgba(255,255,255,0.9)";
@@ -177,9 +177,9 @@ export default function Navbar() {
             }}
             onMouseLeave={e => {
               const el = e.currentTarget as HTMLElement;
-              el.style.background = scrolled ? "#5B30E8" : "transparent";
+              el.style.background = scrolled ? "#2D3A6E" : "transparent";
               el.style.borderColor = scrolled ? "#5B30E8" : "rgba(255,255,255,0.55)";
-              el.style.boxShadow = scrolled ? "0 4px 20px rgba(91,48,232,0.35)" : "none";
+              el.style.boxShadow = scrolled ? "0 4px 20px rgba(45,58,110,0.35)" : "none";
               el.style.transform = "translateY(0)";
             }}
           >
