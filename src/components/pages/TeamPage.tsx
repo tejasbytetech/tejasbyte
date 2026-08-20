@@ -117,7 +117,7 @@ export default function TeamPageClient({ members }: Props) {
             <h2 style={{ fontSize: "clamp(1.4rem,2.5vw,2rem)", fontWeight: 800, color: "#1A1035", letterSpacing: "-.03em", marginBottom: 40 }}>
               The builders
             </h2>
-            <div className="team-core-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 24 }}>
+            <div className="team-core-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 28 }}>
               {core.map((m, i) => (
                 <CoreCard key={i} m={m} />
               ))}

@@ -215,22 +215,27 @@ export default function Navbar() {
         </button>
       </header>
 
-      {/* Mobile menu */}
+      {/* Mobile menu — smooth slide + fade */}
       <div className="show-sm mobile-menu-nav" style={{
         position: "fixed", inset: 0, zIndex: 9980,
         background: "rgba(255,255,255,0.98)", backdropFilter: "blur(24px)",
+        WebkitBackdropFilter: "blur(24px)",
         display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: "center", gap: 4,
         paddingTop: 88,
         opacity: mobileOpen ? 1 : 0,
+        transform: mobileOpen ? "translateY(0)" : "translateY(-12px)",
         pointerEvents: mobileOpen ? "auto" : "none",
-        transition: "opacity .3s",
+        transition: "opacity .28s cubic-bezier(.16,1,.3,1), transform .28s cubic-bezier(.16,1,.3,1)",
       }}>
-        {NAV.map(l => (
+        {NAV.map((l, idx) => (
           <Link key={l.href} href={l.href} style={{
             fontSize: "1.5rem", fontWeight: 700,
             color: pathname === l.href ? "#5B30E8" : "rgba(26,16,53,0.7)",
             padding: "10px 0", textDecoration: "none",
+            opacity: mobileOpen ? 1 : 0,
+            transform: mobileOpen ? "translateY(0)" : "translateY(12px)",
+            transition: `opacity .3s ${idx * 0.05 + 0.08}s, transform .35s cubic-bezier(.16,1,.3,1) ${idx * 0.05 + 0.08}s`,
           }}>{l.label}</Link>
         ))}
         <Link href="/contact" style={{

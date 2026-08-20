@@ -258,6 +258,23 @@ body::after {
 /* ── Legal page TOC links ─────────────── */
 .toc-link:hover { text-decoration: underline; }
 
+/* ── Page entrance animation ─────────── */
+main {
+  animation: pageFadeIn .35s cubic-bezier(.16,1,.3,1);
+}
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Global button consistency ─────────── */
+button, a {
+  transition: opacity .2s, transform .2s, box-shadow .2s, background .2s, color .2s, border-color .2s;
+}
+
+/* ── Link hover underline for text links ── */
+a.text-link:hover { text-decoration: underline; }
+
 /* ── Hero visual desktop/mobile toggle ── */
 .hero-visual-mobile  { display: none; }
 .hero-visual-desktop {
@@ -288,8 +305,8 @@ body::after {
 /* ── Team core grid ── */
 .team-core-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
 }
 
 /* ── Responsive ───────────────────────── */

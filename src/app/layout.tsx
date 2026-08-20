@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import TopLoader from "@/components/TopLoader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -218,6 +219,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
+        <TopLoader />
         {children}
       </body>
     </html>
