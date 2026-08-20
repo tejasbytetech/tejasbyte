@@ -12,7 +12,7 @@ function SoloFounderFeature({ member }: { member: Member }) {
   return (
     <div style={{ marginBottom: 56 }}>
       {/* Main card — horizontal split */}
-      <div style={{
+      <div className="solo-founder-card" style={{
         background: "#fff",
         border: "1.5px solid rgba(91,48,232,0.1)",
         borderRadius: 24,
@@ -76,7 +76,7 @@ function SoloFounderFeature({ member }: { member: Member }) {
           </p>
 
           {/* Highlight mini-grid */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14, marginBottom: 28 }}>
+          <div className="solo-founder-highlights" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14, marginBottom: 28 }}>
             {HIGHLIGHTS.map(h => (
               <div key={h.label} style={{ background: "#F7F5FF", borderRadius: 14, padding: "14px 16px", border: "1px solid rgba(91,48,232,0.07)" }}>
                 <div style={{ fontSize: "1.1rem", marginBottom: 6 }}>{h.icon}</div>

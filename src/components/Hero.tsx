@@ -253,8 +253,9 @@ export default function Hero() {
               position: "relative",
               width: 260,
               height: 260,
-              margin: "0 auto",
               flexShrink: 0,
+              left: 0,
+              right: 0,
             }}>
               {/* Outer ring */}
               <div style={{

@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { SocialLinks } from "@/lib/social-url";
+import SoloFounderFeature from "@/components/SoloFounderFeature";
 
 interface Member {
   id: string;
@@ -98,11 +99,19 @@ export default function TeamPageClient({ members }: Props) {
             </div>
           </div>
 
-          <div className="team-founders-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 28 }}>
-            {founders.map((m, i) => (
-              <FounderCard key={i} m={m} />
-            ))}
-          </div>
+          {founders.length === 1 ? (
+            <SoloFounderFeature member={{
+              ...founders[0],
+              linkedin: founders[0].linkedin,
+              social_urls: founders[0].social_urls,
+            }} />
+          ) : (
+            <div className="team-founders-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 28 }}>
+              {founders.map((m, i) => (
+                <FounderCard key={i} m={m} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
