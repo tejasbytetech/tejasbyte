@@ -278,6 +278,20 @@ body::after {
   gap: 24px;
 }
 
+/* ── Team founders grid ── */
+.team-founders-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+/* ── Team core grid ── */
+.team-core-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
 /* ── Responsive ───────────────────────── */
 @media(max-width:767px) { .hide-sm { display:none !important; } }
 @media(min-width:768px) { .show-sm { display:none !important; } }
