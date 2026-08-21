@@ -104,7 +104,7 @@ export default function TeamPageClient({ members }: Props) {
               ...founders[0],
               linkedin: founders[0].linkedin,
               social_urls: founders[0].social_urls,
-            }} />
+            }} showQuote={false} />
           ) : (
             <div className="team-founders-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 28 }}>
               {founders.map((m, i) => (

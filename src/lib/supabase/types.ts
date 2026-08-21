@@ -22,10 +22,12 @@ export interface HiringRow {
   department: string;
   location: string;
   type: string;           // "Full-time" | "Part-time" | "Contract"
-  experience: string;     // e.g. "3–5 years"
+  experience: string;
   description: string;
   requirements: string[]; // array of bullet points
   tags: string[];
+  salary_range?: string | null;   // e.g. "$80k–$120k" or "Competitive"
+  benefits?: string[] | null;     // array of benefit lines
   is_active: boolean;
   created_at: string;
   updated_at: string;

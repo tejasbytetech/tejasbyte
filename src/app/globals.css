@@ -585,6 +585,16 @@ a.text-link:hover { text-decoration: underline; }
     justify-content: center !important;
   }
 
+  /* ── Rich text description in careers ── */
+  .role-description h2 { font-size: 1rem; font-weight: 700; color: #1A1035; margin: 12px 0 6px; }
+  .role-description h3 { font-size: .92rem; font-weight: 700; color: #1A1035; margin: 10px 0 4px; }
+  .role-description p  { margin: 0 0 8px; }
+  .role-description ul,
+  .role-description ol { padding-left: 20px; margin: 4px 0 8px; }
+  .role-description li { margin: 3px 0; }
+  .role-description a  { color: #5B30E8; text-decoration: underline; }
+  .role-description strong { font-weight: 700; color: #1A1035; }
+
   /* ── Mobile nav menu — no empty gap ─── */
   .mobile-menu-nav {
     padding-top: 80px !important;

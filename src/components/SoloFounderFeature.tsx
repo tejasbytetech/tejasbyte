@@ -19,7 +19,7 @@ const HIGHLIGHTS = [
   { icon: "⚡", label: "Philosophy",  value: "Senior-only team, full-stack ownership" },
 ];
 
-export default function SoloFounderFeature({ member }: { member: Member }) {
+export default function SoloFounderFeature({ member, showQuote = true }: { member: Member; showQuote?: boolean }) {
   const badgeLabel = member.role.toLowerCase().includes("co-founder") ? "Co-Founder" : "Founder";
 
   const allSocials = [
@@ -100,6 +100,7 @@ export default function SoloFounderFeature({ member }: { member: Member }) {
       </div>
 
       {/* Quote strip */}
+      {showQuote && (
       <div style={{ marginTop: 20, background: `linear-gradient(135deg, ${member.accent}0D 0%, rgba(91,48,232,0.04) 100%)`, border: `1px solid ${member.accent}18`, borderRadius: 16, padding: "20px 28px", display: "flex", alignItems: "center", gap: 16 }}>
         <div style={{ fontSize: "2rem", lineHeight: 1, color: member.accent, opacity: 0.4, fontFamily: "Georgia, serif", flexShrink: 0 }}>&ldquo;</div>
         <p style={{ fontSize: ".9rem", lineHeight: 1.75, color: "rgba(26,16,53,0.6)", fontStyle: "italic", margin: 0 }}>
@@ -107,6 +108,7 @@ export default function SoloFounderFeature({ member }: { member: Member }) {
         </p>
         <div style={{ fontSize: "1.2rem", fontWeight: 800, color: member.accent, opacity: 0.25, flexShrink: 0 }}>{member.name.split(" ")[0]}</div>
       </div>
+      )}
     </div>
   );
 }

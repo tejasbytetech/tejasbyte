@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface Props {
   role: string;
@@ -7,13 +7,17 @@ interface Props {
 }
 
 export default function ApplyModal({ role, onClose }: Props) {
-  const [form, setForm]     = useState({ name: "", email: "", phone: "", experience: "", portfolio: "", cover: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", experience: "", portfolio: "", cover: "" });
+  const [resume, setResume]   = useState<File | null>(null);
+  const [resumeErr, setResumeErr] = useState("");
   const [focused, setFocused] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [sent, setSent]     = useState(false);
-  const [error, setError]   = useState("");
+  const [sent, setSent]       = useState(false);
+  const [error, setError]     = useState("");
+  const [dragOver, setDragOver] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
 
-  // Close on Escape
+  // Close on Escape, lock body scroll
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     document.addEventListener("keydown", onKey);
@@ -24,16 +28,48 @@ export default function ApplyModal({ role, onClose }: Props) {
   const change = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm(p => ({ ...p, [e.target.name]: e.target.value }));
 
+  const ALLOWED = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+  const MAX_MB  = 5;
+
+  function handleFile(file: File | null) {
+    setResumeErr("");
+    if (!file) { setResume(null); return; }
+    if (!ALLOWED.includes(file.type)) {
+      setResumeErr("Only PDF, DOC, or DOCX files are accepted.");
+      setResume(null);
+      return;
+    }
+    if (file.size > MAX_MB * 1024 * 1024) {
+      setResumeErr(`File must be under ${MAX_MB} MB.`);
+      setResume(null);
+      return;
+    }
+    setResume(file);
+  }
+
+  const onDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOver(false);
+    handleFile(e.dataTransfer.files?.[0] ?? null);
+  };
+
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("/api/apply", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, role }),
-      });
+      // Send as FormData so we can attach the file
+      const fd = new FormData();
+      fd.append("name",       form.name);
+      fd.append("email",      form.email);
+      fd.append("phone",      form.phone);
+      fd.append("experience", form.experience);
+      fd.append("portfolio",  form.portfolio);
+      fd.append("cover",      form.cover);
+      fd.append("role",       role);
+      if (resume) fd.append("resume", resume, resume.name);
+
+      const res  = await fetch("/api/apply", { method: "POST", body: fd });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to submit");
       setSent(true);
@@ -63,14 +99,11 @@ export default function ApplyModal({ role, onClose }: Props) {
   return (
     <>
       {/* Backdrop */}
-      <div
-        onClick={onClose}
-        style={{
-          position: "fixed", inset: 0, background: "rgba(10,8,25,0.7)",
-          backdropFilter: "blur(6px)", zIndex: 99990,
-          animation: "fadeIn .2s ease",
-        }}
-      />
+      <div onClick={onClose} style={{
+        position: "fixed", inset: 0, background: "rgba(10,8,25,0.7)",
+        backdropFilter: "blur(6px)", zIndex: 99990,
+        animation: "fadeIn .2s ease",
+      }} />
 
       {/* Modal */}
       <div className="apply-modal-inner" style={{
@@ -99,8 +132,9 @@ export default function ApplyModal({ role, onClose }: Props) {
             transition: "background .2s",
           }}
           onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.2)"; }}
-          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.1)"; }}
-          >×</button>
+          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.1)"; }}>
+            ×
+          </button>
           <p style={{ fontSize: ".65rem", fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", color: "rgba(255,255,255,0.45)", marginBottom: 6 }}>
             Applying for
           </p>
@@ -114,7 +148,7 @@ export default function ApplyModal({ role, onClose }: Props) {
 
         <div style={{ padding: "28px 32px 32px" }}>
           {sent ? (
-            /* Success state */
+            /* ── Success ── */
             <div style={{ textAlign: "center", padding: "24px 0" }}>
               <div style={{
                 width: 64, height: 64, borderRadius: "50%",
@@ -138,8 +172,9 @@ export default function ApplyModal({ role, onClose }: Props) {
               }}>Close</button>
             </div>
           ) : (
-            /* Form */
+            /* ── Form ── */
             <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 18 }} noValidate>
+
               {/* Name + Email */}
               <div className="apply-modal-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
                 <div>
@@ -184,6 +219,92 @@ export default function ApplyModal({ role, onClose }: Props) {
                 <input type="url" name="portfolio" value={form.portfolio} onChange={change}
                   placeholder="https://github.com/yourhandle" style={inp("portfolio")}
                   onFocus={() => setFocused("portfolio")} onBlur={() => setFocused(null)} />
+              </div>
+
+              {/* ── Resume upload ── */}
+              <div>
+                <label style={lbl}>
+                  Resume / CV
+                  <span style={{ fontSize: ".62rem", fontWeight: 500, textTransform: "none", letterSpacing: 0, color: "rgba(26,16,53,0.35)", marginLeft: 6 }}>
+                    PDF, DOC or DOCX · max 5 MB
+                  </span>
+                </label>
+
+                {/* Drop zone */}
+                <div
+                  onClick={() => fileRef.current?.click()}
+                  onDragOver={e => { e.preventDefault(); setDragOver(true); }}
+                  onDragLeave={() => setDragOver(false)}
+                  onDrop={onDrop}
+                  style={{
+                    border: `2px dashed ${dragOver ? "#5B30E8" : resume ? "rgba(34,197,94,0.5)" : "#E2E4EA"}`,
+                    borderRadius: 10,
+                    padding: "18px 20px",
+                    display: "flex", alignItems: "center", gap: 14,
+                    cursor: "pointer",
+                    background: dragOver ? "rgba(91,48,232,0.04)" : resume ? "rgba(34,197,94,0.04)" : "#F7F8FA",
+                    transition: "border-color .2s, background .2s",
+                  }}
+                >
+                  {/* Icon */}
+                  <div style={{
+                    width: 40, height: 40, borderRadius: 10, flexShrink: 0,
+                    background: resume ? "rgba(34,197,94,0.1)" : "rgba(91,48,232,0.08)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    fontSize: "1.1rem",
+                  }}>
+                    {resume ? "✓" : "📎"}
+                  </div>
+
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    {resume ? (
+                      <>
+                        <p style={{ fontSize: ".82rem", fontWeight: 700, color: "#15803D", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          {resume.name}
+                        </p>
+                        <p style={{ fontSize: ".72rem", color: "rgba(26,16,53,0.4)", margin: "2px 0 0" }}>
+                          {(resume.size / 1024).toFixed(0)} KB · click to change
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <p style={{ fontSize: ".82rem", fontWeight: 600, color: "rgba(26,16,53,0.6)", margin: 0 }}>
+                          Drop your resume here or <span style={{ color: "#5B30E8", fontWeight: 700 }}>browse</span>
+                        </p>
+                        <p style={{ fontSize: ".72rem", color: "rgba(26,16,53,0.35)", margin: "2px 0 0" }}>
+                          PDF, DOC, DOCX — up to 5 MB
+                        </p>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Remove button */}
+                  {resume && (
+                    <button
+                      type="button"
+                      onClick={e => { e.stopPropagation(); setResume(null); if (fileRef.current) fileRef.current.value = ""; }}
+                      style={{
+                        width: 26, height: 26, borderRadius: "50%", flexShrink: 0,
+                        background: "rgba(239,68,68,0.1)", border: "none",
+                        color: "#DC2626", cursor: "pointer", fontSize: ".8rem",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                      }}
+                    >×</button>
+                  )}
+                </div>
+
+                {/* Hidden file input */}
+                <input
+                  ref={fileRef}
+                  type="file"
+                  accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  style={{ display: "none" }}
+                  onChange={e => handleFile(e.target.files?.[0] ?? null)}
+                />
+
+                {resumeErr && (
+                  <p style={{ fontSize: ".75rem", color: "#EF4444", marginTop: 6 }}>⚠ {resumeErr}</p>
+                )}
               </div>
 
               {/* Cover letter */}
@@ -241,8 +362,9 @@ export default function ApplyModal({ role, onClose }: Props) {
       </div>
 
       <style>{`
-        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+        @keyframes fadeIn  { from{opacity:0} to{opacity:1} }
         @keyframes slideUp { from{opacity:0;transform:translate(-50%,-46%)} to{opacity:1;transform:translate(-50%,-50%)} }
+        @keyframes spin    { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
       `}</style>
     </>
   );

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import type { HiringRow } from "@/lib/supabase/types";
 import ApplyModal from "@/components/ApplyModal";
@@ -139,70 +139,173 @@ export default function CareersClient({ roles }: Props) {
 
 /* ── Role Card ── */
 function RoleCard({ role, onApply }: { role: HiringRow; onApply: () => void }) {
+  const [expanded, setExpanded] = useState(false);
+  const [fullHeight, setFullHeight] = useState<number>(0);
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const CLAMP_HEIGHT = 260;
+
+  // Measure actual content height after mount
+  useEffect(() => {
+    if (bodyRef.current) {
+      setFullHeight(bodyRef.current.scrollHeight);
+    }
+  }, []);
+
+  const needsToggle = fullHeight > CLAMP_HEIGHT;
+  const currentHeight = fullHeight === 0
+    ? "auto"                                        // before measure — let it be natural
+    : expanded ? fullHeight : CLAMP_HEIGHT;
+
   return (
     <div style={{
       background: "#fff", border: "1.5px solid rgba(91,48,232,0.1)",
-      borderRadius: 16, padding: "28px 32px",
-    }}>
-      {/* Top row */}
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 16, marginBottom: 16 }}>
-        <div>
-          <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#1A1035", marginBottom: 8, letterSpacing: "-.01em" }}>
-            {role.title}
-          </h3>
-          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-            {[
-              { icon: "📍", val: role.location },
-              { icon: "⏱️", val: role.type },
-              { icon: "🎯", val: role.experience },
-            ].filter(i => i.val).map(item => (
-              <span key={item.val} style={{ fontSize: ".78rem", color: "rgba(26,16,53,0.5)", display: "flex", alignItems: "center", gap: 4 }}>
-                {item.icon} {item.val}
-              </span>
-            ))}
+      borderRadius: 16, overflow: "hidden",
+      transition: "border-color .25s, box-shadow .25s",
+    }}
+    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(91,48,232,0.25)"; el.style.boxShadow = "0 8px 32px rgba(91,48,232,0.06)"; }}
+    onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(91,48,232,0.1)"; el.style.boxShadow = "none"; }}
+    >
+      <div style={{ padding: "28px 32px" }}>
+
+        {/* Top row — always visible */}
+        <div className="careers-role-top" style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 16, marginBottom: 18 }}>
+          <div>
+            <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#1A1035", marginBottom: 10, letterSpacing: "-.01em" }}>
+              {role.title}
+            </h3>
+            <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+              {[
+                { icon: "📍", val: role.location },
+                { icon: "⏱️", val: role.type },
+                { icon: "🎯", val: role.experience },
+                ...(role.salary_range ? [{ icon: "💰", val: role.salary_range }] : []),
+              ].filter(i => i.val).map(item => (
+                <span key={item.val} style={{ fontSize: ".78rem", color: "rgba(26,16,53,0.5)", display: "flex", alignItems: "center", gap: 4 }}>
+                  {item.icon} {item.val}
+                </span>
+              ))}
+            </div>
           </div>
+          <button
+            className="careers-apply-btn"
+            onClick={onApply}
+            style={{
+              display: "inline-flex", alignItems: "center", gap: 8,
+              padding: "10px 24px", borderRadius: 10,
+              background: "#2D3A6E", color: "#fff",
+              border: "none", cursor: "pointer",
+              fontSize: ".82rem", fontWeight: 700,
+              boxShadow: "0 4px 16px rgba(45,58,110,0.4)",
+              flexShrink: 0, transition: "background .2s, box-shadow .2s",
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#0F1629"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 24px rgba(45,58,110,0.5)"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#2D3A6E"; (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 16px rgba(45,58,110,0.4)"; }}
+          >
+            Apply Now →
+          </button>
         </div>
-        <button
-          onClick={onApply}
+
+        {/* ── Animated accordion body ── */}
+        <div
           style={{
-            display: "inline-flex", alignItems: "center", gap: 8,
-            padding: "10px 24px", borderRadius: 10,
-            background: "#2D3A6E", color: "#fff",
-            border: "none", cursor: "pointer",
-            fontSize: ".82rem", fontWeight: 700,
-            boxShadow: "0 4px 16px rgba(45,58,110,0.4)",
-            flexShrink: 0, transition: "background .2s, box-shadow .2s",
+            height: currentHeight,
+            overflow: "hidden",
+            // Only animate after first measure (avoid jump on initial render)
+            transition: fullHeight > 0 ? "height .45s cubic-bezier(.16,1,.3,1)" : "none",
+            position: "relative",
           }}
-          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#0F1629"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 24px rgba(45,58,110,0.5)"; }}
-          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#2D3A6E"; (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 16px rgba(45,58,110,0.4)"; }}
         >
-          Apply Now →
-        </button>
+          <div ref={bodyRef}>
+            {role.description && (
+              <div
+                className="role-description"
+                dangerouslySetInnerHTML={{ __html: role.description }}
+                style={{ fontSize: ".875rem", lineHeight: 1.78, color: "rgba(26,16,53,0.6)", marginBottom: (role.requirements?.length || role.benefits?.length) ? 20 : 0 }}
+              />
+            )}
+
+            {role.requirements?.length > 0 && (
+              <div style={{ marginBottom: (role.benefits?.length || role.tags?.length) ? 20 : 0 }}>
+                <p style={{ fontSize: ".65rem", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "rgba(26,16,53,0.3)", marginBottom: 10 }}>Requirements</p>
+                <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 6 }}>
+                  {role.requirements.map((req: string, i: number) => (
+                    <li key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", fontSize: ".875rem", color: "rgba(26,16,53,0.6)" }}>
+                      <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#5B30E8", flexShrink: 0, marginTop: 8 }} />
+                      {req}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {role.benefits && role.benefits.length > 0 && (
+              <div style={{ marginBottom: role.tags?.length ? 20 : 0 }}>
+                <p style={{ fontSize: ".65rem", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "rgba(26,16,53,0.3)", marginBottom: 10 }}>Benefits</p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                  {role.benefits.map((b: string, i: number) => (
+                    <span key={i} style={{
+                      display: "inline-flex", alignItems: "center", gap: 6,
+                      padding: "5px 12px", borderRadius: 100,
+                      background: "rgba(34,197,94,0.07)", border: "1px solid rgba(34,197,94,0.2)",
+                      fontSize: ".75rem", fontWeight: 600, color: "#15803D",
+                    }}>
+                      <svg width="10" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      {b}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {role.tags?.length > 0 && (
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                {role.tags.map((t: string) => <span key={t} className="tag-pill">{t}</span>)}
+              </div>
+            )}
+          </div>
+
+          {/* Fade overlay — fades out when expanded */}
+          {needsToggle && (
+            <div style={{
+              position: "absolute", bottom: 0, left: 0, right: 0,
+              height: 72,
+              background: "linear-gradient(to bottom, transparent 0%, #fff 100%)",
+              pointerEvents: "none",
+              opacity: expanded ? 0 : 1,
+              transition: "opacity .3s ease",
+            }} />
+          )}
+        </div>
+
+        {/* Show more / less toggle — only when content overflows */}
+        {needsToggle && (
+          <button
+            onClick={() => setExpanded(v => !v)}
+            style={{
+              marginTop: 10,
+              display: "inline-flex", alignItems: "center", gap: 5,
+              background: "none", border: "none", cursor: "pointer",
+              fontSize: ".78rem", fontWeight: 700,
+              color: "#5B30E8", padding: "4px 0",
+              transition: "opacity .2s",
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.opacity = "0.65"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
+          >
+            <svg
+              width="13" height="13" viewBox="0 0 12 12" fill="none"
+              style={{
+                transition: "transform .35s cubic-bezier(.16,1,.3,1)",
+                transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
+              }}
+            >
+              <path d="M2 4l4 4 4-4" stroke="#5B30E8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            {expanded ? "Show less" : "Show more"}
+          </button>
+        )}
+
       </div>
-
-      <p style={{ fontSize: ".875rem", lineHeight: 1.78, color: "rgba(26,16,53,0.6)", marginBottom: role.requirements?.length ? 20 : 0 }}>
-        {role.description}
-      </p>
-
-      {role.requirements?.length > 0 && (
-        <div style={{ marginBottom: role.tags?.length ? 20 : 0 }}>
-          <p style={{ fontSize: ".65rem", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "rgba(26,16,53,0.3)", marginBottom: 10 }}>Requirements</p>
-          <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 6 }}>
-            {role.requirements.map((req: string, i: number) => (
-              <li key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", fontSize: ".875rem", color: "rgba(26,16,53,0.6)" }}>
-                <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#5B30E8", flexShrink: 0, marginTop: 8 }} />
-                {req}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {role.tags?.length > 0 && (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-          {role.tags.map((t: string) => <span key={t} className="tag-pill">{t}</span>)}
-        </div>
-      )}
     </div>
   );
 }

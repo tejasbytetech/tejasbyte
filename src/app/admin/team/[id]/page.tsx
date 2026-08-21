@@ -3,6 +3,7 @@ import { createAdminClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import PhotoUpload from "@/components/admin/PhotoUpload";
+import TeamFormSubmitBtn from "./TeamFormSubmitBtn";
 
 interface Props { params: Promise<{ id: string }> }
 
@@ -127,15 +128,9 @@ export default async function TeamFormPage({ params }: Props) {
         </div>
 
         <div style={{ display: "flex", gap: 12, paddingTop: 8 }}>
-          <button type="submit" style={{
-            padding: "12px 32px", borderRadius: 10,
-            background: "#5B30E8", color: "#fff", border: "none",
-            fontSize: ".875rem", fontWeight: 700, cursor: "pointer",
-            boxShadow: "0 4px 16px rgba(91,48,232,0.35)", transition: "background .2s",
-          }}>
-            {isNew ? "Add Member" : "Save Changes"}
-          </button>
+          <TeamFormSubmitBtn isNew={isNew} />
           <Link href="/admin/team" style={{
+            display: "inline-flex", alignItems: "center",
             padding: "12px 24px", borderRadius: 10,
             border: "1.5px solid rgba(91,48,232,0.2)", color: "#5B30E8",
             textDecoration: "none", fontSize: ".875rem", fontWeight: 600,
