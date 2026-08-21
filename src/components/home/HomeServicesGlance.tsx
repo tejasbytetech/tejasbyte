@@ -63,7 +63,7 @@ export default function HomeServicesGlance() {
             color: "rgba(26,16,53,0.55)",
             maxWidth: 540, marginTop: 12,
           }}>
-            Tejasbyte Technologies is incorporated in the United States with an engineering office in Kathmandu, Nepal. We build web platforms, mobile applications, AI systems, and cloud infrastructure for clients worldwide.
+            Tejasbyte Technologies is registered in Nepal with its main office in the United States. We build web platforms, mobile applications, AI systems, and cloud infrastructure for clients worldwide.
           </p>
         </div>
 

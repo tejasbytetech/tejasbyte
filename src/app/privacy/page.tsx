@@ -121,7 +121,7 @@ export default function Privacy() {
             <TOC />
 
             <S id="section-1" num="01" title="Who We Are">
-              <P>{COMPANY} ("Tejasbyte", "we", "us", or "our") is a software engineering company incorporated in the United States with an engineering office in Kathmandu, Nepal. We operate the website at <a href={`https://${SITE}`} style={{ color: "#5B30E8", textDecoration: "none", fontWeight: 600 }}>{SITE}</a> and provide software development, AI engineering, cloud infrastructure, and related technology services.</P>
+              <P>{COMPANY} ("Tejasbyte", "we", "us", or "our") is a software engineering company registered in Nepal with its main office in the United States. We operate the website at <a href={`https://${SITE}`} style={{ color: "#5B30E8", textDecoration: "none", fontWeight: 600 }}>{SITE}</a> and provide software development, AI engineering, cloud infrastructure, and related technology services.</P>
               <P>For the purposes of applicable data protection law, Tejasbyte Technologies acts as the data controller with respect to personal information collected through this website.</P>
             </S>
             <Divider />

@@ -205,7 +205,7 @@ export default function AboutPage({ founders }: Props) {
         label="Who We Are"
         title="Built by engineers."
         highlight="Obsessed with craft."
-        description="Tejasbyte Technologies is incorporated in the United States, with a core engineering office in Kathmandu, Nepal. We build scalable, secure, and intelligent software for businesses worldwide."
+        description="Tejasbyte Technologies is registered in Nepal with its main office in the United States, delivering scalable, secure, and intelligent software for businesses worldwide."
       />
 
       {/* Stats */}
@@ -298,7 +298,7 @@ export default function AboutPage({ founders }: Props) {
           {/* ── Culture strip — fills space beautifully ── */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16 }} className="stats-grid">
             {[
-              { icon: "🌍", title: "US Incorporated", desc: "Registered in the United States, engineering from Kathmandu, Nepal." },
+              { icon: "🌍", title: "Main Office in USA", desc: "Headquartered in the United States, registered in Nepal — global reach with local roots." },
               { icon: "⚡", title: "Senior Only", desc: "Every engineer brings 5+ years of production experience." },
               { icon: "🤝", title: "Full Ownership", desc: "Clean code, documentation, and complete handoff — always." },
               { icon: "📈", title: "Outcome Focused", desc: "We measure success by your business results, not just deliverables." },
@@ -330,7 +330,7 @@ export default function AboutPage({ founders }: Props) {
                   "You talk directly to the engineers — no account managers",
                   "Flat, transparent pricing — no surprise invoices",
                   "Modern stack: Next.js, Supabase, React Native, cloud-native",
-                  "Incorporated in the United States with an engineering office in Kathmandu, Nepal — competitive rates, zero compromise on quality",
+                  "Registered in Nepal with our main office in the United States — competitive rates, zero compromise on quality",
                   "Full ownership handoff — clean code + docs when we're done",
                 ].map((point, i) => (
                   <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>

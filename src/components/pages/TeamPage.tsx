@@ -63,7 +63,7 @@ export default function TeamPageClient({ members }: Props) {
             </span>
           </h1>
           <p style={{ fontSize: "1.05rem", color: "rgba(255,255,255,0.5)", maxWidth: 520, lineHeight: 1.78, marginBottom: 40 }}>
-            A senior-only team incorporated in the United States, engineering from Kathmandu, Nepal — shipping software that scales globally.
+            A senior-only team registered in Nepal with our main office in the United States — shipping software that scales globally.
           </p>
 
           {/* stats row */}

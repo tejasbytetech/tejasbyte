@@ -33,7 +33,7 @@ export default function CareersClient({ roles }: Props) {
             <span className="gradient-text">with us</span>
           </h1>
           <p style={{ fontSize: "1rem", lineHeight: 1.78, color: "rgba(255,255,255,0.55)", maxWidth: 520, marginBottom: 32 }}>
-            We&apos;re a senior-only engineering team incorporated in the United States, operating from Kathmandu, Nepal. If you care deeply about craft, we want to hear from you.
+            We&apos;re a senior-only engineering team registered in Nepal with our main office in the United States. If you care deeply about craft, we want to hear from you.
           </p>
           <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
             {[
