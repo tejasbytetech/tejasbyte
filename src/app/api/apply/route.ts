@@ -5,19 +5,52 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { name, email, phone, role, experience, portfolio, cover } = body;
+    const fd = await req.formData();
+
+    const name       = fd.get("name")       as string;
+    const email      = fd.get("email")      as string;
+    const phone      = fd.get("phone")      as string | null;
+    const role       = fd.get("role")       as string;
+    const experience = fd.get("experience") as string | null;
+    const portfolio  = fd.get("portfolio")  as string | null;
+    const cover      = fd.get("cover")      as string | null;
+    const resumeFile = fd.get("resume")     as File | null;
 
     if (!name || !email || !role) {
       return NextResponse.json({ error: "Name, email, and role are required." }, { status: 400 });
     }
 
-    // Notification email to Tejasbyte
+    // Build optional attachment array
+    type Attachment = { filename: string; content: Buffer; contentType: string };
+    const attachments: Attachment[] = [];
+
+    if (resumeFile && resumeFile.size > 0) {
+      const arrayBuffer = await resumeFile.arrayBuffer();
+      attachments.push({
+        filename:    resumeFile.name,
+        content:     Buffer.from(arrayBuffer),
+        contentType: resumeFile.type || "application/octet-stream",
+      });
+    }
+
+    const resumeRow = attachments.length > 0
+      ? `<tr>
+          <td style="padding:10px 0;border-bottom:1px solid #f0eeff;width:130px;">
+            <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;">Resume</span>
+          </td>
+          <td style="padding:10px 0;border-bottom:1px solid #f0eeff;font-size:14px;color:#1A1035;">
+            📎 ${attachments[0].filename} (attached)
+          </td>
+        </tr>`
+      : "";
+
+    // ── Notification email to Tejasbyte ──
     const { error } = await resend.emails.send({
-      from: "Tejasbyte Careers <contact@tejasbyte.com>",
-      to: ["contact@tejasbyte.com"],
-      replyTo: email,
-      subject: `[Job Application] ${name} — ${role}`,
+      from:        "Tejasbyte Careers <contact@tejasbyte.com>",
+      to:          ["contact@tejasbyte.com"],
+      replyTo:     email,
+      subject:     `[Job Application] ${name} — ${role}`,
+      attachments: attachments,
       html: `
         <div style="font-family:'Inter',Arial,sans-serif;max-width:600px;margin:0 auto;">
           <div style="background:linear-gradient(135deg,#1A1035 0%,#2D3A6E 100%);padding:32px 40px;border-radius:12px 12px 0 0;">
@@ -26,12 +59,34 @@ export async function POST(req: NextRequest) {
           </div>
           <div style="background:#fff;padding:32px 40px;border:1px solid rgba(91,48,232,0.1);border-top:none;">
             <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
-              <tr><td style="padding:10px 0;border-bottom:1px solid #f0eeff;width:130px;"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;">Name</span></td><td style="padding:10px 0;border-bottom:1px solid #f0eeff;font-size:14px;font-weight:600;color:#1A1035;">${name}</td></tr>
-              <tr><td style="padding:10px 0;border-bottom:1px solid #f0eeff;"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;">Email</span></td><td style="padding:10px 0;border-bottom:1px solid #f0eeff;"><a href="mailto:${email}" style="font-size:14px;color:#5B30E8;text-decoration:none;">${email}</a></td></tr>
-              ${phone ? `<tr><td style="padding:10px 0;border-bottom:1px solid #f0eeff;"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;">Phone</span></td><td style="padding:10px 0;border-bottom:1px solid #f0eeff;font-size:14px;color:#1A1035;">${phone}</td></tr>` : ""}
-              <tr><td style="padding:10px 0;border-bottom:1px solid #f0eeff;"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;">Role</span></td><td style="padding:10px 0;border-bottom:1px solid #f0eeff;font-size:14px;font-weight:600;color:#5B30E8;">${role}</td></tr>
-              ${experience ? `<tr><td style="padding:10px 0;border-bottom:1px solid #f0eeff;"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;">Experience</span></td><td style="padding:10px 0;border-bottom:1px solid #f0eeff;font-size:14px;color:#1A1035;">${experience}</td></tr>` : ""}
-              ${portfolio ? `<tr><td style="padding:10px 0;border-bottom:1px solid #f0eeff;"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;">Portfolio</span></td><td style="padding:10px 0;border-bottom:1px solid #f0eeff;"><a href="${portfolio}" style="font-size:14px;color:#5B30E8;text-decoration:none;">${portfolio}</a></td></tr>` : ""}
+              <tr>
+                <td style="padding:10px 0;border-bottom:1px solid #f0eeff;width:130px;"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;">Name</span></td>
+                <td style="padding:10px 0;border-bottom:1px solid #f0eeff;font-size:14px;font-weight:600;color:#1A1035;">${name}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 0;border-bottom:1px solid #f0eeff;"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;">Email</span></td>
+                <td style="padding:10px 0;border-bottom:1px solid #f0eeff;"><a href="mailto:${email}" style="font-size:14px;color:#5B30E8;text-decoration:none;">${email}</a></td>
+              </tr>
+              ${phone ? `
+              <tr>
+                <td style="padding:10px 0;border-bottom:1px solid #f0eeff;"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;">Phone</span></td>
+                <td style="padding:10px 0;border-bottom:1px solid #f0eeff;font-size:14px;color:#1A1035;">${phone}</td>
+              </tr>` : ""}
+              <tr>
+                <td style="padding:10px 0;border-bottom:1px solid #f0eeff;"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;">Role</span></td>
+                <td style="padding:10px 0;border-bottom:1px solid #f0eeff;font-size:14px;font-weight:600;color:#5B30E8;">${role}</td>
+              </tr>
+              ${experience ? `
+              <tr>
+                <td style="padding:10px 0;border-bottom:1px solid #f0eeff;"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;">Experience</span></td>
+                <td style="padding:10px 0;border-bottom:1px solid #f0eeff;font-size:14px;color:#1A1035;">${experience}</td>
+              </tr>` : ""}
+              ${portfolio ? `
+              <tr>
+                <td style="padding:10px 0;border-bottom:1px solid #f0eeff;"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;">Portfolio</span></td>
+                <td style="padding:10px 0;border-bottom:1px solid #f0eeff;"><a href="${portfolio}" style="font-size:14px;color:#5B30E8;text-decoration:none;">${portfolio}</a></td>
+              </tr>` : ""}
+              ${resumeRow}
             </table>
             ${cover ? `
             <div style="margin-bottom:28px;">
@@ -50,14 +105,14 @@ export async function POST(req: NextRequest) {
     });
 
     if (error) {
-      console.error("Resend error:", error);
+      console.error("Resend notification error:", error);
       return NextResponse.json({ error: "Failed to send application." }, { status: 500 });
     }
 
-    // Schedule auto-reply after 5-10 minutes (we send immediately but with a warm message)
+    // ── Auto-reply to applicant ──
     await resend.emails.send({
-      from: "Tejasbyte Technologies <contact@tejasbyte.com>",
-      to: [email],
+      from:    "Tejasbyte Technologies <contact@tejasbyte.com>",
+      to:      [email],
       subject: `We received your application — ${role} at Tejasbyte`,
       html: `
         <div style="font-family:'Inter',Arial,sans-serif;max-width:600px;margin:0 auto;">
@@ -70,7 +125,7 @@ export async function POST(req: NextRequest) {
               We've received your application for the <strong>${role}</strong> position and we're genuinely excited to review it.
             </p>
             <p style="font-size:15px;line-height:1.8;color:#1A1035;margin:0 0 20px;">
-              Our team carefully evaluates every application. We'll review your details and get back to you with next steps. We appreciate your interest in joining Tejasbyte.
+              Our team carefully evaluates every application. We'll review your details and get back to you with next steps.
             </p>
             <div style="background:#f7f5ff;border:1px solid rgba(91,48,232,0.12);border-radius:12px;padding:20px 24px;margin-bottom:28px;">
               <p style="font-size:13px;font-weight:700;color:#5B30E8;margin:0 0 12px;text-transform:uppercase;letter-spacing:.06em;">What happens next</p>
