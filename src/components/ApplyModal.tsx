@@ -105,23 +105,25 @@ export default function ApplyModal({ role, onClose }: Props) {
         animation: "fadeIn .2s ease",
       }} />
 
-      {/* Modal */}
+      {/* Modal — fixed height, no scroll */}
       <div className="apply-modal-inner" style={{
         position: "fixed", top: "50%", left: "50%",
         transform: "translate(-50%,-50%)",
-        width: "100%", maxWidth: 560,
-        maxHeight: "90vh", overflowY: "auto",
+        width: "min(96vw, 700px)",
         background: "#fff", borderRadius: 20,
         boxShadow: "0 32px 80px rgba(0,0,0,0.3)",
         zIndex: 99991, padding: 0,
+        display: "flex", flexDirection: "column",
+        overflow: "hidden",
         animation: "slideUp .25s cubic-bezier(.16,1,.3,1)",
       }}>
-        {/* Header */}
+        {/* Header — compact */}
         <div style={{
           background: "linear-gradient(135deg, #0F1629 0%, #2D3A6E 100%)",
-          padding: "28px 32px 24px",
+          padding: "20px 28px 18px",
           borderRadius: "20px 20px 0 0",
           position: "relative",
+          flexShrink: 0,
         }}>
           <button onClick={onClose} style={{
             position: "absolute", top: 16, right: 16,
@@ -146,7 +148,7 @@ export default function ApplyModal({ role, onClose }: Props) {
           </p>
         </div>
 
-        <div style={{ padding: "28px 32px 32px" }}>
+        <div style={{ padding: "20px 28px 22px", flex: 1 }}>
           {sent ? (
             /* ── Success ── */
             <div style={{ textAlign: "center", padding: "24px 0" }}>
@@ -173,10 +175,10 @@ export default function ApplyModal({ role, onClose }: Props) {
             </div>
           ) : (
             /* ── Form ── */
-            <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 18 }} noValidate>
+            <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 11 }} noValidate>
 
-              {/* Name + Email */}
-              <div className="apply-modal-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+              {/* Row 1: Name + Email */}
+              <div className="apply-modal-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                 <div>
                   <label style={lbl}>Full Name <span style={{ color: "#EF4444" }}>*</span></label>
                   <input type="text" name="name" required value={form.name} onChange={change}
@@ -191,8 +193,8 @@ export default function ApplyModal({ role, onClose }: Props) {
                 </div>
               </div>
 
-              {/* Phone + Experience */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+              {/* Row 2: Phone + Experience */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                 <div>
                   <label style={lbl}>Phone</label>
                   <input type="tel" name="phone" value={form.phone} onChange={change}
@@ -213,106 +215,74 @@ export default function ApplyModal({ role, onClose }: Props) {
                 </div>
               </div>
 
-              {/* Portfolio */}
-              <div>
-                <label style={lbl}>Portfolio / GitHub / LinkedIn URL</label>
-                <input type="url" name="portfolio" value={form.portfolio} onChange={change}
-                  placeholder="https://github.com/yourhandle" style={inp("portfolio")}
-                  onFocus={() => setFocused("portfolio")} onBlur={() => setFocused(null)} />
-              </div>
-
-              {/* ── Resume upload ── */}
-              <div>
-                <label style={lbl}>
-                  Resume / CV
-                  <span style={{ fontSize: ".62rem", fontWeight: 500, textTransform: "none", letterSpacing: 0, color: "rgba(26,16,53,0.35)", marginLeft: 6 }}>
-                    PDF, DOC or DOCX · max 5 MB
-                  </span>
-                </label>
-
-                {/* Drop zone */}
-                <div
-                  onClick={() => fileRef.current?.click()}
-                  onDragOver={e => { e.preventDefault(); setDragOver(true); }}
-                  onDragLeave={() => setDragOver(false)}
-                  onDrop={onDrop}
-                  style={{
-                    border: `2px dashed ${dragOver ? "#5B30E8" : resume ? "rgba(34,197,94,0.5)" : "#E2E4EA"}`,
-                    borderRadius: 10,
-                    padding: "18px 20px",
-                    display: "flex", alignItems: "center", gap: 14,
-                    cursor: "pointer",
-                    background: dragOver ? "rgba(91,48,232,0.04)" : resume ? "rgba(34,197,94,0.04)" : "#F7F8FA",
-                    transition: "border-color .2s, background .2s",
-                  }}
-                >
-                  {/* Icon */}
-                  <div style={{
-                    width: 40, height: 40, borderRadius: 10, flexShrink: 0,
-                    background: resume ? "rgba(34,197,94,0.1)" : "rgba(91,48,232,0.08)",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: "1.1rem",
-                  }}>
-                    {resume ? "✓" : "📎"}
-                  </div>
-
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    {resume ? (
-                      <>
-                        <p style={{ fontSize: ".82rem", fontWeight: 700, color: "#15803D", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                          {resume.name}
-                        </p>
-                        <p style={{ fontSize: ".72rem", color: "rgba(26,16,53,0.4)", margin: "2px 0 0" }}>
-                          {(resume.size / 1024).toFixed(0)} KB · click to change
-                        </p>
-                      </>
-                    ) : (
-                      <>
-                        <p style={{ fontSize: ".82rem", fontWeight: 600, color: "rgba(26,16,53,0.6)", margin: 0 }}>
-                          Drop your resume here or <span style={{ color: "#5B30E8", fontWeight: 700 }}>browse</span>
-                        </p>
-                        <p style={{ fontSize: ".72rem", color: "rgba(26,16,53,0.35)", margin: "2px 0 0" }}>
-                          PDF, DOC, DOCX — up to 5 MB
-                        </p>
-                      </>
-                    )}
-                  </div>
-
-                  {/* Remove button */}
-                  {resume && (
-                    <button
-                      type="button"
-                      onClick={e => { e.stopPropagation(); setResume(null); if (fileRef.current) fileRef.current.value = ""; }}
-                      style={{
-                        width: 26, height: 26, borderRadius: "50%", flexShrink: 0,
-                        background: "rgba(239,68,68,0.1)", border: "none",
-                        color: "#DC2626", cursor: "pointer", fontSize: ".8rem",
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                      }}
-                    >×</button>
-                  )}
+              {/* Row 3: Portfolio + Resume side by side */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                {/* Portfolio */}
+                <div>
+                  <label style={lbl}>Portfolio / GitHub / LinkedIn</label>
+                  <input type="url" name="portfolio" value={form.portfolio} onChange={change}
+                    placeholder="https://github.com/yourhandle" style={inp("portfolio")}
+                    onFocus={() => setFocused("portfolio")} onBlur={() => setFocused(null)} />
                 </div>
 
-                {/* Hidden file input */}
-                <input
-                  ref={fileRef}
-                  type="file"
-                  accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                  style={{ display: "none" }}
-                  onChange={e => handleFile(e.target.files?.[0] ?? null)}
-                />
-
-                {resumeErr && (
-                  <p style={{ fontSize: ".75rem", color: "#EF4444", marginTop: 6 }}>⚠ {resumeErr}</p>
-                )}
+                {/* Resume upload — compact inline */}
+                <div>
+                  <label style={lbl}>
+                    Resume / CV
+                    <span style={{ fontSize: ".6rem", fontWeight: 500, textTransform: "none", letterSpacing: 0, color: "rgba(26,16,53,0.35)", marginLeft: 5 }}>
+                      PDF/DOC · 5 MB
+                    </span>
+                  </label>
+                  <div
+                    onClick={() => fileRef.current?.click()}
+                    onDragOver={e => { e.preventDefault(); setDragOver(true); }}
+                    onDragLeave={() => setDragOver(false)}
+                    onDrop={onDrop}
+                    style={{
+                      border: `1.5px dashed ${dragOver ? "#5B30E8" : resume ? "rgba(34,197,94,0.5)" : "#E2E4EA"}`,
+                      borderRadius: 9,
+                      padding: "8px 12px",
+                      display: "flex", alignItems: "center", gap: 10,
+                      cursor: "pointer",
+                      background: dragOver ? "rgba(91,48,232,0.04)" : resume ? "rgba(34,197,94,0.04)" : "#F7F8FA",
+                      transition: "border-color .2s, background .2s",
+                      height: 42,
+                    }}
+                  >
+                    <span style={{ fontSize: ".85rem", flexShrink: 0 }}>{resume ? "✓" : "📎"}</span>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      {resume ? (
+                        <p style={{ fontSize: ".75rem", fontWeight: 700, color: "#15803D", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          {resume.name}
+                        </p>
+                      ) : (
+                        <p style={{ fontSize: ".75rem", color: "rgba(26,16,53,0.5)", margin: 0 }}>
+                          <span style={{ color: "#5B30E8", fontWeight: 700 }}>Browse</span> or drop file
+                        </p>
+                      )}
+                    </div>
+                    {resume && (
+                      <button type="button"
+                        onClick={e => { e.stopPropagation(); setResume(null); if (fileRef.current) fileRef.current.value = ""; }}
+                        style={{ width: 20, height: 20, borderRadius: "50%", flexShrink: 0, background: "rgba(239,68,68,0.1)", border: "none", color: "#DC2626", cursor: "pointer", fontSize: ".75rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        ×
+                      </button>
+                    )}
+                  </div>
+                  <input ref={fileRef} type="file"
+                    accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    style={{ display: "none" }}
+                    onChange={e => handleFile(e.target.files?.[0] ?? null)} />
+                  {resumeErr && <p style={{ fontSize: ".68rem", color: "#EF4444", marginTop: 4 }}>⚠ {resumeErr}</p>}
+                </div>
               </div>
 
               {/* Cover letter */}
               <div>
                 <label style={lbl}>Cover Letter <span style={{ color: "#EF4444" }}>*</span></label>
-                <textarea name="cover" required rows={5} value={form.cover} onChange={change}
+                <textarea name="cover" required rows={3} value={form.cover} onChange={change}
                   placeholder="Tell us why you're a great fit for this role. What have you built that you're most proud of?"
-                  style={{ ...inp("cover"), resize: "vertical" }}
+                  style={{ ...inp("cover"), resize: "none" }}
                   onFocus={() => setFocused("cover")} onBlur={() => setFocused(null)} />
               </div>
 
@@ -322,12 +292,12 @@ export default function ApplyModal({ role, onClose }: Props) {
                 </p>
               )}
 
-              <div style={{ display: "flex", gap: 12, paddingTop: 4 }}>
+              <div style={{ display: "flex", gap: 10, paddingTop: 2 }}>
                 <button type="submit" disabled={loading} style={{
-                  flex: 1, padding: "13px",
+                  flex: 1, padding: "11px",
                   borderRadius: 10, border: "none",
                   background: loading ? "rgba(45,58,110,0.7)" : "#2D3A6E",
-                  color: "#fff", fontSize: ".9rem", fontWeight: 700,
+                  color: "#fff", fontSize: ".875rem", fontWeight: 700,
                   cursor: loading ? "not-allowed" : "pointer",
                   display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                   boxShadow: "0 4px 16px rgba(45,58,110,0.4)",
@@ -346,14 +316,14 @@ export default function ApplyModal({ role, onClose }: Props) {
                   ) : "Submit →"}
                 </button>
                 <button type="button" onClick={onClose} style={{
-                  padding: "13px 20px", borderRadius: 10,
+                  padding: "11px 18px", borderRadius: 10,
                   border: "1.5px solid #E2E4EA", background: "transparent",
                   color: "rgba(26,16,53,0.5)", fontSize: ".875rem", fontWeight: 600,
                   cursor: "pointer",
                 }}>Cancel</button>
               </div>
 
-              <p style={{ fontSize: ".72rem", color: "rgba(26,16,53,0.35)", textAlign: "center", margin: 0 }}>
+              <p style={{ fontSize: ".68rem", color: "rgba(26,16,53,0.3)", textAlign: "center", margin: 0 }}>
                 We review every application and aim to respond within 5–7 business days.
               </p>
             </form>
