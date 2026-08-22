@@ -88,7 +88,13 @@ export default function ContactPage() {
           </div>
 
           {/* Map card */}
-          <div style={{ borderRadius: 18, overflow: "hidden", border: "1.5px solid #E2E4EA", boxShadow: "0 8px 40px rgba(0,0,0,0.07)", position: "relative" }}>
+          <div style={{
+            borderRadius: 18, overflow: "hidden",
+            border: "1.5px solid #E2E4EA",
+            boxShadow: "0 8px 40px rgba(0,0,0,0.07)",
+            position: "relative",
+            height: 340,           /* fixed visible height */
+          }}>
             {/* Open in Maps button */}
             <a
               href={office.mapsUrl}
@@ -116,7 +122,7 @@ export default function ContactPage() {
             <iframe
               key={activeTab}
               title={`Tejasbyte Technologies — ${office.label}`}
-              width="100%" height="340"
+              width="100%" height="370"
               style={{ border: "none", display: "block" }}
               src={office.mapSrc}
               allowFullScreen

@@ -271,8 +271,7 @@ function CoreCard({ m }: { m: Member }) {
         {m.bio && (
           <div style={{
             position: "absolute", inset: 0,
-            background: `linear-gradient(to bottom, ${accent}dd 0%, ${accent}f5 100%)`,
-            backdropFilter: "blur(2px)",
+            background: "linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.72) 100%)",
             display: "flex", alignItems: "flex-end",
             padding: "16px 14px",
             opacity: hovered ? 1 : 0,
@@ -282,7 +281,7 @@ function CoreCard({ m }: { m: Member }) {
           }}>
             <p style={{
               fontSize: ".72rem", lineHeight: 1.65,
-              color: "rgba(255,255,255,0.95)",
+              color: "rgba(255,255,255,0.92)",
               margin: 0,
               display: "-webkit-box",
               WebkitLineClamp: 5,
