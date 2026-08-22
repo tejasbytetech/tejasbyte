@@ -103,16 +103,15 @@ export default function HiringFormClient({ role: r, isNew, saveAction }: Props) 
   }
 
   return (
-    <div style={{ padding: "40px 48px", maxWidth: 800 }}>
+    <div className="admin-form-page" style={{ padding: "24px 20px", maxWidth: 800 }}>
       {/* Header */}
-      <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24, flexWrap: "wrap" }}>
         <Link href="/admin/hiring" style={{
           display: "inline-flex", alignItems: "center", gap: 6,
           color: "#5B30E8", textDecoration: "none", fontSize: ".85rem", fontWeight: 600,
           padding: "6px 12px", borderRadius: 8, background: "rgba(91,48,232,0.06)",
-          transition: "background .2s",
         }}>← Back</Link>
-        <h1 style={{ fontSize: "1.6rem", fontWeight: 800, color: "#1A1035", letterSpacing: "-.02em" }}>
+        <h1 style={{ fontSize: "1.4rem", fontWeight: 800, color: "#1A1035", letterSpacing: "-.02em" }}>
           {isNew ? "Post a New Role" : `Edit: ${r?.title}`}
         </h1>
         {!isNew && (
@@ -120,7 +119,7 @@ export default function HiringFormClient({ role: r, isNew, saveAction }: Props) 
             marginLeft: "auto", padding: "4px 12px", borderRadius: 100,
             background: r?.is_active ? "rgba(34,197,94,0.1)" : "rgba(107,114,128,0.1)",
             color: r?.is_active ? "#16A34A" : "#6B7280",
-            fontSize: ".72rem", fontWeight: 700,
+            fontSize: ".72rem", fontWeight: 700, whiteSpace: "nowrap",
           }}>
             {r?.is_active ? "● Active" : "○ Inactive"}
           </span>
@@ -144,14 +143,14 @@ export default function HiringFormClient({ role: r, isNew, saveAction }: Props) 
         <SectionCard title="Basic Information" icon="📋">
           <Field label="Job Title" name="title" required defaultValue={r?.title} placeholder="e.g. Senior Frontend Engineer" />
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+          <div className="admin-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <Select label="Department" name="department" defaultValue={r?.department ?? "Engineering"}
               options={["Engineering", "Design", "Product", "Operations", "Marketing", "Legal"]} />
             <Select label="Employment Type" name="type" defaultValue={r?.type ?? "Full-time"}
               options={["Full-time", "Part-time", "Contract", "Internship", "Freelance"]} />
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+          <div className="admin-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <Field label="Location" name="location" defaultValue={r?.location ?? "Remote / Kathmandu, Nepal"} placeholder="Remote / Kathmandu, Nepal" />
             <Field label="Experience Required" name="experience" defaultValue={r?.experience} placeholder="e.g. 3–5 years" />
           </div>
@@ -233,6 +232,10 @@ export default function HiringFormClient({ role: r, isNew, saveAction }: Props) 
 
       <style>{`
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @media (max-width: 600px) {
+          .admin-form-page { padding: 16px 14px !important; }
+          .admin-2col { grid-template-columns: 1fr !important; gap: 12px !important; }
+        }
       `}</style>
     </div>
   );

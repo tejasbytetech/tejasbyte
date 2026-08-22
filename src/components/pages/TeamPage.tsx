@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
 import { SocialLinks } from "@/lib/social-url";
 import SoloFounderFeature from "@/components/SoloFounderFeature";
@@ -179,7 +180,7 @@ export default function TeamPageClient({ members }: Props) {
                     <div style={{ fontSize: ".6rem", fontWeight: 800, color: "rgba(26,16,53,0.3)", marginBottom: 6, letterSpacing: ".1em", textTransform: "uppercase" }}>Open Role</div>
                     <div style={{ fontSize: ".82rem", fontWeight: 800, color: "#5B30E8", marginBottom: 14, lineHeight: 1.4 }}>{m.role}</div>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 4, justifyContent: "center", marginBottom: 14 }}>
-                      {m.tags.map(t => (
+                      {(m.tags ?? []).map(t => (
                         <span key={t} style={{ padding: "2px 8px", borderRadius: 100, background: "rgba(91,48,232,0.08)", fontSize: ".58rem", fontWeight: 700, color: "#5B30E8", letterSpacing: ".04em", textTransform: "uppercase" }}>{t}</span>
                       ))}
                     </div>
@@ -231,6 +232,7 @@ export default function TeamPageClient({ members }: Props) {
 
 /* ─── Founder Card — large photo + overlay name on hover ─── */
 function FounderCard({ m }: { m: Member }) {
+  const accent = m.accent || "#5B30E8";
   const socials = [
     ...(m.linkedin ? [m.linkedin] : []),
     ...(m.social_urls ?? []),
@@ -244,39 +246,37 @@ function FounderCard({ m }: { m: Member }) {
       transition: "border-color .3s, box-shadow .3s, transform .3s",
       position: "relative",
     }}
-    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = `${m.accent}35`; el.style.boxShadow = `0 20px 60px ${m.accent}14`; el.style.transform = "translateY(-6px)"; }}
+    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = `${accent}35`; el.style.boxShadow = `0 20px 60px ${accent}14`; el.style.transform = "translateY(-6px)"; }}
     onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(91,48,232,0.08)"; el.style.boxShadow = "none"; el.style.transform = "translateY(0)"; }}>
 
       {/* Photo — 4:3 rectangle */}
-      <div style={{ width: "100%", aspectRatio: "4/3", position: "relative", overflow: "hidden", background: `linear-gradient(145deg,${m.accent}18,${m.accent}06)` }}>
+      <div style={{ width: "100%", aspectRatio: "4/3", position: "relative", overflow: "hidden", background: `linear-gradient(145deg,${accent}18,${accent}06)` }}>
         {m.photo_url ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={m.photo_url} alt={m.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }} />
         ) : (
           <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <div style={{ width: 80, height: 80, borderRadius: "50%", background: `linear-gradient(135deg,${m.accent} 0%,${m.accent}88 100%)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.6rem", fontWeight: 800, color: "#fff", boxShadow: `0 12px 32px ${m.accent}45` }}>{m.initials}</div>
+            <div style={{ width: 80, height: 80, borderRadius: "50%", background: `linear-gradient(135deg,${accent} 0%,${accent}88 100%)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.6rem", fontWeight: 800, color: "#fff", boxShadow: `0 12px 32px ${accent}45` }}>{m.initials}</div>
           </div>
         )}
-        {/* Founder badge — use actual role label */}
         {m.is_founder && (
-          <div style={{ position: "absolute", top: 12, left: 12, background: "rgba(255,255,255,0.95)", backdropFilter: "blur(8px)", border: `1px solid ${m.accent}30`, borderRadius: 100, padding: "3px 12px", fontSize: ".6rem", fontWeight: 800, letterSpacing: ".08em", textTransform: "uppercase", color: m.accent }}>
+          <div style={{ position: "absolute", top: 12, left: 12, background: "rgba(255,255,255,0.95)", backdropFilter: "blur(8px)", border: `1px solid ${accent}30`, borderRadius: 100, padding: "3px 12px", fontSize: ".6rem", fontWeight: 800, letterSpacing: ".08em", textTransform: "uppercase", color: accent }}>
             {m.role.toLowerCase().includes("co-founder") ? "Co-Founder" : "Founder"}
           </div>
         )}
-        {/* Accent bottom bar */}
-        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg,${m.accent},${m.accent}50)` }} />
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg,${accent},${accent}50)` }} />
       </div>
 
       {/* Content */}
       <div style={{ padding: "24px 24px 20px" }}>
         <div style={{ fontSize: "1.05rem", fontWeight: 800, color: "#1A1035", marginBottom: 3, letterSpacing: "-.01em" }}>{m.name}</div>
-        <div style={{ fontSize: ".75rem", fontWeight: 700, color: m.accent, marginBottom: 12, letterSpacing: ".02em" }}>{m.role}</div>
+        <div style={{ fontSize: ".75rem", fontWeight: 700, color: accent, marginBottom: 12, letterSpacing: ".02em" }}>{m.role}</div>
         <p style={{ fontSize: ".82rem", lineHeight: 1.72, color: "rgba(26,16,53,0.52)", marginBottom: 16 }}>{m.bio}</p>
 
         {/* Tags */}
         <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginBottom: socials.length ? 16 : 0 }}>
-          {m.tags.map(t => (
-            <span key={t} style={{ padding: "3px 9px", borderRadius: 100, background: `${m.accent}10`, border: `1px solid ${m.accent}20`, fontSize: ".58rem", fontWeight: 700, letterSpacing: ".05em", textTransform: "uppercase", color: m.accent }}>{t}</span>
+          {(m.tags ?? []).map(t => (
+            <span key={t} style={{ padding: "3px 9px", borderRadius: 100, background: `${accent}10`, border: `1px solid ${accent}20`, fontSize: ".58rem", fontWeight: 700, letterSpacing: ".05em", textTransform: "uppercase", color: accent }}>{t}</span>
           ))}
         </div>
 
@@ -287,43 +287,74 @@ function FounderCard({ m }: { m: Member }) {
   );
 }
 
-/* ─── Core Team Card — compact square photo ─── */
+/* ─── Core Team Card — compact square photo + bio on hover ─── */
 function CoreCard({ m }: { m: Member }) {
+  const accent = m.accent || "#5B30E8";
+  const [hovered, setHovered] = useState(false);
   const socials = [
     ...(m.linkedin ? [m.linkedin] : []),
     ...(m.social_urls ?? []),
   ].filter(Boolean);
 
   return (
-    <div style={{
-      background: "#fff",
-      border: "1.5px solid rgba(91,48,232,0.08)",
-      borderRadius: 16, overflow: "hidden",
-      transition: "border-color .25s, box-shadow .25s, transform .25s",
-    }}
-    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = `${m.accent}30`; el.style.boxShadow = `0 12px 32px ${m.accent}12`; el.style.transform = "translateY(-4px)"; }}
-    onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(91,48,232,0.08)"; el.style.boxShadow = "none"; el.style.transform = "translateY(0)"; }}>
-
+    <div
+      style={{
+        background: "#fff",
+        border: `1.5px solid ${hovered ? `${accent}30` : "rgba(91,48,232,0.08)"}`,
+        borderRadius: 16, overflow: "hidden",
+        boxShadow: hovered ? `0 12px 32px ${accent}12` : "none",
+        transform: hovered ? "translateY(-4px)" : "translateY(0)",
+        transition: "border-color .25s, box-shadow .25s, transform .25s",
+        position: "relative",
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
       {/* Square photo */}
-      <div style={{ width: "100%", aspectRatio: "1", position: "relative", overflow: "hidden", background: `linear-gradient(145deg,${m.accent}14,${m.accent}04)` }}>
+      <div style={{ width: "100%", aspectRatio: "1", position: "relative", overflow: "hidden", background: `linear-gradient(145deg,${accent}14,${accent}04)` }}>
         {m.photo_url ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={m.photo_url} alt={m.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }} />
         ) : (
           <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <div style={{ width: 56, height: 56, borderRadius: "50%", background: `linear-gradient(135deg,${m.accent} 0%,${m.accent}88 100%)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", fontWeight: 800, color: "#fff", boxShadow: `0 8px 24px ${m.accent}40` }}>{m.initials}</div>
+            <div style={{ width: 56, height: 56, borderRadius: "50%", background: `linear-gradient(135deg,${accent} 0%,${accent}88 100%)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", fontWeight: 800, color: "#fff", boxShadow: `0 8px 24px ${accent}40` }}>{m.initials}</div>
           </div>
         )}
-        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg,${m.accent},${m.accent}40)` }} />
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg,${accent},${accent}40)` }} />
+
+        {/* Bio overlay — slides up on hover */}
+        {m.bio && (
+          <div style={{
+            position: "absolute", inset: 0,
+            background: `linear-gradient(to bottom, ${accent}dd 0%, ${accent}f5 100%)`,
+            backdropFilter: "blur(2px)",
+            display: "flex", alignItems: "flex-end",
+            padding: "16px 14px",
+            opacity: hovered ? 1 : 0,
+            transform: hovered ? "translateY(0)" : "translateY(8px)",
+            transition: "opacity .3s cubic-bezier(.16,1,.3,1), transform .3s cubic-bezier(.16,1,.3,1)",
+            pointerEvents: "none",
+          }}>
+            <p style={{
+              fontSize: ".72rem", lineHeight: 1.65,
+              color: "rgba(255,255,255,0.95)",
+              margin: 0,
+              display: "-webkit-box",
+              WebkitLineClamp: 5,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}>{m.bio}</p>
+          </div>
+        )}
       </div>
 
       {/* Content */}
       <div style={{ padding: "14px 16px 16px" }}>
         <div style={{ fontSize: ".88rem", fontWeight: 800, color: "#1A1035", marginBottom: 2 }}>{m.name}</div>
-        <div style={{ fontSize: ".7rem", fontWeight: 600, color: m.accent, marginBottom: 10 }}>{m.role}</div>
+        <div style={{ fontSize: ".7rem", fontWeight: 600, color: accent, marginBottom: 10 }}>{m.role}</div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginBottom: socials.length ? 10 : 0 }}>
-          {m.tags.slice(0, 2).map(t => (
-            <span key={t} style={{ padding: "2px 7px", borderRadius: 100, background: `${m.accent}10`, fontSize: ".56rem", fontWeight: 700, color: m.accent, letterSpacing: ".04em", textTransform: "uppercase" }}>{t}</span>
+          {(m.tags ?? []).map(t => (
+            <span key={t} style={{ padding: "2px 7px", borderRadius: 100, background: `${accent}10`, fontSize: ".56rem", fontWeight: 700, color: accent, letterSpacing: ".04em", textTransform: "uppercase" }}>{t}</span>
           ))}
         </div>
         {socials.length > 0 && <SocialLinks urls={socials} size={26} />}

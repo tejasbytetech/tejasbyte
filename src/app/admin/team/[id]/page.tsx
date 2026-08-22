@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import PhotoUpload from "@/components/admin/PhotoUpload";
 import TeamFormSubmitBtn from "./TeamFormSubmitBtn";
+import AccentPicker from "./AccentPicker";
 
 interface Props { params: Promise<{ id: string }> }
 
@@ -27,10 +28,8 @@ export default async function TeamFormPage({ params }: Props) {
     }
     const admin = createAdminClient();
 
-    // Use accent_text value if provided (text field overrides color picker)
-    const accentText = (formData.get("accent_text") as string)?.trim();
-    const accentColor = (formData.get("accent") as string)?.trim();
-    const accent = (accentText && accentText.startsWith("#")) ? accentText : accentColor;
+    // Accent comes from the AccentPicker hidden input
+    const accent = (formData.get("accent") as string)?.trim() || "#5B30E8";
 
     const socialRaw = formData.get("social_urls") as string;
     const payload = {
@@ -66,31 +65,25 @@ export default async function TeamFormPage({ params }: Props) {
   const m = member;
 
   return (
-    <div style={{ padding: "40px 48px", maxWidth: 720 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32 }}>
+    <div className="admin-form-page" style={{ padding: "24px 20px", maxWidth: 720 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24, flexWrap: "wrap" }}>
         <Link href="/admin/team" style={{ color: "#5B30E8", textDecoration: "none", fontSize: ".85rem", fontWeight: 600 }}>← Back</Link>
-        <h1 style={{ fontSize: "1.6rem", fontWeight: 800, color: "#1A1035", letterSpacing: "-.02em" }}>
+        <h1 style={{ fontSize: "1.4rem", fontWeight: 800, color: "#1A1035", letterSpacing: "-.02em" }}>
           {isNew ? "Add Team Member" : `Edit: ${m?.name}`}
         </h1>
       </div>
 
-      <form action={save} style={{ display: "flex", flexDirection: "column", gap: 22 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+      <form action={save} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+        <div className="admin-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
           <Field label="Full Name *" name="name" defaultValue={m?.name} required placeholder="e.g. Keshab Gautam" />
           <Field label="Role / Title *" name="role" defaultValue={m?.role} required placeholder="e.g. CEO & Founder" />
         </div>
 
         <Field label="Bio *" name="bio" defaultValue={m?.bio} required textarea placeholder="Short professional bio..." />
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20 }}>
+        <div className="admin-3col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 18 }}>
           <Field label="Initials *" name="initials" defaultValue={m?.initials} required placeholder="KG" maxLength={4} />
-          <div>
-            <label style={lbl}>Accent Color *</label>
-            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-              <input type="color" name="accent" defaultValue={m?.accent ?? "#5B30E8"} style={{ width: 44, height: 44, borderRadius: 8, border: "1.5px solid #E2E4EA", cursor: "pointer", padding: 2 }} />
-              <Field label="" name="accent_text" defaultValue={m?.accent ?? "#5B30E8"} placeholder="#5B30E8" style={{ marginTop: 0 }} />
-            </div>
-          </div>
+          <AccentPicker defaultValue={m?.accent ?? "#5B30E8"} />
           <Field label="Sort Order" name="sort_order" defaultValue={m?.sort_order?.toString() ?? "0"} type="number" placeholder="0" />
         </div>
 
@@ -137,6 +130,14 @@ export default async function TeamFormPage({ params }: Props) {
           }}>Cancel</Link>
         </div>
       </form>
+
+      <style>{`
+        @media (max-width: 600px) {
+          .admin-form-page { padding: 16px 14px !important; }
+          .admin-2col { grid-template-columns: 1fr !important; gap: 12px !important; }
+          .admin-3col { grid-template-columns: 1fr !important; gap: 12px !important; }
+        }
+      `}</style>
     </div>
   );
 }

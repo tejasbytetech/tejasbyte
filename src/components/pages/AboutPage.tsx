@@ -3,6 +3,7 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 
 function SoloFounderFeature({ member }: { member: Member }) {
+  const accent = member.accent || "#5B30E8";
   const HIGHLIGHTS = [
     { icon: "🚀", label: "Vision", value: "World-class software from the ground up" },
     { icon: "🤝", label: "Approach", value: "Direct communication, zero middlemen" },
@@ -25,13 +26,13 @@ function SoloFounderFeature({ member }: { member: Member }) {
         {/* Left — photo column */}
         <div style={{
           position: "relative",
-          background: `linear-gradient(160deg, ${member.accent}18 0%, ${member.accent}06 100%)`,
+          background: `linear-gradient(160deg, ${accent}18 0%, ${accent}06 100%)`,
           overflow: "hidden",
           minHeight: 420,
         }}>
           {/* decorative circles */}
-          <div style={{ position: "absolute", top: -60, right: -60, width: 220, height: 220, borderRadius: "50%", background: `radial-gradient(circle, ${member.accent}18 0%, transparent 70%)`, pointerEvents: "none" }} />
-          <div style={{ position: "absolute", bottom: -40, left: -40, width: 180, height: 180, borderRadius: "50%", background: `radial-gradient(circle, ${member.accent}12 0%, transparent 70%)`, pointerEvents: "none" }} />
+          <div style={{ position: "absolute", top: -60, right: -60, width: 220, height: 220, borderRadius: "50%", background: `radial-gradient(circle, ${accent}18 0%, transparent 70%)`, pointerEvents: "none" }} />
+          <div style={{ position: "absolute", bottom: -40, left: -40, width: 180, height: 180, borderRadius: "50%", background: `radial-gradient(circle, ${accent}12 0%, transparent 70%)`, pointerEvents: "none" }} />
 
           {member.photo_url ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -42,19 +43,19 @@ function SoloFounderFeature({ member }: { member: Member }) {
             />
           ) : (
             <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <div style={{ width: 100, height: 100, borderRadius: "50%", background: `linear-gradient(135deg, ${member.accent} 0%, ${member.accent}88 100%)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "2rem", fontWeight: 800, color: "#fff", boxShadow: `0 16px 40px ${member.accent}40` }}>{member.initials}</div>
+              <div style={{ width: 100, height: 100, borderRadius: "50%", background: `linear-gradient(135deg, ${accent} 0%, ${accent}88 100%)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "2rem", fontWeight: 800, color: "#fff", boxShadow: `0 16px 40px ${accent}40` }}>{member.initials}</div>
             </div>
           )}
 
           {/* Founder badge */}
-          <div style={{ position: "absolute", top: 16, left: 16, background: "rgba(255,255,255,0.95)", backdropFilter: "blur(8px)", border: `1px solid ${member.accent}30`, borderRadius: 100, padding: "4px 14px", fontSize: ".6rem", fontWeight: 800, letterSpacing: ".1em", textTransform: "uppercase", color: member.accent, zIndex: 2 }}>
+          <div style={{ position: "absolute", top: 16, left: 16, background: "rgba(255,255,255,0.95)", backdropFilter: "blur(8px)", border: `1px solid ${accent}30`, borderRadius: 100, padding: "4px 14px", fontSize: ".6rem", fontWeight: 800, letterSpacing: ".1em", textTransform: "uppercase", color: accent, zIndex: 2 }}>
             {member.role.toLowerCase().includes("co-founder") ? "Co-Founder" : "Founder"}
           </div>
 
           {/* Bottom gradient overlay */}
-          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "40%", background: `linear-gradient(to top, ${member.accent}28 0%, transparent 100%)`, pointerEvents: "none" }} />
+          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "40%", background: `linear-gradient(to top, ${accent}28 0%, transparent 100%)`, pointerEvents: "none" }} />
           {/* Accent bar */}
-          <div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: 3, background: `linear-gradient(180deg, ${member.accent}, ${member.accent}40)` }} />
+          <div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: 3, background: `linear-gradient(180deg, ${accent}, ${accent}40)` }} />
         </div>
 
         {/* Right — content column */}
@@ -64,9 +65,9 @@ function SoloFounderFeature({ member }: { member: Member }) {
             <h3 style={{ fontSize: "clamp(1.6rem, 2.5vw, 2.2rem)", fontWeight: 800, color: "#1A1035", letterSpacing: "-.03em", lineHeight: 1.1, marginBottom: 8 }}>
               {member.name}
             </h3>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "5px 14px", borderRadius: 100, background: `${member.accent}10`, border: `1px solid ${member.accent}25` }}>
-              <div style={{ width: 6, height: 6, borderRadius: "50%", background: member.accent, boxShadow: `0 0 6px ${member.accent}` }} />
-              <span style={{ fontSize: ".72rem", fontWeight: 700, color: member.accent, letterSpacing: ".06em", textTransform: "uppercase" }}>{member.role}</span>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "5px 14px", borderRadius: 100, background: `${accent}10`, border: `1px solid ${accent}25` }}>
+              <div style={{ width: 6, height: 6, borderRadius: "50%", background: accent, boxShadow: `0 0 6px ${accent}` }} />
+              <span style={{ fontSize: ".72rem", fontWeight: 700, color: accent, letterSpacing: ".06em", textTransform: "uppercase" }}>{member.role}</span>
             </div>
           </div>
 
@@ -88,16 +89,16 @@ function SoloFounderFeature({ member }: { member: Member }) {
 
           {/* Tags */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 24 }}>
-            {member.tags.map(t => (
-              <span key={t} style={{ padding: "4px 12px", borderRadius: 100, background: `${member.accent}10`, border: `1px solid ${member.accent}22`, fontSize: ".6rem", fontWeight: 700, letterSpacing: ".06em", textTransform: "uppercase", color: member.accent }}>{t}</span>
+            {(member.tags ?? []).map(t => (
+              <span key={t} style={{ padding: "4px 12px", borderRadius: 100, background: `${accent}10`, border: `1px solid ${accent}22`, fontSize: ".6rem", fontWeight: 700, letterSpacing: ".06em", textTransform: "uppercase", color: accent }}>{t}</span>
             ))}
           </div>
 
           {/* LinkedIn */}
           {member.linkedin && (
-            <a href={member.linkedin} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "9px 20px", borderRadius: 10, border: `1.5px solid ${member.accent}30`, background: `${member.accent}08`, fontSize: ".78rem", fontWeight: 700, color: member.accent, textDecoration: "none", width: "fit-content", transition: "all .2s" }}
-              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = `${member.accent}18`; el.style.borderColor = member.accent; }}
-              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = `${member.accent}08`; el.style.borderColor = `${member.accent}30`; }}
+            <a href={member.linkedin} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "9px 20px", borderRadius: 10, border: `1.5px solid ${accent}30`, background: `${accent}08`, fontSize: ".78rem", fontWeight: 700, color: accent, textDecoration: "none", width: "fit-content", transition: "all .2s" }}
+              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = `${accent}18`; el.style.borderColor = accent; }}
+              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = `${accent}08`; el.style.borderColor = `${accent}30`; }}
             >
               <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
               Connect on LinkedIn
@@ -107,12 +108,12 @@ function SoloFounderFeature({ member }: { member: Member }) {
       </div>
 
       {/* Quote strip below the card */}
-      <div style={{ marginTop: 20, background: `linear-gradient(135deg, ${member.accent}0D 0%, rgba(91,48,232,0.04) 100%)`, border: `1px solid ${member.accent}18`, borderRadius: 16, padding: "20px 28px", display: "flex", alignItems: "center", gap: 16 }}>
-        <div style={{ fontSize: "2rem", lineHeight: 1, color: member.accent, opacity: 0.4, fontFamily: "Georgia, serif", flexShrink: 0 }}>&ldquo;</div>
+      <div style={{ marginTop: 20, background: `linear-gradient(135deg, ${accent}0D 0%, rgba(91,48,232,0.04) 100%)`, border: `1px solid ${accent}18`, borderRadius: 16, padding: "20px 28px", display: "flex", alignItems: "center", gap: 16 }}>
+        <div style={{ fontSize: "2rem", lineHeight: 1, color: accent, opacity: 0.4, fontFamily: "Georgia, serif", flexShrink: 0 }}>&ldquo;</div>
         <p style={{ fontSize: ".9rem", lineHeight: 1.75, color: "rgba(26,16,53,0.6)", fontStyle: "italic", margin: 0 }}>
           Building Tejasbyte with a singular focus — deliver world-class software engineering that makes a real difference for our clients&apos; businesses.
         </p>
-        <div style={{ fontSize: "1.2rem", fontWeight: 800, color: member.accent, opacity: 0.25, flexShrink: 0, letterSpacing: "-.02em" }}>{member.name.split(" ")[0]}</div>
+        <div style={{ fontSize: "1.2rem", fontWeight: 800, color: accent, opacity: 0.25, flexShrink: 0, letterSpacing: "-.02em" }}>{member.name.split(" ")[0]}</div>
       </div>
     </div>
   );
@@ -120,6 +121,7 @@ function SoloFounderFeature({ member }: { member: Member }) {
 
 /* ─── Multi-founder card (used when founders.length > 1) ─── */
 function FounderCard({ member }: { member: Member }) {
+  const accent = member.accent || "#5B30E8";
   return (
     <div style={{
       background: "#fff",
@@ -130,9 +132,9 @@ function FounderCard({ member }: { member: Member }) {
     }}
     onMouseEnter={e => {
       const el = e.currentTarget as HTMLElement;
-      el.style.borderColor = `${member.accent}45`;
+      el.style.borderColor = `${accent}45`;
       el.style.transform = "translateY(-6px)";
-      el.style.boxShadow = `0 20px 60px ${member.accent}14`;
+      el.style.boxShadow = `0 20px 60px ${accent}14`;
     }}
     onMouseLeave={e => {
       const el = e.currentTarget as HTMLElement;
@@ -140,33 +142,33 @@ function FounderCard({ member }: { member: Member }) {
       el.style.transform = "translateY(0)";
       el.style.boxShadow = "none";
     }}>
-      <div style={{ width: "100%", aspectRatio: "4/3", borderRadius: "14px 14px 0 0", background: `linear-gradient(145deg, ${member.accent}20 0%, ${member.accent}08 100%)`, position: "relative", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ width: "100%", aspectRatio: "4/3", borderRadius: "14px 14px 0 0", background: `linear-gradient(145deg, ${accent}20 0%, ${accent}08 100%)`, position: "relative", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
         {member.photo_url ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={member.photo_url} alt={member.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }} />
         ) : (
-          <div style={{ width: 64, height: 64, borderRadius: "50%", background: `linear-gradient(135deg, ${member.accent} 0%, ${member.accent}88 100%)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem", fontWeight: 800, color: "#fff", boxShadow: `0 8px 24px ${member.accent}40` }}>{member.initials}</div>
+          <div style={{ width: 64, height: 64, borderRadius: "50%", background: `linear-gradient(135deg, ${accent} 0%, ${accent}88 100%)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem", fontWeight: 800, color: "#fff", boxShadow: `0 8px 24px ${accent}40` }}>{member.initials}</div>
         )}
-        <div style={{ position: "absolute", top: 10, left: 10, background: "rgba(255,255,255,0.92)", backdropFilter: "blur(6px)", border: `1px solid ${member.accent}30`, borderRadius: 100, padding: "2px 10px", fontSize: ".58rem", fontWeight: 800, letterSpacing: ".08em", textTransform: "uppercase", color: member.accent }}>
+        <div style={{ position: "absolute", top: 10, left: 10, background: "rgba(255,255,255,0.92)", backdropFilter: "blur(6px)", border: `1px solid ${accent}30`, borderRadius: 100, padding: "2px 10px", fontSize: ".58rem", fontWeight: 800, letterSpacing: ".08em", textTransform: "uppercase", color: accent }}>
           {member.role.toLowerCase().includes("co-founder") ? "Co-Founder" : "Founder"}
         </div>
       </div>
       <div style={{ padding: "16px 20px 20px" }}>
         <div style={{ fontSize: "1rem", fontWeight: 800, color: "#1A1035", marginBottom: 3 }}>{member.name}</div>
-        <div style={{ fontSize: ".75rem", fontWeight: 600, color: member.accent, marginBottom: 12 }}>{member.role}</div>
+        <div style={{ fontSize: ".75rem", fontWeight: 600, color: accent, marginBottom: 12 }}>{member.role}</div>
         <p style={{ fontSize: ".82rem", lineHeight: 1.7, color: "rgba(26,16,53,0.5)", marginBottom: 14 }}>{member.bio}</p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginBottom: member.linkedin ? 14 : 0 }}>
-          {member.tags.map(t => (
-            <span key={t} style={{ padding: "3px 9px", borderRadius: 100, background: `${member.accent}10`, border: `1px solid ${member.accent}25`, fontSize: ".58rem", fontWeight: 600, letterSpacing: ".05em", textTransform: "uppercase", color: member.accent }}>{t}</span>
+          {(member.tags ?? []).map(t => (
+            <span key={t} style={{ padding: "3px 9px", borderRadius: 100, background: `${accent}10`, border: `1px solid ${accent}25`, fontSize: ".58rem", fontWeight: 600, letterSpacing: ".05em", textTransform: "uppercase", color: accent }}>{t}</span>
           ))}
         </div>
         {member.linkedin && (
-          <a href={member.linkedin} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: ".72rem", fontWeight: 700, color: member.accent, textDecoration: "none" }}>
+          <a href={member.linkedin} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: ".72rem", fontWeight: 700, color: accent, textDecoration: "none" }}>
             <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             LinkedIn
           </a>
         )}
-        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 3, borderRadius: "0 0 20px 20px", background: `linear-gradient(90deg, ${member.accent}, ${member.accent}50)` }} />
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 3, borderRadius: "0 0 20px 20px", background: `linear-gradient(90deg, ${accent}, ${accent}50)` }} />
       </div>
     </div>
   );
