@@ -98,7 +98,7 @@ export default function HomeAboutGlance() {
               animation: "float2 5s ease-in-out infinite",
             }}>
               <Image
-                src="/logos/full-color-primary.png"
+                src="/finallogos/full-grayed-logo.png"
                 alt="Tejasbyte Technologies"
                 width={140} height={140}
                 style={{ objectFit: "contain" }}

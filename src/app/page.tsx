@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: "Tejasbyte Technologies — AI, Web & Software Development Company",
     description:
       "We build AI-powered software, scalable web apps, and mobile applications. Senior engineers, full-stack ownership, global clients.",
-    images: [{ url: "/logos/social-media-cover-image.png", width: 1200, height: 630, alt: "Tejasbyte Technologies" }],
+    images: [{ url: "/finallogos/facebook-cover-image.png", width: 1200, height: 630, alt: "Tejasbyte Technologies" }],
   },
 };
 

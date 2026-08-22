@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import PageHero from "@/components/PageHero";
 
 function SoloFounderFeature({ member }: { member: Member }) {
   const accent = member.accent || "#5B30E8";
@@ -203,13 +202,6 @@ const VALUES = [
 export default function AboutPage({ founders }: Props) {
   return (
     <>
-      <PageHero
-        label="Who We Are"
-        title="Built by engineers."
-        highlight="Obsessed with craft."
-        description="Tejasbyte Technologies is registered in Nepal with its main office in the United States, delivering scalable, secure, and intelligent software for businesses worldwide."
-      />
-
       {/* Stats */}
       <section style={{ background: "#F7F5FF", padding: "64px 52px" }}>
         <div className="section-inner" style={{ maxWidth: 1280, margin: "0 auto" }}>

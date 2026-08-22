@@ -277,7 +277,7 @@ export default function Contact() {
                     style={{
                       alignSelf: "flex-start",
                       opacity: loading ? .7 : 1,
-                      cursor: loading ? "not-allowed" : "none",
+                      cursor: loading ? "not-allowed" : "pointer",
                     }}
                   >
                     {loading ? (

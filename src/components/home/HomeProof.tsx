@@ -41,22 +41,30 @@ export default function HomeProof() {
 
         {/* Header */}
         <div style={{ marginBottom: 16 }}>
-          <p style={{ fontSize: ".72rem", fontWeight: 700, letterSpacing: ".18em", textTransform: "uppercase", color: "#5B30E8", marginBottom: 12 }}>OUR WORK</p>
-          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 20 }} className="section-header-row">
-            <h2 style={{ fontSize: "clamp(1.6rem,3.2vw,2.4rem)", fontWeight: 800, lineHeight: 1.15, letterSpacing: "-.03em", color: "#1A1035" }}>
-              Featured Projects
-            </h2>
+          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 20, marginBottom: 8 }} className="section-header-row">
+            <div>
+              <span className="section-label" style={{ marginBottom: 14, display: "inline-flex" }}>Our Work</span>
+              <h2 style={{ fontSize: "clamp(1.6rem,3.2vw,2.4rem)", fontWeight: 800, lineHeight: 1.15, letterSpacing: "-.03em", color: "#1A1035", marginTop: 14 }}>
+                Featured Projects
+              </h2>
+              <p style={{ fontSize: ".95rem", lineHeight: 1.75, color: "rgba(26,16,53,0.55)", maxWidth: 480, marginTop: 10 }}>
+                Real platforms we&apos;ve built and continue to support.
+              </p>
+            </div>
             <Link href="/portfolio" style={{
-              fontSize: ".85rem", fontWeight: 600, color: "#5B30E8",
-              textDecoration: "none", borderBottom: "1px solid rgba(91,48,232,0.3)", paddingBottom: 2,
-            }}>View all projects →</Link>
+              fontSize: ".85rem", fontWeight: 700, color: "#5B30E8",
+              textDecoration: "none", border: "1.5px solid rgba(91,48,232,0.25)",
+              borderRadius: 10, padding: "10px 22px",
+              display: "inline-flex", alignItems: "center", gap: 6,
+              transition: "background .2s, border-color .2s",
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(91,48,232,0.06)"; (e.currentTarget as HTMLElement).style.borderColor = "#5B30E8"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(91,48,232,0.25)"; }}
+            >View all projects →</Link>
           </div>
-          <p style={{ fontSize: ".95rem", lineHeight: 1.75, color: "rgba(26,16,53,0.55)", maxWidth: 480, marginTop: 12 }}>
-            Real platforms we&apos;ve built and continue to support.
-          </p>
         </div>
 
-        <div style={{ height: 1, background: "rgba(26,16,53,0.08)", margin: "32px 0" }} />
+        <div style={{ height: 1, background: "rgba(26,16,53,0.08)", margin: "28px 0 36px" }} />
 
         {/* Project cards */}
         <div className="proof-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>

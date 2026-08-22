@@ -78,7 +78,7 @@ export const metadata: Metadata = {
       "We build AI-powered software, scalable web apps, mobile applications, and cloud systems for businesses worldwide. Senior engineers. Full-stack ownership.",
     images: [
       {
-        url: "/logos/social-media-cover-image.png",
+        url: "/finallogos/facebook-cover-image.png",
         width: 1200,
         height: 630,
         alt: "Tejasbyte Technologies — AI, Web & Software Development",
@@ -91,7 +91,7 @@ export const metadata: Metadata = {
     title: "Tejasbyte Technologies — AI, Web & Software Development",
     description:
       "AI software, web apps, mobile, and cloud engineering for startups and enterprises. US-based company with offices in California and Nepal. Senior-only team.",
-    images: ["/logos/social-media-cover-image.png"],
+    images: ["/finallogos/facebook-cover-image.png"],
     creator: "@tejasbyte",
     site: "@tejasbyte",
   },
