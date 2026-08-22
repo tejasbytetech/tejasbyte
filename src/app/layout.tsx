@@ -141,14 +141,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Organization",
+              "@type": ["Organization", "LocalBusiness"],
               name: "Tejasbyte Technologies",
-              alternateName: "Tejasbyte Technologies Pvt. Ltd.",
+              alternateName: ["Tejasbyte", "Tejasbyte Technologies Pvt. Ltd.", "Tejasbyte Tech"],
+              legalName: "Tejasbyte Technologies Pvt. Ltd.",
               url: BASE_URL,
-              logo: `${BASE_URL}/logos/full-color-primary.png`,
-              image: `${BASE_URL}/logos/social-media-cover-image.png`,
+              logo: {
+                "@type": "ImageObject",
+                url: `${BASE_URL}/finallogos/full-black-transparent-logo.png`,
+                width: 400,
+                height: 120,
+              },
+              image: `${BASE_URL}/finallogos/facebook-cover-image.png`,
               description:
-                "Tejasbyte Technologies is a US-based software engineering company with offices in Richmond, California and Kathmandu, Nepal. We build AI-powered applications, scalable web platforms, mobile apps, and cloud infrastructure for global clients.",
+                "Tejasbyte Technologies is a software engineering company registered in Nepal with its main office in the United States. We build AI-powered applications, scalable web platforms, mobile apps, and cloud infrastructure for global clients.",
               foundingDate: "2020",
               address: [
                 {
@@ -165,35 +171,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   addressCountry: "NP",
                 },
               ],
-              contactPoint: [
-                {
-                  "@type": "ContactPoint",
-                  telephone: "+977-9849627282",
-                  contactType: "customer service",
-                  email: "contact@tejasbyte.com",
-                  availableLanguage: ["English", "Nepali"],
-                },
-              ],
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "customer service",
+                email: "contact@tejasbyte.com",
+                availableLanguage: ["English", "Nepali"],
+              },
               sameAs: [
                 "https://www.linkedin.com/company/tejasbyte",
-                "https://github.com/tejasbytetech",
               ],
               knowsAbout: [
-                "Artificial Intelligence",
-                "Machine Learning",
-                "Web Development",
-                "Mobile App Development",
-                "Cloud Infrastructure",
-                "Software Engineering",
-                "Next.js",
-                "React",
-                "React Native",
-                "Node.js",
-                "AWS",
-                "Kubernetes",
+                "Artificial Intelligence", "Machine Learning", "Web Development",
+                "Mobile App Development", "Cloud Infrastructure", "Software Engineering",
+                "Next.js", "React", "React Native", "Node.js", "AWS",
               ],
               areaServed: "Worldwide",
-              numberOfEmployees: { "@type": "QuantitativeValue", value: "15" },
+              slogan: "Innovate · Build · Elevate",
             }),
           }}
         />
@@ -205,7 +198,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "@context": "https://schema.org",
               "@type": "WebSite",
               name: "Tejasbyte Technologies",
+              alternateName: "Tejasbyte",
               url: BASE_URL,
+              description: "Official website of Tejasbyte Technologies — AI, web, mobile and cloud software engineering.",
               potentialAction: {
                 "@type": "SearchAction",
                 target: {
