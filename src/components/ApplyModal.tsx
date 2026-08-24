@@ -6,14 +6,18 @@ interface Props {
   onClose: () => void;
 }
 
+type FormFields = { name: string; email: string; phone: string; experience: string; portfolio: string; cover: string };
+
 export default function ApplyModal({ role, onClose }: Props) {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", experience: "", portfolio: "", cover: "" });
-  const [resume, setResume]   = useState<File | null>(null);
+  const [form, setForm]     = useState<FormFields>({ name: "", email: "", phone: "", experience: "", portfolio: "", cover: "" });
+  const [resume, setResume] = useState<File | null>(null);
+  const [focused, setFocused]   = useState<string | null>(null);
+  const [touched, setTouched]   = useState<Record<string, boolean>>({});
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [resumeErr, setResumeErr] = useState("");
-  const [focused, setFocused] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [sent, setSent]       = useState(false);
-  const [error, setError]     = useState("");
+  const [submitError, setSubmitError] = useState("");
   const [dragOver, setDragOver] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -25,14 +29,36 @@ export default function ApplyModal({ role, onClose }: Props) {
     return () => { document.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
   }, [onClose]);
 
-  const change = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
-    setForm(p => ({ ...p, [e.target.name]: e.target.value }));
+  const change = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setForm(p => ({ ...p, [name]: value }));
+    if (fieldErrors[name]) setFieldErrors(p => ({ ...p, [name]: "" }));
+  };
 
+  const touch = (name: string) => setTouched(p => ({ ...p, [name]: true }));
+
+  // ── Validation ──
+  const validate = (): Record<string, string> => {
+    const errs: Record<string, string> = {};
+    if (!form.name.trim())  errs.name  = "Full name is required";
+    if (!form.email.trim()) errs.email = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = "Enter a valid email address";
+    // Phone optional — validate format only if filled
+    if (form.phone.trim() && !/^\+?[\d\s\-().]{7,20}$/.test(form.phone.trim()))
+      errs.phone = "Enter a valid phone number (e.g. +977 9800000000)";
+    if (!form.experience)   errs.experience = "Please select your experience level";
+    if (!resume)            errs.resume = "Please attach your resume or CV";
+    if (!form.cover.trim()) errs.cover = "Cover letter is required";
+    return errs;
+  };
+
+  // ── File handling ──
   const ALLOWED = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
   const MAX_MB  = 5;
 
   function handleFile(file: File | null) {
     setResumeErr("");
+    if (fieldErrors.resume) setFieldErrors(p => ({ ...p, resume: "" }));
     if (!file) { setResume(null); return; }
     if (!ALLOWED.includes(file.type)) {
       setResumeErr("Only PDF, DOC, or DOCX files are accepted.");
@@ -53,12 +79,22 @@ export default function ApplyModal({ role, onClose }: Props) {
     handleFile(e.dataTransfer.files?.[0] ?? null);
   };
 
+  // ── Submit ──
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError("");
+
+    // Mark all required fields as touched
+    setTouched({ name: true, email: true, phone: true, experience: true, resume: true, cover: true });
+
+    const errs = validate();
+    if (Object.keys(errs).length > 0) {
+      setFieldErrors(errs);
+      return;
+    }
+
     setLoading(true);
-    setError("");
     try {
-      // Send as FormData so we can attach the file
       const fd = new FormData();
       fd.append("name",       form.name);
       fd.append("email",      form.email);
@@ -74,19 +110,32 @@ export default function ApplyModal({ role, onClose }: Props) {
       if (!res.ok) throw new Error(data.error || "Failed to submit");
       setSent(true);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      setSubmitError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     }
     setLoading(false);
+  };
+
+  // ── Styles ──
+  const borderFor = (name: string) => {
+    if (fieldErrors[name] && touched[name]) return "#EF4444";
+    if (focused === name) return "#5B30E8";
+    return "#E2E4EA";
+  };
+
+  const shadowFor = (name: string) => {
+    if (fieldErrors[name] && touched[name]) return "0 0 0 3px rgba(239,68,68,0.08)";
+    if (focused === name) return "0 0 0 3px rgba(91,48,232,0.08)";
+    return "none";
   };
 
   const inp = (name: string): React.CSSProperties => ({
     width: "100%", padding: "11px 14px",
     background: focused === name ? "#fff" : "#F7F8FA",
-    border: `1.5px solid ${focused === name ? "#5B30E8" : "#E2E4EA"}`,
+    border: `1.5px solid ${borderFor(name)}`,
     borderRadius: 9, color: "#1A1035",
     fontSize: ".875rem", outline: "none",
     transition: "border-color .2s, background .2s, box-shadow .2s",
-    boxShadow: focused === name ? "0 0 0 3px rgba(91,48,232,0.08)" : "none",
+    boxShadow: shadowFor(name),
     boxSizing: "border-box" as const,
   });
 
@@ -95,6 +144,11 @@ export default function ApplyModal({ role, onClose }: Props) {
     letterSpacing: ".08em", textTransform: "uppercase",
     color: "rgba(26,16,53,0.45)", marginBottom: 7,
   };
+
+  const errMsg = (name: string) =>
+    touched[name] && fieldErrors[name] ? (
+      <p style={{ fontSize: ".68rem", color: "#EF4444", marginTop: 4 }}>⚠ {fieldErrors[name]}</p>
+    ) : null;
 
   return (
     <>
@@ -105,7 +159,7 @@ export default function ApplyModal({ role, onClose }: Props) {
         animation: "fadeIn .2s ease",
       }} />
 
-      {/* Modal — fixed height, no scroll */}
+      {/* Modal */}
       <div className="apply-modal-inner" style={{
         position: "fixed", top: "50%", left: "50%",
         transform: "translate(-50%,-50%)",
@@ -117,13 +171,11 @@ export default function ApplyModal({ role, onClose }: Props) {
         overflow: "hidden",
         animation: "slideUp .25s cubic-bezier(.16,1,.3,1)",
       }}>
-        {/* Header — compact */}
+        {/* Header */}
         <div style={{
           background: "linear-gradient(135deg, #0F1629 0%, #2D3A6E 100%)",
-          padding: "20px 28px 18px",
-          borderRadius: "20px 20px 0 0",
-          position: "relative",
-          flexShrink: 0,
+          padding: "20px 28px 18px", borderRadius: "20px 20px 0 0",
+          position: "relative", flexShrink: 0,
         }}>
           <button onClick={onClose} style={{
             position: "absolute", top: 16, right: 16,
@@ -131,7 +183,6 @@ export default function ApplyModal({ role, onClose }: Props) {
             background: "rgba(255,255,255,0.1)", border: "none",
             color: "rgba(255,255,255,0.7)", cursor: "pointer",
             fontSize: "1rem", display: "flex", alignItems: "center", justifyContent: "center",
-            transition: "background .2s",
           }}
           onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.2)"; }}
           onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.1)"; }}>
@@ -143,53 +194,42 @@ export default function ApplyModal({ role, onClose }: Props) {
           <h2 style={{ fontSize: "1.3rem", fontWeight: 800, color: "#fff", margin: 0, letterSpacing: "-.02em" }}>
             {role}
           </h2>
-          <p style={{ fontSize: ".8rem", color: "rgba(255,255,255,0.45)", marginTop: 4 }}>
-            Tejasbyte Technologies
-          </p>
+          <p style={{ fontSize: ".8rem", color: "rgba(255,255,255,0.45)", marginTop: 4 }}>Tejasbyte Technologies</p>
         </div>
 
         <div style={{ padding: "20px 28px 22px", flex: 1 }}>
           {sent ? (
-            /* ── Success ── */
             <div style={{ textAlign: "center", padding: "24px 0" }}>
-              <div style={{
-                width: 64, height: 64, borderRadius: "50%",
-                background: "linear-gradient(135deg, #5B30E8, #7C5CFC)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                margin: "0 auto 20px", fontSize: "1.6rem",
-              }}>✓</div>
-              <h3 style={{ fontSize: "1.2rem", fontWeight: 800, color: "#1A1035", marginBottom: 10 }}>
-                Application Submitted!
-              </h3>
+              <div style={{ width: 64, height: 64, borderRadius: "50%", background: "linear-gradient(135deg, #5B30E8, #7C5CFC)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px", fontSize: "1.6rem" }}>✓</div>
+              <h3 style={{ fontSize: "1.2rem", fontWeight: 800, color: "#1A1035", marginBottom: 10 }}>Application Submitted!</h3>
               <p style={{ fontSize: ".9rem", lineHeight: 1.75, color: "rgba(26,16,53,0.55)", marginBottom: 8 }}>
                 Thanks for applying for <strong>{role}</strong>.
               </p>
               <p style={{ fontSize: ".875rem", lineHeight: 1.75, color: "rgba(26,16,53,0.55)", marginBottom: 28 }}>
-                Our team will evaluate your details and get back to you shortly. A confirmation has been sent to your email.
+                Our team will evaluate your application and get back to you shortly. A confirmation has been sent to your email.
               </p>
-              <button onClick={onClose} style={{
-                padding: "11px 28px", borderRadius: 10,
-                background: "#2D3A6E", color: "#fff", border: "none",
-                fontSize: ".875rem", fontWeight: 700, cursor: "pointer",
-              }}>Close</button>
+              <button onClick={onClose} style={{ padding: "11px 28px", borderRadius: 10, background: "#2D3A6E", color: "#fff", border: "none", fontSize: ".875rem", fontWeight: 700, cursor: "pointer" }}>
+                Close
+              </button>
             </div>
           ) : (
-            /* ── Form ── */
             <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 11 }} noValidate>
 
               {/* Row 1: Name + Email */}
               <div className="apply-modal-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                 <div>
                   <label style={lbl}>Full Name <span style={{ color: "#EF4444" }}>*</span></label>
-                  <input type="text" name="name" required value={form.name} onChange={change}
+                  <input type="text" name="name" value={form.name} onChange={change}
                     placeholder="Jane Smith" style={inp("name")}
-                    onFocus={() => setFocused("name")} onBlur={() => setFocused(null)} />
+                    onFocus={() => setFocused("name")} onBlur={() => { setFocused(null); touch("name"); }} />
+                  {errMsg("name")}
                 </div>
                 <div>
                   <label style={lbl}>Email <span style={{ color: "#EF4444" }}>*</span></label>
-                  <input type="email" name="email" required value={form.email} onChange={change}
+                  <input type="email" name="email" value={form.email} onChange={change}
                     placeholder="jane@example.com" style={inp("email")}
-                    onFocus={() => setFocused("email")} onBlur={() => setFocused(null)} />
+                    onFocus={() => setFocused("email")} onBlur={() => { setFocused(null); touch("email"); }} />
+                  {errMsg("email")}
                 </div>
               </div>
 
@@ -199,23 +239,25 @@ export default function ApplyModal({ role, onClose }: Props) {
                   <label style={lbl}>Phone</label>
                   <input type="tel" name="phone" value={form.phone} onChange={change}
                     placeholder="+977 9800000000" style={inp("phone")}
-                    onFocus={() => setFocused("phone")} onBlur={() => setFocused(null)} />
+                    onFocus={() => setFocused("phone")} onBlur={() => { setFocused(null); touch("phone"); }} />
+                  {errMsg("phone")}
                 </div>
                 <div>
-                  <label style={lbl}>Years of Experience</label>
+                  <label style={lbl}>Years of Experience <span style={{ color: "#EF4444" }}>*</span></label>
                   <select name="experience" value={form.experience} onChange={change}
                     style={{ ...inp("experience"), cursor: "pointer" }}
-                    onFocus={() => setFocused("experience")} onBlur={() => setFocused(null)}>
+                    onFocus={() => setFocused("experience")} onBlur={() => { setFocused(null); touch("experience"); }}>
                     <option value="">Select...</option>
                     <option>1–2 years</option>
                     <option>3–5 years</option>
                     <option>5–8 years</option>
                     <option>8+ years</option>
                   </select>
+                  {errMsg("experience")}
                 </div>
               </div>
 
-              {/* Row 3: Portfolio + Resume side by side */}
+              {/* Row 3: Portfolio + Resume */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                 {/* Portfolio */}
                 <div>
@@ -225,13 +267,11 @@ export default function ApplyModal({ role, onClose }: Props) {
                     onFocus={() => setFocused("portfolio")} onBlur={() => setFocused(null)} />
                 </div>
 
-                {/* Resume upload — compact inline */}
+                {/* Resume — required */}
                 <div>
                   <label style={lbl}>
-                    Resume / CV
-                    <span style={{ fontSize: ".6rem", fontWeight: 500, textTransform: "none", letterSpacing: 0, color: "rgba(26,16,53,0.35)", marginLeft: 5 }}>
-                      PDF/DOC · 5 MB
-                    </span>
+                    Resume / CV <span style={{ color: "#EF4444" }}>*</span>
+                    <span style={{ fontSize: ".6rem", fontWeight: 500, textTransform: "none", letterSpacing: 0, color: "rgba(26,16,53,0.35)", marginLeft: 5 }}>PDF/DOC · 5 MB</span>
                   </label>
                   <div
                     onClick={() => fileRef.current?.click()}
@@ -239,9 +279,8 @@ export default function ApplyModal({ role, onClose }: Props) {
                     onDragLeave={() => setDragOver(false)}
                     onDrop={onDrop}
                     style={{
-                      border: `1.5px dashed ${dragOver ? "#5B30E8" : resume ? "rgba(34,197,94,0.5)" : "#E2E4EA"}`,
-                      borderRadius: 9,
-                      padding: "8px 12px",
+                      border: `1.5px dashed ${dragOver ? "#5B30E8" : resume ? "rgba(34,197,94,0.5)" : touched.resume && fieldErrors.resume ? "#EF4444" : "#E2E4EA"}`,
+                      borderRadius: 9, padding: "8px 12px",
                       display: "flex", alignItems: "center", gap: 10,
                       cursor: "pointer",
                       background: dragOver ? "rgba(91,48,232,0.04)" : resume ? "rgba(34,197,94,0.04)" : "#F7F8FA",
@@ -252,9 +291,7 @@ export default function ApplyModal({ role, onClose }: Props) {
                     <span style={{ fontSize: ".85rem", flexShrink: 0 }}>{resume ? "✓" : "📎"}</span>
                     <div style={{ flex: 1, minWidth: 0 }}>
                       {resume ? (
-                        <p style={{ fontSize: ".75rem", fontWeight: 700, color: "#15803D", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                          {resume.name}
-                        </p>
+                        <p style={{ fontSize: ".75rem", fontWeight: 700, color: "#15803D", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{resume.name}</p>
                       ) : (
                         <p style={{ fontSize: ".75rem", color: "rgba(26,16,53,0.5)", margin: 0 }}>
                           <span style={{ color: "#5B30E8", fontWeight: 700 }}>Browse</span> or drop file
@@ -263,7 +300,7 @@ export default function ApplyModal({ role, onClose }: Props) {
                     </div>
                     {resume && (
                       <button type="button"
-                        onClick={e => { e.stopPropagation(); setResume(null); if (fileRef.current) fileRef.current.value = ""; }}
+                        onClick={e => { e.stopPropagation(); setResume(null); if (fileRef.current) fileRef.current.value = ""; setFieldErrors(p => ({ ...p, resume: "Please attach your resume or CV" })); setTouched(p => ({ ...p, resume: true })); }}
                         style={{ width: 20, height: 20, borderRadius: "50%", flexShrink: 0, background: "rgba(239,68,68,0.1)", border: "none", color: "#DC2626", cursor: "pointer", fontSize: ".75rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
                         ×
                       </button>
@@ -273,29 +310,34 @@ export default function ApplyModal({ role, onClose }: Props) {
                     accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                     style={{ display: "none" }}
                     onChange={e => handleFile(e.target.files?.[0] ?? null)} />
-                  {resumeErr && <p style={{ fontSize: ".68rem", color: "#EF4444", marginTop: 4 }}>⚠ {resumeErr}</p>}
+                  {/* Show file type/size error OR required error */}
+                  {resumeErr
+                    ? <p style={{ fontSize: ".68rem", color: "#EF4444", marginTop: 4 }}>⚠ {resumeErr}</p>
+                    : errMsg("resume")
+                  }
                 </div>
               </div>
 
               {/* Cover letter */}
               <div>
                 <label style={lbl}>Cover Letter <span style={{ color: "#EF4444" }}>*</span></label>
-                <textarea name="cover" required rows={3} value={form.cover} onChange={change}
+                <textarea name="cover" rows={3} value={form.cover} onChange={change}
                   placeholder="Tell us why you're a great fit for this role. What have you built that you're most proud of?"
                   style={{ ...inp("cover"), resize: "none" }}
-                  onFocus={() => setFocused("cover")} onBlur={() => setFocused(null)} />
+                  onFocus={() => setFocused("cover")} onBlur={() => { setFocused(null); touch("cover"); }} />
+                {errMsg("cover")}
               </div>
 
-              {error && (
+              {/* API / network error */}
+              {submitError && (
                 <p style={{ fontSize: ".82rem", color: "#EF4444", background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: 8, padding: "10px 14px", margin: 0 }}>
-                  ⚠️ {error}
+                  ⚠️ {submitError}
                 </p>
               )}
 
               <div style={{ display: "flex", gap: 10, paddingTop: 2 }}>
                 <button type="submit" disabled={loading} style={{
-                  flex: 1, padding: "11px",
-                  borderRadius: 10, border: "none",
+                  flex: 1, padding: "11px", borderRadius: 10, border: "none",
                   background: loading ? "rgba(45,58,110,0.7)" : "#2D3A6E",
                   color: "#fff", fontSize: ".875rem", fontWeight: 700,
                   cursor: loading ? "not-allowed" : "pointer",
@@ -313,7 +355,7 @@ export default function ApplyModal({ role, onClose }: Props) {
                       </svg>
                       Submitting…
                     </>
-                  ) : "Submit →"}
+                  ) : "Submit Application →"}
                 </button>
                 <button type="button" onClick={onClose} style={{
                   padding: "11px 18px", borderRadius: 10,
