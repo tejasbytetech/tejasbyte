@@ -9,6 +9,8 @@ export default function Contact() {
   const [budget, setBudget]   = useState("");
   const [form, setForm]       = useState({ name: "", email: "", company: "", message: "" });
   const [focused, setFocused] = useState<string | null>(null);
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const { loading, sent, error, submit, reset } = useContactForm();
 
   useEffect(() => {
@@ -20,13 +22,39 @@ export default function Contact() {
     return () => io.disconnect();
   }, []);
 
-  const change = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setForm(p => ({ ...p, [e.target.name]: e.target.value }));
+  const change = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setForm(p => ({ ...p, [name]: value }));
+    if (fieldErrors[name]) setFieldErrors(p => ({ ...p, [name]: "" }));
+  };
+
+  const validate = () => {
+    const errs: Record<string, string> = {};
+    if (!form.name.trim())    errs.name    = "Name is required";
+    if (!form.email.trim())   errs.email   = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = "Enter a valid email";
+    if (!form.message.trim()) errs.message = "Please describe your project";
+    return errs;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const errs = validate();
+    setTouched({ name: true, email: true, message: true });
+    if (Object.keys(errs).length > 0) { setFieldErrors(errs); return; }
     await submit({ ...form, budget, subject: "Project Inquiry" });
   };
+
+  const borderColor = (name: string) => {
+    if (fieldErrors[name] && touched[name]) return "rgba(239,68,68,0.6)";
+    if (focused === name) return "rgba(91,48,232,0.5)";
+    return "rgba(91,48,232,0.15)";
+  };
+
+  const fieldErr = (name: string) =>
+    touched[name] && fieldErrors[name] ? (
+      <p style={{ fontSize: ".72rem", color: "#EF4444", marginTop: 5 }}>{fieldErrors[name]}</p>
+    ) : null;
 
   const fieldWrap: React.CSSProperties = {
     display: "flex", flexDirection: "column", gap: 6,
@@ -41,14 +69,16 @@ export default function Contact() {
   const input = (name: string): React.CSSProperties => ({
     width: "100%", padding: "12px 16px",
     background: focused === name ? "#fff" : "#F7F5FF",
-    border: focused === name ? "1.5px solid rgba(91,48,232,0.5)" : "1.5px solid rgba(91,48,232,0.15)",
+    border: `1.5px solid ${borderColor(name)}`,
     borderRadius: 10,
     color: "#1A1035",
     fontFamily: '"Inter",sans-serif',
     fontSize: ".9rem",
     outline: "none",
     transition: "border-color .2s, background .2s",
-    boxShadow: focused === name ? "0 0 0 3px rgba(91,48,232,0.08)" : "none",
+    boxShadow: focused === name && !fieldErrors[name] ? "0 0 0 3px rgba(91,48,232,0.08)"
+             : fieldErrors[name] && touched[name]    ? "0 0 0 3px rgba(239,68,68,0.08)"
+             : "none",
   });
 
   return (
@@ -178,7 +208,7 @@ export default function Contact() {
                   marginBottom: 28,
                 }}>We&apos;ll review your brief and reply within 24 hours.</p>
                 <button
-                  onClick={() => { reset(); setForm({ name: "", email: "", company: "", message: "" }); setBudget(""); }}
+                  onClick={() => { reset(); setForm({ name: "", email: "", company: "", message: "" }); setBudget(""); setFieldErrors({}); setTouched({}); }}
                   className="btn-outline"
                   style={{ fontSize: ".82rem" }}
                 >Send another message</button>
@@ -201,66 +231,52 @@ export default function Contact() {
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }} className="contact-form-row">
                     {(["name", "email"] as const).map(field => (
                       <div key={field} style={fieldWrap}>
-                        <label style={label}>
-                          {field === "name" ? "Full Name *" : "Email *"}
-                        </label>
+                        <label style={label}>{field === "name" ? "Full Name *" : "Email *"}</label>
                         <input
                           type={field === "email" ? "email" : "text"}
-                          name={field} required
+                          name={field}
                           value={form[field]} onChange={change}
                           placeholder={field === "name" ? "Jane Smith" : "jane@company.com"}
                           style={input(field)}
                           onFocus={() => setFocused(field)}
-                          onBlur={() => setFocused(null)}
+                          onBlur={() => { setFocused(null); setTouched(p => ({ ...p, [field]: true })); }}
                         />
+                        {fieldErr(field)}
                       </div>
                     ))}
                   </div>
 
                   <div style={fieldWrap}>
                     <label style={label}>Company</label>
-                    <input
-                      type="text" name="company"
-                      value={form.company} onChange={change}
-                      placeholder="Acme Inc."
-                      style={input("company")}
-                      onFocus={() => setFocused("company")}
-                      onBlur={() => setFocused(null)}
-                    />
+                    <input type="text" name="company" value={form.company} onChange={change}
+                      placeholder="Acme Inc." style={input("company")}
+                      onFocus={() => setFocused("company")} onBlur={() => setFocused(null)} />
                   </div>
 
                   <div style={fieldWrap}>
                     <label style={label}>Budget Range</label>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                       {BUDGETS.map(b => (
-                        <button
-                          key={b} type="button"
-                          onClick={() => setBudget(b)}
-                          style={{
-                            padding: "7px 16px", borderRadius: 100,
-                            background: budget === b ? "#5B30E8" : "transparent",
-                            border: `1.5px solid ${budget === b ? "#5B30E8" : "rgba(91,48,232,0.2)"}`,
-                            color: budget === b ? "#fff" : "rgba(26,16,53,0.6)",
-                            fontFamily: '"Inter",sans-serif',
-                            fontSize: ".75rem", fontWeight: 600,
-                            cursor: "pointer",
-                            transition: "all .2s",
-                          }}
-                        >{b}</button>
+                        <button key={b} type="button" onClick={() => setBudget(b)} style={{
+                          padding: "7px 16px", borderRadius: 100,
+                          background: budget === b ? "#5B30E8" : "transparent",
+                          border: `1.5px solid ${budget === b ? "#5B30E8" : "rgba(91,48,232,0.2)"}`,
+                          color: budget === b ? "#fff" : "rgba(26,16,53,0.6)",
+                          fontFamily: '"Inter",sans-serif', fontSize: ".75rem", fontWeight: 600,
+                          cursor: "pointer", transition: "all .2s",
+                        }}>{b}</button>
                       ))}
                     </div>
                   </div>
 
                   <div style={fieldWrap}>
                     <label style={label}>Project Details *</label>
-                    <textarea
-                      name="message" required rows={4}
-                      value={form.message} onChange={change}
+                    <textarea name="message" rows={4} value={form.message} onChange={change}
                       placeholder="What are you building? Timeline? Any constraints we should know about?"
                       style={{ ...input("message"), resize: "none" }}
                       onFocus={() => setFocused("message")}
-                      onBlur={() => setFocused(null)}
-                    />
+                      onBlur={() => { setFocused(null); setTouched(p => ({ ...p, message: true })); }} />
+                    {fieldErr("message")}
                   </div>
 
                   {/* Error */}

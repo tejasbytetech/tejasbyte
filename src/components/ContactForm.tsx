@@ -3,30 +3,56 @@ import { useState } from "react";
 import { useContactForm } from "@/lib/useContactForm";
 
 interface Props {
-  rows?: number; // textarea rows, default 6
+  rows?: number;
 }
 
 export default function ContactForm({ rows = 6 }: Props) {
-  const [form, setForm]     = useState({ name: "", email: "", subject: "", message: "" });
+  const [form, setForm]       = useState({ name: "", email: "", subject: "", message: "" });
   const [focused, setFocused] = useState<string | null>(null);
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const { loading, sent, error, submit, reset } = useContactForm();
 
-  const change = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setForm(p => ({ ...p, [e.target.name]: e.target.value }));
+  const change = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setForm(p => ({ ...p, [name]: value }));
+    // Clear error as user types
+    if (fieldErrors[name]) setFieldErrors(p => ({ ...p, [name]: "" }));
+  };
+
+  const validate = () => {
+    const errs: Record<string, string> = {};
+    if (!form.name.trim())                          errs.name    = "Name is required";
+    if (!form.email.trim())                         errs.email   = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = "Enter a valid email";
+    if (!form.message.trim())                       errs.message = "Message is required";
+    return errs;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const errs = validate();
+    setTouched({ name: true, email: true, message: true });
+    if (Object.keys(errs).length > 0) { setFieldErrors(errs); return; }
     await submit(form);
+  };
+
+  const borderColor = (name: string) => {
+    if (fieldErrors[name] && touched[name]) return "#EF4444";
+    if (focused === name) return "#5B30E8";
+    return "#E2E4EA";
   };
 
   const inp = (name: string): React.CSSProperties => ({
     width: "100%", padding: "12px 14px",
     background: focused === name ? "#fff" : "#F7F8FA",
-    border: `1.5px solid ${focused === name ? "#5B30E8" : "#E2E4EA"}`,
+    border: `1.5px solid ${borderColor(name)}`,
     borderRadius: 8, color: "#1A1035",
     fontSize: ".875rem", outline: "none",
     transition: "border-color .2s, background .2s, box-shadow .2s",
-    boxShadow: focused === name ? "0 0 0 3px rgba(91,48,232,0.08)" : "none",
+    boxShadow: focused === name && !fieldErrors[name] ? "0 0 0 3px rgba(91,48,232,0.08)"
+             : fieldErrors[name] && touched[name]    ? "0 0 0 3px rgba(239,68,68,0.08)"
+             : "none",
     boxSizing: "border-box" as const,
   });
 
@@ -35,61 +61,48 @@ export default function ContactForm({ rows = 6 }: Props) {
     color: "#6B7280", display: "block", marginBottom: 6,
   };
 
+  const fieldErr = (name: string) =>
+    touched[name] && fieldErrors[name] ? (
+      <p style={{ fontSize: ".72rem", color: "#EF4444", marginTop: 4 }}>{fieldErrors[name]}</p>
+    ) : null;
+
   if (sent) {
     return (
-      <div style={{
-        background: "#fff", border: "1.5px solid #E2E4EA",
-        borderRadius: 16, padding: "48px 40px",
-        textAlign: "center",
-      }}>
-        <div style={{
-          width: 64, height: 64, borderRadius: "50%",
-          background: "linear-gradient(135deg,#5B30E8,#7C5CFC)",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          margin: "0 auto 20px", fontSize: "1.6rem", color: "#fff",
-        }}>✓</div>
-        <h3 style={{ fontSize: "1.4rem", fontWeight: 800, color: "#1A1035", marginBottom: 10 }}>
-          Message Sent!
-        </h3>
-        <p style={{ fontSize: ".9rem", color: "#6B7280", marginBottom: 24, lineHeight: 1.7 }}>
-          We&apos;ll get back to you within 24 hours.
-        </p>
+      <div style={{ background: "#fff", border: "1.5px solid #E2E4EA", borderRadius: 16, padding: "48px 40px", textAlign: "center" }}>
+        <div style={{ width: 64, height: 64, borderRadius: "50%", background: "linear-gradient(135deg,#5B30E8,#7C5CFC)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px", fontSize: "1.6rem", color: "#fff" }}>✓</div>
+        <h3 style={{ fontSize: "1.4rem", fontWeight: 800, color: "#1A1035", marginBottom: 10 }}>Message Sent!</h3>
+        <p style={{ fontSize: ".9rem", color: "#6B7280", marginBottom: 24, lineHeight: 1.7 }}>We&apos;ll get back to you within 24 hours.</p>
         <button
-          onClick={() => { reset(); setForm({ name: "", email: "", subject: "", message: "" }); }}
-          style={{
-            fontSize: ".875rem", color: "#5B30E8", background: "none",
-            border: "1.5px solid rgba(91,48,232,0.3)", borderRadius: 8,
-            padding: "9px 22px", cursor: "pointer", transition: "background .2s",
-          }}
+          onClick={() => { reset(); setForm({ name: "", email: "", subject: "", message: "" }); setFieldErrors({}); setTouched({}); }}
+          style={{ fontSize: ".875rem", color: "#5B30E8", background: "none", border: "1.5px solid rgba(91,48,232,0.3)", borderRadius: 8, padding: "9px 22px", cursor: "pointer", transition: "background .2s" }}
           onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(91,48,232,0.06)"; }}
           onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
-        >
-          Send another message
-        </button>
+        >Send another message</button>
       </div>
     );
   }
 
   return (
-    <div style={{
-      background: "#fff", border: "1.5px solid #E2E4EA",
-      borderRadius: 16, padding: "36px 36px",
-    }}>
+    <div style={{ background: "#fff", border: "1.5px solid #E2E4EA", borderRadius: 16, padding: "36px 36px" }}>
       <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 18 }} noValidate>
 
         {/* Name + Email */}
         <div className="contact-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
           <div>
             <label style={lbl}>Full Name <span style={{ color: "#EF4444" }}>*</span></label>
-            <input type="text" name="name" required value={form.name} onChange={change}
+            <input type="text" name="name" value={form.name} onChange={change}
               placeholder="John Doe" style={inp("name")}
-              onFocus={() => setFocused("name")} onBlur={() => setFocused(null)} />
+              onFocus={() => setFocused("name")}
+              onBlur={() => { setFocused(null); setTouched(p => ({ ...p, name: true })); }} />
+            {fieldErr("name")}
           </div>
           <div>
             <label style={lbl}>Email <span style={{ color: "#EF4444" }}>*</span></label>
-            <input type="email" name="email" required value={form.email} onChange={change}
+            <input type="email" name="email" value={form.email} onChange={change}
               placeholder="john@example.com" style={inp("email")}
-              onFocus={() => setFocused("email")} onBlur={() => setFocused(null)} />
+              onFocus={() => setFocused("email")}
+              onBlur={() => { setFocused(null); setTouched(p => ({ ...p, email: true })); }} />
+            {fieldErr("email")}
           </div>
         </div>
 
@@ -104,24 +117,21 @@ export default function ContactForm({ rows = 6 }: Props) {
         {/* Message */}
         <div>
           <label style={lbl}>Message <span style={{ color: "#EF4444" }}>*</span></label>
-          <textarea name="message" required rows={rows} value={form.message} onChange={change}
+          <textarea name="message" rows={rows} value={form.message} onChange={change}
             placeholder="Tell us about your project..."
             style={{ ...inp("message"), resize: "none" }}
-            onFocus={() => setFocused("message")} onBlur={() => setFocused(null)} />
+            onFocus={() => setFocused("message")}
+            onBlur={() => { setFocused(null); setTouched(p => ({ ...p, message: true })); }} />
+          {fieldErr("message")}
         </div>
 
-        {/* Error */}
+        {/* API Error */}
         {error && (
-          <p style={{
-            fontSize: ".82rem", color: "#EF4444",
-            background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.2)",
-            borderRadius: 8, padding: "10px 14px", margin: 0,
-          }}>
+          <p style={{ fontSize: ".82rem", color: "#EF4444", background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: 8, padding: "10px 14px", margin: 0 }}>
             ⚠️ {error}
           </p>
         )}
 
-        {/* Submit */}
         <button type="submit" disabled={loading} style={{
           width: "100%", padding: "14px", borderRadius: 8,
           background: loading ? "rgba(45,58,110,0.7)" : "#2D3A6E",
@@ -143,6 +153,7 @@ export default function ContactForm({ rows = 6 }: Props) {
               Sending…
             </>
           ) : "Send Message"}
+          <style>{`@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}`}</style>
         </button>
 
       </form>
